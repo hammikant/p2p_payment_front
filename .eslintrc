@@ -1,0 +1,44 @@
+{
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "ignorePatterns": [
+    "/templates/default/TemplateName.tsx"
+  ],
+  "rules": {
+    "no-console": "warn",
+    "prefer-const": "error",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ],
+        "newlines-between": "never"
+      }
+    ],
+    "react-hooks/exhaustive-deps": "off",
+    "no-useless-escape": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  }
+}
