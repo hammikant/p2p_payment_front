@@ -32,7 +32,7 @@ export const TableItem = ({item}: { item: ICard }) => {
     return (
         <div className={styles.tableItem}>
             <div className={styles.item}>
-                <img src={icons[item.bankName as string]}/>
+                <img src={icons[item.bankName as string]} alt={item.bankName}/>
                 <span className={styles.itemText}>{item.num}</span>
             </div>
             <div className={styles.item}>

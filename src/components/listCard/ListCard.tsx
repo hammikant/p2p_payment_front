@@ -7,7 +7,7 @@ export const ListCard = ({items}: IListCardProps) => {
         <ul className={styles.listCard}>
             {items.map(item => (<li key={item.label} className={styles.listCardItem}>
                 <span className={styles.listCardText}>{item.label}</span>
-                <span className={styles.listCardText}>{item.value}</span>
+                <span className={styles.listCardText}>{`${item.value} ₽`}</span>
             </li>))}
         </ul>
     );

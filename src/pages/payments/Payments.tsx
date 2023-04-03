@@ -75,7 +75,7 @@ export const Payments = () => {
                         additionalData={`$${balanceUs}`}
                         footer={
                             <div className={styles.cardFooter}><span
-                                className={styles.cardFooterText}>{`${commonData.payments} ₽ на оплате`}</span>
+                                className={styles.cardFooterText}>{`${commonData.onPayment} ₽ на оплате`}</span>
                             </div>
                         }
                     />

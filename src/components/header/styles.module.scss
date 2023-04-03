@@ -1,8 +1,6 @@
 .header {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: baseline;
+  justify-content: space-between;
   padding: 32px 0;
 }
 
@@ -14,4 +12,65 @@
   line-height: 24px;
   color: #667180;
   margin: 0;
+}
+
+.menu {
+  position: relative;
+
+  &TextWrap {
+    min-width: 149px;
+    padding: 8px 16px;
+    background: #303740;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #91F230;
+  }
+
+  &Drop {
+    position: absolute;
+    width: 184px;
+    background: #303740;
+    border-radius: 12px;
+    padding: 18px 20px;
+    top: 43px;
+    right: 0;
+  }
+
+  &DropText {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+
+    & span {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:first-of-type {
+      margin-bottom: 24px;
+    }
+  }
 }
