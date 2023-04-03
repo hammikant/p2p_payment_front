@@ -1,0 +1,26 @@
+.wrapperModal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0D1114;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.content {
+  padding: 48px;
+  background: radial-gradient(63.76% 100% at 100% 100%, #2A1F29 0%, #1B1F26 100%);
+  border-radius: 16px;
+}

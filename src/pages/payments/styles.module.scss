@@ -1,0 +1,30 @@
+.cards {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardFooter {
+  margin-top: 32px;
+}
+
+.cardFooterText {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #FFFFFF;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.col {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}

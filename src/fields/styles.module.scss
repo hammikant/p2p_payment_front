@@ -1,3 +1,8 @@
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
 .label {
   font-family: Inter, sans-serif;
   font-style: normal;
@@ -11,16 +16,27 @@
 .input {
   width: 100%;
   padding: 12px 11px;
-  background: #0D1114;
   border-radius: 12px;
   font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   color: #FFFFFF;
+
+  &::placeholder {
+    color: #303740;
+  }
+}
+
+.icon {
+  position: absolute;
+  width: 30px;
+  right: 10px;
+  bottom: 10px;
 }
 
 .errorText {
+  position: absolute;
   font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -46,4 +62,25 @@
   &:active {
     opacity: .8;
   }
+}
+
+.title {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 38px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+  color: #FFFFFF;
+  margin: 0;
 }

@@ -1,14 +1,14 @@
 import {Control, UseFormRegister} from 'react-hook-form';
-import {ButtonHTMLAttributes} from 'react';
+import {ButtonHTMLAttributes, InputHTMLAttributes, ReactNode} from 'react';
 
-export interface IInput {
+export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
+    icon?: ReactNode;
     control: Control;
     register: UseFormRegister<any>;
     fieldName: string;
     errors: any;
-    onBlur?: () => void;
-    onFocus?: () => void;
+    backgroundLight: boolean;
 }
 
 export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {

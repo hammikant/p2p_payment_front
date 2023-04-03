@@ -2,10 +2,14 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage/session';
 import {persistReducer} from 'redux-persist';
 import logger from 'redux-logger';
-import  auth from '../pages/auth/store/auth.slice';
+import auth from '../pages/auth/store/auth.slice';
+import payments from '../pages/payments/store/payments.slice';
+import app from './app.slice';
 
 const rootReducer = combineReducers({
-    auth
+    app,
+    auth,
+    payments
 });
 
 const persistConfig = {

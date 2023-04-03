@@ -1,0 +1,41 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.navItem {
+  padding: 10px 16px;
+  border-radius: 12px;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #667180;
+    margin-left: 12px;
+
+    &Active {
+      color: #0D1114;
+    }
+  }
+
+  &:hover {
+    background-color: #0D1114;
+    transition: 0.3s;
+  }
+
+  &Active {
+    background: #91F230;
+
+    &:hover {
+      background-color: #91F230;
+      transition: 0.3s;
+    }
+  }
+}

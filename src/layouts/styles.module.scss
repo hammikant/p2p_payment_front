@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.logo {
+  margin-bottom: 40px;
+}
+
+.sidebar {
+  width: 240px;
+  background: #1B1F26;
+  padding: 40px 16px;
+}
+
+.pageContent {
+  min-width: 1170px;
+  width: calc(100vw - 240px);
+  overflow-y: auto;
+  padding: 0 48px;
+}

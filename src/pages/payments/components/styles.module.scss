@@ -1,0 +1,109 @@
+.tabButtons {
+  display: flex;
+  border-bottom: 1px solid #1B1F26;
+}
+
+.button {
+  padding: 12px;
+  border-bottom: 1px solid transparent;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #667180;
+  background: transparent;
+  margin-right: 24px;
+  transition: 0.3s;
+
+  &Active {
+    color: #FFFFFF;
+    border-bottom: 1px solid #91F230;
+    transition: 0.3s;
+  }
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableItem {
+  display: flex;
+}
+
+.tableItemHeader {
+  display: flex;
+  padding: 24px 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+
+  &:nth-child(1) {
+    width: 30%;
+
+    & img {
+      margin-right: 12px;
+      background-color: #1B1F26;
+      border-radius: 50%;
+    }
+  }
+
+
+  &:nth-child(2) {
+    width: 23%;
+  }
+
+  &:nth-child(3) {
+    width: 8%;
+  }
+
+  &:nth-child(4),
+  &:nth-child(5),
+  &:nth-child(6), {
+    width: 13%;
+  }
+
+  &:nth-child(4),
+  &:nth-child(5),
+  &:nth-child(6) {
+    justify-content: flex-end;
+  }
+
+  &Head {
+    display: block;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #667180;
+  }
+
+  &Text {
+    display: block;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+  }
+}
+
+.searchByCard {
+  display: flex;
+  max-width: 720px;
+  width: 100%;
+  margin-right: -15px;
+  margin-left: -15px;
+
+  &Item {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}

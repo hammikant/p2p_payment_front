@@ -1,5 +1,7 @@
-import {auth_db} from './auth_db';
+import {authDb} from './auth_db';
+import {paymentsDb} from './payments_db';
 
 export {
-    auth_db
+    authDb,
+    paymentsDb
 };

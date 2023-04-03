@@ -1,0 +1,24 @@
+.listCard {
+  background: radial-gradient(63.76% 100% at 100% 100%, #222C27 0%, #1B1F26 100%);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+
+  &Item {
+    padding: 3px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &Text {
+    display: inline-block;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+  }
+}
