@@ -1,13 +1,25 @@
 import React, {useState} from 'react';
 import {Title} from '../../fields';
-import {useAppSelector} from '../../hooks/app';
+import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {Drop, Esc, Settings} from '../../icons';
+import {clearStorage} from '../../store/app.slice';
+import {setAppLoader} from '../../pages/auth/store/auth.slice';
 import {IHeader} from './types';
 import styles from './styles.module.scss';
 
 export const Header = ({title, descriptionPage}: IHeader) => {
+    const dispatch = useAppDispatch();
     const {user} = useAppSelector(state => state.auth);
     const [isDrop, setDrop] = useState<boolean>(false);
+
+    const handleLogout = () => {
+        dispatch(setAppLoader(true));
+        dispatch(clearStorage());
+        setTimeout(() => {
+            dispatch(setAppLoader(false));
+        }, 1000);
+    };
+
     return (
         <div className={styles.header}>
             <div>
@@ -31,7 +43,7 @@ export const Header = ({title, descriptionPage}: IHeader) => {
                                     <Settings/>
                                     <span>Настройки</span>
                                 </li>
-                                <li className={styles.menuDropText}>
+                                <li className={styles.menuDropText} onClick={handleLogout}>
                                     <Esc/>
                                     <span>Выход</span>
                                 </li>

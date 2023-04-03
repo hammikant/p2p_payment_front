@@ -60,7 +60,7 @@ export const Payments = () => {
         if (item.value === 'all') {
             setShowCards(cards);
         } else {
-            const sortItems = cards.filter(card => card.status === item.label);
+            const sortItems = cards.filter((card: ICard) => card.status === item.label);
             setShowCards(sortItems);
         }
     };

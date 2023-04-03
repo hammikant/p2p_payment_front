@@ -10,8 +10,14 @@ import {Logo} from './Logo';
 import {Drop} from './Drop';
 import {Settings} from './Settings';
 import {Esc} from './Esc';
+import {Close} from './Close';
+import {Pause} from './Pause';
+import {Stop} from './Stop';
 
 export {
+    Pause,
+    Stop,
+    Close,
     Settings,
     Esc,
     Drop,

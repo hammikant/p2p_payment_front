@@ -1,12 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {IError} from '../types';
+import {IError, ISuccess} from '../types';
 
 interface IAppState {
-    error: IError | null
+    error: IError | null;
+    success: ISuccess | null
 }
 
 const initialState: IAppState = {
-    error: null
+    error: null,
+    success: null
 };
 
 const appSlice = createSlice({
@@ -16,9 +18,14 @@ const appSlice = createSlice({
         handleError: (state, {payload}: { payload: IError | null }) => {
             state.error = payload;
         },
+        handleSuccess: (state, {payload}: { payload: ISuccess | null }) => {
+            state.success = payload;
+        },
+        clearStorage: () => {
+        }
     }
 });
 
-export const {handleError} = appSlice.actions;
+export const {handleError, handleSuccess, clearStorage} = appSlice.actions;
 
 export default appSlice.reducer;

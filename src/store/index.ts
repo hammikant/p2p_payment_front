@@ -1,15 +1,17 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {AnyAction, combineReducers, configureStore, Reducer} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage/session';
 import {persistReducer} from 'redux-persist';
 import logger from 'redux-logger';
 import auth from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
+import cards from '../pages/cards/store/cards.slice';
 import app from './app.slice';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     app,
     auth,
-    payments
+    payments,
+    cards
 });
 
 const persistConfig = {
@@ -19,7 +21,16 @@ const persistConfig = {
     //blacklist: []
 };
 
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+    if (action.type === 'app/clearStorage') {
+        sessionStorage.removeItem('persis:root');
+        state = {} as RootState;
+    }
+    return appReducer(state, action);
+};
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 
 export const store = configureStore({
     reducer: persistedReducer,

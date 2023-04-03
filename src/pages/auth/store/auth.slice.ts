@@ -29,6 +29,9 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        setAppLoader: (state, {payload}) => {
+            state.loading = payload;
+        },
         clearForgotModal: (state) => {
             state.sendEmailForgotPassword = '';
             state.successForgot = false;
@@ -85,6 +88,6 @@ const authSlice = createSlice({
     }
 });
 
-export const {clearForgotModal} = authSlice.actions;
+export const {clearForgotModal, setAppLoader} = authSlice.actions;
 
 export default authSlice.reducer;

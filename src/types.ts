@@ -3,6 +3,21 @@ export interface IError {
     errors: {};
 }
 
+export interface ISuccess {
+    message: string;
+}
+
+export interface IAlert {
+    type: string;
+    text: string;
+}
+
+export const alertTypes = {
+    INFO: 'info',
+    SUCCESS: 'success',
+    ERROR: 'error'
+};
+
 export interface IOption {
     label: string;
     value: string;

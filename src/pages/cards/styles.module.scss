@@ -1,0 +1,70 @@
+.cards {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardFooter {
+  margin-top: 32px;
+}
+
+.cardFooterText {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #FFFFFF;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.col {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.connectCardButton {
+  background-color: transparent;
+  border: 1px solid #303740;
+  border-radius: 12px;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #91F230;
+  padding: 12px 24px;
+
+  &:hover {
+    border: 1px solid #91F230;
+  }
+}
+
+.connectModal {
+  &Close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    margin-top: 32px;
+  }
+}
+

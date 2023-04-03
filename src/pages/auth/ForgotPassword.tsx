@@ -48,6 +48,7 @@ export const ForgotPassword = () => {
             <Modal
                 widthContent={'472px'}
                 show={successForgot}
+                backgroundColorOverlay={'#0D1114'}
                 handleClickOverlay={() => dispatch(clearForgotModal())}>
                 <div>
                     <SubTitle text={'Проверьте почту'}/>

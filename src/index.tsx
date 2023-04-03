@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
-import {transitions, positions, Provider as AlertProvider} from 'react-alert';
+import {positions, Provider as AlertProvider, transitions} from 'react-alert';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {store} from './store';
@@ -15,7 +15,7 @@ import {Alert} from './components/alert';
 const options = {
     position: positions.BOTTOM_LEFT,
     timeout: 3000,
-    offset: '0px',
+    offset: '20px',
     transition: transitions.SCALE,
 };
 

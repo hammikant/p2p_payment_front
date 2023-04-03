@@ -16,10 +16,19 @@ a {
   color: initial;
 }
 
+textarea,
 input,
 button {
   outline: none;
   border: none;
+}
+
+textarea {
+  resize: none;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
 }
 
 button {
