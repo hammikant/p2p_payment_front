@@ -3,6 +3,8 @@ import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {InputField} from '../../../fields';
+import {useAppDispatch} from '../../../hooks/app';
+import {searchByCardNumberPayments} from '../store/payments.thunk';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
@@ -11,12 +13,17 @@ const schema = yup.object({
 });
 
 export const SearchByCardNumber = () => {
+    const dispatch = useAppDispatch();
     const {control, register, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
 
+    const submit = handleSubmit(values => {
+        dispatch(searchByCardNumberPayments({cardNum: values.cardNumber}));
+    });
+
     return (
-        <form className={styles.searchByCard}>
+        <form className={styles.searchByCard} onSubmit={submit}>
             <div className={styles.searchByCardItem}>
                 <InputField
                     label={'Карта'}
@@ -26,6 +33,11 @@ export const SearchByCardNumber = () => {
                     errors={errors}
                     autoComplete={'off'}
                     placeholder={'XXXX XXXX XXXX XXXX'}
+                    onKeyDown={(e: any) => {
+                        if (e.key === 'Enter') {
+                            submit();
+                        }
+                    }}
                     backgroundLight={true}/>
             </div>
             <div className={styles.searchByCardItem}>

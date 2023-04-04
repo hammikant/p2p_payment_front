@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {IPayments} from './types';
-import {getMorePayments, getPayments} from './payments.thunk';
+import {getMorePayments, getPayments, searchByCardNumberPayments} from './payments.thunk';
 
 const initialState: IPayments = {
     loading: false,
@@ -48,6 +48,17 @@ const paymentsSlice = createSlice({
         builder.addCase(getPayments.rejected, (state) => {
             state.loading = false;
         });
+        builder.addCase(searchByCardNumberPayments.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(searchByCardNumberPayments.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.cards = payload.cards;
+        });
+        builder.addCase(searchByCardNumberPayments.rejected, (state) => {
+            state.loading = false;
+        });
+
         builder.addCase(getMorePayments.pending, (state) => {
             state.loading = true;
         });

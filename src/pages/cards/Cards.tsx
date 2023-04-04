@@ -10,7 +10,7 @@ import {Button, SubTitle, TextareaField} from '../../fields';
 import {Close} from '../../icons';
 import styles from './styles.module.scss';
 import {SearchByCardNumber, Table, TabsButtons} from './components';
-import {connectCards, getCards, getMoreCards} from './store/cards.thunk';
+import {connectCards, getCards, getMoreCards, StatusCard} from './store/cards.thunk';
 import {ICard} from './store/types';
 
 const buttons: IOption[] = [
@@ -39,21 +39,13 @@ export const Cards = () => {
     });
 
     useEffect(() => {
-        dispatch(getCards());
+        dispatch(getCards({status: currentTab.value === 'all' ? null : currentTab.value as StatusCard}));
     }, []);
 
-    useEffect(() => {
-        setShowCards(cards);
-    }, [cards]);
 
     const handleTabs = (item: IOption) => {
         setCurrentTab(item);
-        if (item.value === 'all') {
-            setShowCards(cards);
-        } else {
-            const sortItems = cards.filter((card: ICard) => card.status === item.label);
-            setShowCards(sortItems);
-        }
+        dispatch(getMoreCards({url: meta.nextPageUrl, status: item.value === 'all' ? null : item.value as StatusCard}));
     };
 
     const submitCards = handleSubmit(values => {
@@ -62,7 +54,10 @@ export const Cards = () => {
         setConnectModal(false);
     });
     const fetchMoreData = () => {
-        dispatch(getMoreCards({url: meta.nextPageUrl}));
+        dispatch(getMoreCards({
+            url: meta.nextPageUrl,
+            status: currentTab.value === 'all' ? null : currentTab.value as StatusCard
+        }));
     };
 
     return (

@@ -30,7 +30,7 @@ export interface IOption {
     value: string;
 }
 
-export const enum StatusCard {
+export const enum StatusCardPayments {
     success = 'Успех',
     frozen = 'Заморожено',
     payment = 'Оплата',
@@ -48,7 +48,11 @@ export const enum BankNames {
     sbp = 'sbp'
 }
 
-export type statusCard = StatusCard.frozen | StatusCard.payment | StatusCard.cancellation | StatusCard.success
+export type statusCard =
+    StatusCardPayments.frozen
+    | StatusCardPayments.payment
+    | StatusCardPayments.cancellation
+    | StatusCardPayments.success
 export type bankNames =
     BankNames.akbars
     | BankNames.sbp

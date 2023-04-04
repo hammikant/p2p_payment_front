@@ -1,4 +1,4 @@
-import {BankNames, StatusCard} from '../types';
+import {BankNames, StatusCardPayments} from '../types';
 import {IPayments} from '../pages/payments/store/types';
 
 
@@ -29,7 +29,7 @@ export const paymentsDb = (): IPayments => {
                 id: 1,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.success
+                status: StatusCardPayments.success
             }, {
                 bankName: BankNames.sbp,
                 num: '+7 987 654 32 10',
@@ -37,7 +37,7 @@ export const paymentsDb = (): IPayments => {
                 id: 2,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.frozen
+                status: StatusCardPayments.frozen
             }, {
                 bankName: BankNames.alfa,
                 num: '4001 9192 5753 7193',
@@ -45,7 +45,7 @@ export const paymentsDb = (): IPayments => {
                 id: 3,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.success
+                status: StatusCardPayments.success
             }, {
                 bankName: BankNames.vtb,
                 num: '4001 9192 5753 7193',
@@ -53,7 +53,7 @@ export const paymentsDb = (): IPayments => {
                 id: 4,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.cancellation
+                status: StatusCardPayments.cancellation
             }, {
                 bankName: BankNames.gazprom,
                 num: '4001 9192 5753 7193',
@@ -61,7 +61,7 @@ export const paymentsDb = (): IPayments => {
                 id: 5,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.frozen
+                status: StatusCardPayments.frozen
             }, {
                 bankName: BankNames.raiffeisen,
                 num: '4001 9192 5753 7193',
@@ -69,7 +69,7 @@ export const paymentsDb = (): IPayments => {
                 id: 6,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.payment
+                status: StatusCardPayments.payment
             }, {
                 bankName: BankNames.tinkoff,
                 num: '4001 9192 5753 7193',
@@ -77,7 +77,7 @@ export const paymentsDb = (): IPayments => {
                 id: 7,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.payment
+                status: StatusCardPayments.payment
             }, {
                 bankName: BankNames.akbars,
                 num: '4001 9192 5753 7193',
@@ -85,7 +85,7 @@ export const paymentsDb = (): IPayments => {
                 id: 8,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.success
+                status: StatusCardPayments.success
             }, {
                 bankName: BankNames.sbp,
                 num: '+7 987 654 32 10',
@@ -93,7 +93,7 @@ export const paymentsDb = (): IPayments => {
                 id: 9,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.frozen
+                status: StatusCardPayments.frozen
             }, {
                 bankName: BankNames.alfa,
                 num: '4001 9192 5753 7193',
@@ -101,7 +101,7 @@ export const paymentsDb = (): IPayments => {
                 id: 10,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.success
+                status: StatusCardPayments.success
             }, {
                 bankName: BankNames.vtb,
                 num: '4001 9192 5753 7193',
@@ -109,7 +109,7 @@ export const paymentsDb = (): IPayments => {
                 id: 11,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.cancellation
+                status: StatusCardPayments.cancellation
             }, {
                 bankName: BankNames.gazprom,
                 num: '4001 9192 5753 7193',
@@ -117,7 +117,7 @@ export const paymentsDb = (): IPayments => {
                 id: 12,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.frozen
+                status: StatusCardPayments.frozen
             }, {
                 bankName: BankNames.raiffeisen,
                 num: '4001 9192 5753 7193',
@@ -125,7 +125,7 @@ export const paymentsDb = (): IPayments => {
                 id: 13,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.payment
+                status: StatusCardPayments.payment
             }, {
                 bankName: BankNames.tinkoff,
                 num: '4001 9192 5753 7193',
@@ -133,7 +133,7 @@ export const paymentsDb = (): IPayments => {
                 id: 14,
                 profit: 7564435,
                 sum: 8766534543,
-                status: StatusCard.payment
+                status: StatusCardPayments.payment
             },
         ]
     };
