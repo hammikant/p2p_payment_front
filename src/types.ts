@@ -12,6 +12,13 @@ export interface IAlert {
     text: string;
 }
 
+export interface IMetaResponse {
+    total: number;
+    nextPageUrl: string | null;
+    prevPageUrl: string | null;
+    isLastPage: boolean;
+}
+
 export const alertTypes = {
     INFO: 'info',
     SUCCESS: 'success',

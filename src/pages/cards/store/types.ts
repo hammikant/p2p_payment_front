@@ -1,4 +1,4 @@
-import {bankNames} from '../../../types';
+import {bankNames, IMetaResponse} from '../../../types';
 
 export interface ICard {
     bankName: bankNames;
@@ -11,7 +11,9 @@ export interface ICard {
 
 
 export interface ICards {
-    cards: ICard[]
+    loading?: boolean;
+    cards: ICard[];
+    meta: IMetaResponse
 }
 
 export interface ISwitchCardStatusProps {

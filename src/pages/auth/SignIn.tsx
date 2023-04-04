@@ -54,7 +54,7 @@ export const SignIn = () => {
                 </div>
                 <div className={'box'}>
                     <InputField
-                        label={'Пароль (мин 8 символов)'}
+                        label={'Пароль'}
                         control={control}
                         autoComplete={'off'}
                         type={showPassword ? 'text' : 'password'}

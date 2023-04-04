@@ -21,3 +21,22 @@ export const getPayments = createAsyncThunk(
         }
     }
 );
+
+export const getMorePayments = createAsyncThunk(
+    'payments/getMorePayments',
+    async ({url}: { url: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onGet(url).reply(200, paymentsDb(), {
+                Authorization: `Bearer ${auth.token}`
+            });
+            const res = await instanceApi.get(url, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e) {
+        }
+    }
+);

@@ -10,7 +10,7 @@ import {Button, SubTitle, TextareaField} from '../../fields';
 import {Close} from '../../icons';
 import styles from './styles.module.scss';
 import {SearchByCardNumber, Table, TabsButtons} from './components';
-import {connectCards, getCards} from './store/cards.thunk';
+import {connectCards, getCards, getMoreCards} from './store/cards.thunk';
 import {ICard} from './store/types';
 
 const buttons: IOption[] = [
@@ -27,7 +27,8 @@ const schema = yup.object({
 export const Cards = () => {
     const dispatch = useAppDispatch();
     const {
-        cards
+        cards,
+        meta
     } = useAppSelector(state => state.cards);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
     const [showCards, setShowCards] = useState<ICard[]>([]);
@@ -60,6 +61,9 @@ export const Cards = () => {
         reset();
         setConnectModal(false);
     });
+    const fetchMoreData = () => {
+        dispatch(getMoreCards({url: meta.nextPageUrl}));
+    };
 
     return (
         <MainLayout titlePage={'Карты'} descriptionPage={'На эти карты мы будем переводить деньги с вашего баланса'}>
@@ -72,7 +76,7 @@ export const Cards = () => {
                     <TabsButtons items={buttons} selected={currentTab} handleClick={item => handleTabs(item)}/>
                 </div>
             </div>
-            <Table items={showCards}/>
+            <Table items={cards} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>
             <Modal
                 show={connectModal}
                 widthContent={'472px'}

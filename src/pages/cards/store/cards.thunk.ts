@@ -24,6 +24,26 @@ export const getCards = createAsyncThunk(
     }
 );
 
+export const getMoreCards = createAsyncThunk(
+    'cards/getMoreCards',
+    async ({url}: { url: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onGet(url).reply(200, cardsDb(), {
+                Authorization: `Bearer ${auth.token}`
+            });
+            const res = await instanceApi.get(url, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
 export const connectCards = createAsyncThunk(
     'cards/connectCards',
     async ({cards}: { cards: string }, {dispatch, getState}) => {

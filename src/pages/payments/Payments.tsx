@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {SimpleCard} from '../../components/simpleCard';
 import {IOption} from '../../types';
 import {ListCard} from '../../components/listCard';
-import {getPayments} from './store/payments.thunk';
+import {getMorePayments, getPayments} from './store/payments.thunk';
 import styles from './styles.module.scss';
 import {ICard, ICommonDataPayments} from './store/types';
 import {SearchByCardNumber, Table, TabsButtons} from './components';
@@ -33,7 +33,8 @@ export const Payments = () => {
         incomeToday,
         incomeTodayUs,
         commonData,
-        cards
+        cards,
+        meta
     } = useAppSelector(state => state.payments);
     const [listOptions, setListOptions] = useState<IOption[]>([]);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
@@ -63,6 +64,10 @@ export const Payments = () => {
             const sortItems = cards.filter((card: ICard) => card.status === item.label);
             setShowCards(sortItems);
         }
+    };
+
+    const fetchMoreData = () => {
+        dispatch(getMorePayments({url: meta.nextPageUrl}));
     };
 
     return (
@@ -106,7 +111,7 @@ export const Payments = () => {
             </div>
             <div className={styles.row}>
                 <div className={styles.col}>
-                    <Table items={showCards}/>
+                    <Table items={showCards} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>
                 </div>
             </div>
         </MainLayout>

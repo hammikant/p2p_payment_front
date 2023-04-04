@@ -15,6 +15,12 @@ export const paymentsDb = (): IPayments => {
             onPayment: 3453,
             frozen: 25,
         },
+        meta: {
+            total: 5,
+            nextPageUrl: '/get-payments?page=2',
+            prevPageUrl: '/get-payments?page=1',
+            isLastPage: false
+        },
         cards: [
             {
                 bankName: BankNames.akbars,
