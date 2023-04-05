@@ -5,13 +5,15 @@ import logger from 'redux-logger';
 import auth from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
 import cards from '../pages/cards/store/cards.slice';
+import deposits from '../pages/deposits/store/deposit.slice';
 import app from './app.slice';
 
 const appReducer = combineReducers({
     app,
     auth,
     payments,
-    cards
+    cards,
+    deposits
 });
 
 const persistConfig = {

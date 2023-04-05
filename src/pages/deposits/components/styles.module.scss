@@ -1,0 +1,223 @@
+.calculator {
+  background: radial-gradient(63.76% 100% at 100% 100%, #202737 0%, #1B1F26 100%);
+  border-radius: 12px;
+  padding: 20px 24px;
+
+  &Title {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    margin: 0 0 12px 0;
+  }
+
+  &Result {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    display: inline-block;
+    margin-top: 22px;
+  }
+}
+
+.label {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #667180;
+  margin-bottom: 4px;
+}
+
+.inputWrapper {
+  width: 100%;
+  padding: 12px 11px;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #0D1114;
+}
+
+.input {
+  background-color: transparent;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #FFFFFF;
+  flex-grow: 1;
+
+  &::placeholder {
+    color: #303740;
+  }
+
+  &:focus {
+    background-color: transparent;
+  }
+}
+
+.inputIcon {
+  position: absolute;
+  right: 12px;
+  width: 38px;
+  text-align: right;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #667180;
+}
+
+
+.walletLabel {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #667180;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.wallet {
+  display: flex;
+  align-items: center;
+
+  &Output {
+    width: 460px;
+    background: #303740;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+  }
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #FFFFFF;
+  }
+
+  &Icon {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &Qr {
+    width: 55px;
+    height: 55px;
+    background: #303740;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &QrCodeImage {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &CloseModal {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableItem {
+  display: flex;
+  border-radius: 12px;
+  position: relative;
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  padding: 18px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #1B1F26;
+  }
+}
+
+.tableItemHeader {
+  display: flex;
+  padding: 24px 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+
+
+  &:nth-child(1) {
+    width: 40%;
+
+    & img {
+      margin-right: 12px;
+      background-color: #1B1F26;
+      border-radius: 50%;
+    }
+  }
+
+
+  &:nth-child(2) {
+    width: 20%;
+  }
+
+  &:nth-child(3) {
+    width: 15%;
+  }
+
+  &:nth-child(4) {
+    width: 15%;
+    justify-content: flex-end;
+  }
+
+  &Head {
+    display: block;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #667180;
+  }
+
+  &Text {
+    display: block;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+  }
+}

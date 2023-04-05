@@ -20,11 +20,7 @@ export interface ICommonDataPayments {
 
 export interface IPayments {
     loading?: boolean;
-    balance: number;
-    balanceUs: number;
-    incomeToday: number;
-    incomeTodayUs: number;
-    commonData: ICommonDataPayments,
     cards: ICard[],
-    meta: IMetaResponse
+    meta: IMetaResponse;
+    commonData: ICommonDataPayments
 }

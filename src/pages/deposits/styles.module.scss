@@ -1,0 +1,79 @@
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.reload {
+  display: flex;
+  align-items: center;
+
+  &Icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  &Load {
+    transform: rotate(0deg);
+    animation: refresh 1s infinite linear;
+  }
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #91F230;
+    background-color: transparent;
+  }
+}
+
+.rates {
+  display: flex;
+  align-items: center;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #FFFFFF;
+
+  & svg {
+    margin-bottom: 2px;
+    margin-left: 5px;
+  }
+}
+
+@keyframes refresh {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+.sectionTitle {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  color: #FFFFFF;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #1B1F26;
+}
+
+.description {
+  margin: 40px 0 16px;
+  max-width: 624px;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #FFFFFF;
+}

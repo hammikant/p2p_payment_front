@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import classNames from 'classnames';
 import {Title} from '../../fields';
 import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {Drop, Esc, Settings} from '../../icons';
@@ -21,13 +22,14 @@ export const Header = ({title, descriptionPage}: IHeader) => {
     };
 
     return (
-        <div className={styles.header}>
-            <div>
+        <div className={classNames(styles.header, 'row')}>
+            <div className={'col'}>
                 <Title text={title}/>
-                {descriptionPage ? <p className={styles.headerDescription}>{descriptionPage}</p> : null}
+                {descriptionPage ? <p className={styles.headerDescription}>{descriptionPage}</p> :
+                    <div className={'space-top-24'}/>}
             </div>
             <div
-                className={styles.menu}
+                className={classNames(styles.menu, 'col')}
                 onMouseEnter={() => setDrop(true)}
                 onMouseLeave={() => setDrop(false)}
             >

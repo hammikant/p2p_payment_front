@@ -1,13 +1,8 @@
 import {BankNames, StatusCardPayments} from '../types';
 import {IPayments} from '../pages/payments/store/types';
 
-
 export const paymentsDb = (): IPayments => {
     return {
-        balance: 17000.67,
-        balanceUs: 345,
-        incomeToday: 5679.67,
-        incomeTodayUs: 98,
         commonData: {
             payments: 5678,
             turnover: '345/3455',

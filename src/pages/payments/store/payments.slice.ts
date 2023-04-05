@@ -4,10 +4,6 @@ import {getMorePayments, getPayments, searchByCardNumberPayments} from './paymen
 
 const initialState: IPayments = {
     loading: false,
-    balance: 0,
-    balanceUs: 0,
-    incomeToday: 0,
-    incomeTodayUs: 0,
     commonData: {
         payments: 0,
         turnover: '0/0',
@@ -36,13 +32,8 @@ const paymentsSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(getPayments.fulfilled, (state, {payload}) => {
-            state.loading = false;
-            state.balance = payload.balance;
-            state.balanceUs = payload.balanceUs;
-            state.incomeToday = payload.incomeToday;
-            state.incomeTodayUs = payload.incomeTodayUs;
-            state.commonData = payload.commonData;
             state.cards = payload.cards;
+            state.commonData = payload.commonData;
             state.meta = payload.meta;
         });
         builder.addCase(getPayments.rejected, (state) => {
@@ -64,10 +55,6 @@ const paymentsSlice = createSlice({
         });
         builder.addCase(getMorePayments.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.balance = payload.balance;
-            state.balanceUs = payload.balanceUs;
-            state.incomeToday = payload.incomeToday;
-            state.incomeTodayUs = payload.incomeTodayUs;
             state.commonData = payload.commonData;
             state.cards = [...state.cards, ...payload.cards];
             state.meta = payload.meta;

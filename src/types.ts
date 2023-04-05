@@ -62,3 +62,22 @@ export type bankNames =
     | BankNames.raiffeisen
     | BankNames.tinkoff
     | BankNames.sber
+
+
+export type TrendRates = 'up' | 'down'
+
+export interface IExchangeRates {
+    buyingRate: number;
+    currentRate: number;
+    trend: TrendRates
+}
+
+export interface ICommonData {
+    balance: number;
+    balanceUs: number;
+    incomeToday: number;
+    incomeTodayUs: number;
+    wallet: string;
+    walletQRCode: string;
+    exchangeRates: IExchangeRates;
+}

@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {SimpleCard} from '../../components/simpleCard';
 import {IOption, StatusCardPayments} from '../../types';
 import {ListCard} from '../../components/listCard';
+import {getCommonData} from '../../store/app.slice';
 import {getMorePayments, getPayments} from './store/payments.thunk';
 import styles from './styles.module.scss';
 import {ICommonDataPayments} from './store/types';
@@ -28,19 +29,22 @@ const buttons: IOption[] = [
 export const Payments = () => {
     const dispatch = useAppDispatch();
     const {
-        balance,
-        balanceUs,
-        incomeToday,
-        incomeTodayUs,
         commonData,
         cards,
         meta
     } = useAppSelector(state => state.payments);
+    const {
+        balance,
+        balanceUs,
+        incomeToday,
+        incomeTodayUs,
+    } = useAppSelector(state => state.app.commonData);
     const [listOptions, setListOptions] = useState<IOption[]>([]);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
 
 
     useEffect(() => {
+        dispatch(getCommonData());
         dispatch(getPayments({status: currentTab.value === 'all' ? null : currentTab.value as StatusCardPayments}));
     }, []);
 

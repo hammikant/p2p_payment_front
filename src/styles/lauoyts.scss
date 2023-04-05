@@ -1,7 +1,24 @@
+.row {
+  width: 100%;
+  display: flex;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.col {
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .box {
   padding: 12px 0;
 }
 
 .space-top-32 {
   padding-top: 32px;
+}
+
+.space-top-24 {
+  padding-top: 24px;
 }

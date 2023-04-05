@@ -13,8 +13,16 @@ import {Esc} from './Esc';
 import {Close} from './Close';
 import {Pause} from './Pause';
 import {Stop} from './Stop';
+import {TrendUp} from './TrendUp';
+import {TrendDown} from './TrendDown';
+import {Refresh} from './Refresh';
+import {Copy} from './Copy';
+import {Qr} from './qr';
 
 export {
+    Qr,
+    TrendDown,
+    TrendUp,
     Pause,
     Stop,
     Close,
@@ -29,5 +37,7 @@ export {
     Bank,
     Sim,
     Stat,
-    Card
+    Card,
+    Refresh,
+    Copy
 };

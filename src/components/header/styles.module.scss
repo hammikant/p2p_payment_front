@@ -16,6 +16,7 @@
 
 .menu {
   position: relative;
+  width: fit-content;
 
   &TextWrap {
     min-width: 149px;
@@ -47,7 +48,7 @@
     border-radius: 12px;
     padding: 18px 20px;
     top: 43px;
-    right: 0;
+    right: 16px;
   }
 
   &DropText {
