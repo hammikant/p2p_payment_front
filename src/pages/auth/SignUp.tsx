@@ -41,7 +41,7 @@ export const SignUp = () => {
     return (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={handleSignUp}>
-                <SubTitle text={'Регистрация'}/>
+                <SubTitle text={'Регистрация'} style={{textAlign: 'center'}}/>
                 <AuthNavigate/>
                 <div className={'box'}>
                     <InputField

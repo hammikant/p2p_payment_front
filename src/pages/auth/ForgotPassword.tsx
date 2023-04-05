@@ -30,7 +30,7 @@ export const ForgotPassword = () => {
     return (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={handleSignIn}>
-                <SubTitle text={'Восстановление доступа'}/>
+                <SubTitle text={'Восстановление доступа'} style={{textAlign: 'center'}}/>
                 <div className={'space-top-32'}/>
                 <InputField
                     label={'Email'}
@@ -51,7 +51,7 @@ export const ForgotPassword = () => {
                 backgroundColorOverlay={'#0D1114'}
                 handleClickOverlay={() => dispatch(clearForgotModal())}>
                 <div>
-                    <SubTitle text={'Проверьте почту'}/>
+                    <SubTitle text={'Проверьте почту'} style={{textAlign: 'center'}}/>
                     <p className={styles.forgotSuccessText}>
                         Мы отправили ссылку для смены пароля на <span>{sendEmailForgotPassword}</span>. Если вы не
                         можете найти

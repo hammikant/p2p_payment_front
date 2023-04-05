@@ -8,8 +8,9 @@ import {IOption} from '../../types';
 import {Modal} from '../../components/modal';
 import {Button, SubTitle, TextareaField} from '../../fields';
 import {Close} from '../../icons';
+import {TabsButtons} from '../../components/tabsButtons';
 import styles from './styles.module.scss';
-import {SearchByCardNumber, Table, TabsButtons} from './components';
+import {SearchByCardNumber, Table} from './components';
 import {connectCards, getCards, getMoreCards, StatusCard} from './store/cards.thunk';
 import {ICard} from './store/types';
 

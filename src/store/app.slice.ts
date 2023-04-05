@@ -26,7 +26,9 @@ const initialState: IAppState = {
             buyingRate: 0,
             currentRate: 0,
             trend: 'up'
-        }
+        },
+        bankNames: [],
+        simBanksCellPhones: []
     }
 };
 
@@ -77,6 +79,8 @@ const appSlice = createSlice({
             state.commonData.wallet = payload.wallet;
             state.commonData.walletQRCode = payload.walletQRCode;
             state.commonData.exchangeRates = payload.exchangeRates;
+            state.commonData.bankNames = payload.bankNames;
+            state.commonData.simBanksCellPhones = payload.simBanksCellPhones;
         });
         builder.addCase(getCommonData.rejected, (state) => {
             state.loading = true;

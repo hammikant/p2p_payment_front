@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import {IOption} from '../../../types';
+import {IOption} from '../../types';
 import styles from './styles.module.scss';
 
 interface ITabButtonsProps {

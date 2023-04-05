@@ -80,4 +80,6 @@ export interface ICommonData {
     wallet: string;
     walletQRCode: string;
     exchangeRates: IExchangeRates;
+    bankNames: IOption[];
+    simBanksCellPhones: IOption[];
 }

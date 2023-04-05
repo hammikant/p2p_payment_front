@@ -6,6 +6,7 @@ import auth from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
 import cards from '../pages/cards/store/cards.slice';
 import deposits from '../pages/deposits/store/deposit.slice';
+import banks from '../pages/banks/store/banks.slice';
 import app from './app.slice';
 
 const appReducer = combineReducers({
@@ -13,7 +14,8 @@ const appReducer = combineReducers({
     auth,
     payments,
     cards,
-    deposits
+    deposits,
+    banks
 });
 
 const persistConfig = {

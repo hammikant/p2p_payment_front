@@ -47,7 +47,7 @@ export const ChangePassword = () => {
     return (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={handleSignIn}>
-                <SubTitle text={'Смена пароля'}/>
+                <SubTitle text={'Смена пароля'} style={{textAlign: 'center'}}/>
                 <div className={'box'}>
                     <InputField
                         label={'Пароль (мин 8 символов)'}

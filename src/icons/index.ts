@@ -18,8 +18,10 @@ import {TrendDown} from './TrendDown';
 import {Refresh} from './Refresh';
 import {Copy} from './Copy';
 import {Qr} from './qr';
+import {ChevronDown} from './ChevronDown';
 
 export {
+    ChevronDown,
     Qr,
     TrendDown,
     TrendUp,

@@ -1,27 +1,3 @@
-.tabButtons {
-  display: flex;
-  border-bottom: 1px solid #1B1F26;
-}
-
-.button {
-  padding: 12px;
-  border-bottom: 1px solid transparent;
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-  color: #667180;
-  background: transparent;
-  margin-right: 24px;
-  transition: 0.3s;
-
-  &Active {
-    color: #FFFFFF;
-    border-bottom: 1px solid #91F230;
-    transition: 0.3s;
-  }
-}
 
 .table {
   display: flex;

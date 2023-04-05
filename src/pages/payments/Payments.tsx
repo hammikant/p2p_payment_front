@@ -5,10 +5,11 @@ import {SimpleCard} from '../../components/simpleCard';
 import {IOption, StatusCardPayments} from '../../types';
 import {ListCard} from '../../components/listCard';
 import {getCommonData} from '../../store/app.slice';
+import {TabsButtons} from '../../components/tabsButtons';
 import {getMorePayments, getPayments} from './store/payments.thunk';
 import styles from './styles.module.scss';
 import {ICommonDataPayments} from './store/types';
-import {SearchByCardNumber, Table, TabsButtons} from './components';
+import {SearchByCardNumber, Table} from './components';
 
 const listLabels: { [key: string]: string } = {
     payments: 'Платежей:',

@@ -40,7 +40,7 @@ export const SignIn = () => {
     return (
         <div className={styles.wrapper}>
             <form className={styles.form} onSubmit={handleSignIn}>
-                <SubTitle text={'Авторизация'}/>
+                <SubTitle text={'Авторизация'} style={{textAlign: 'center'}}/>
                 <AuthNavigate/>
                 <div className={'box'}>
                     <InputField

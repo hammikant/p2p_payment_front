@@ -7,7 +7,6 @@ import {depositsDb} from '../../../db';
 export const getDeposits = createAsyncThunk(
     'deposits/getDeposits',
     async (_, {dispatch, getState}) => {
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@');
         try {
             const {auth} = getState() as { auth: IAuthState };
             await mockInstanceApi.onGet('/get-deposits').reply(200, depositsDb(), {

@@ -1,0 +1,100 @@
+.row {
+  display: flex;
+  margin-left: -15px;
+  margin-right: -15px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.col {
+  width: 33.3%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 24px;
+}
+
+.bankCard {
+  width: 100%;
+  background: radial-gradient(63.76% 100% at 100% 100%, #222C27 0%, #1B1F26 100%);
+  border-radius: 12px;
+  padding: 20px 24px;
+  transition: .3s;
+  transform: translateY(0px);
+
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+  }
+
+  &Header {
+    display: flex;
+    align-items: center;
+  }
+
+  &Logo {
+    width: 40px;
+    margin-right: 12px;
+  }
+
+  &Title {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    color: #FFFFFF;
+  }
+
+  &List {
+    padding: 0;
+  }
+
+  &ListItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &ListText {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    flex-grow: 1;
+
+    &:first-of-type {
+      max-width: 40%;
+      width: 100%;
+    }
+  }
+}
+
+
+.bankModal {
+
+  &Close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &TextG {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #667180;
+    margin: 0;
+
+    &:first-of-type {
+      margin-top: 12px;
+    }
+  }
+}

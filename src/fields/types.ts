@@ -1,5 +1,6 @@
-import {Control, UseFormRegister} from 'react-hook-form';
-import {ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes} from 'react';
+import {Control, UseFormRegister, UseFormSetValue} from 'react-hook-form';
+import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes} from 'react';
+import {IOption} from '../types';
 
 export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -23,4 +24,15 @@ export interface ITextarea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     text: string;
+}
+
+export interface ISelect extends HTMLAttributes<HTMLSelectElement> {
+    label: string;
+    control: Control;
+    register: UseFormRegister<any>;
+    fieldName: string;
+    errors: any;
+    watch: any;
+    setValue: UseFormSetValue<any>;
+    options: IOption[]
 }
