@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {IOption} from '../../types';
 import {TabsButtons} from '../../components/tabsButtons';
 import styles from './styles.module.scss';
-import {addBank, getBanks} from './store/banks.thunk';
+import {addBank, getBanks, getMoreBanks} from './store/banks.thunk';
 import {IBank} from './store/types';
 import {BankCards} from './components/BankCards';
 import {SearchByPhoneLogin, SwitchersRow} from './components';
@@ -34,7 +34,7 @@ const schema = yup.object({
 export const Banks = () => {
     const dispatch = useAppDispatch();
     const {bankNames, simBanksCellPhones} = useAppSelector(state => state.app.commonData);
-    const {list, loading} = useAppSelector(state => state.banks);
+    const {list, loading, meta} = useAppSelector(state => state.banks);
     const [connectModal, setConnectModal] = useState<boolean>(false);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
 
@@ -58,6 +58,11 @@ export const Banks = () => {
         setConnectModal(false);
     });
 
+    const handleFetchMore = () => {
+        console.log('fetch');
+        dispatch(getMoreBanks({url: meta.nextPageUrl, status: currentTab.value}));
+    };
+
     return (
         <MainLayout titlePage={'Банки'} descriptionPage={'На эти карты мы будем переводить деньги с вашего баланса'}>
             <button className={styles.connectBankButton} onClick={() => setConnectModal(true)}>Подключить карту</button>
@@ -67,7 +72,7 @@ export const Banks = () => {
             <TabsButtons items={buttons} selected={currentTab} handleClick={item => handleTabs(item)}/>
             <div className={'space-top-24'}/>
             {loading ? <p style={{color: '#ffffff'}}>Loading...</p> : (
-                <BankCards items={list}/>
+                <BankCards items={list} hasMore={!meta.isLastPage} handleFetchMore={handleFetchMore}/>
             )}
 
             <Modal

@@ -1,6 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {IBanks} from './types';
-import {addBank, authorizationBank, deleteBank, getBanks, searchByPhoneLogin, updateBank} from './banks.thunk';
+import {
+    addBank,
+    authorizationBank,
+    deleteBank,
+    getBanks,
+    getMoreBanks,
+    searchByPhoneLogin,
+    updateBank
+} from './banks.thunk';
 
 const initialState: IBanks = {
     loading: false,
@@ -50,7 +58,10 @@ const banksSlice = createSlice({
         builder.addCase(searchByPhoneLogin.rejected, state => {
             state.loading = false;
         });
-
+        builder.addCase(getMoreBanks.fulfilled, (state, {payload}) => {
+            state.list = [...state.list, ...payload.banks];
+            state.meta = payload.meta;
+        });
         builder.addCase(authorizationBank.pending, state => {
             state.loading = true;
         });

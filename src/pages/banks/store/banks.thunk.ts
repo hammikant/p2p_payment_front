@@ -170,3 +170,23 @@ export const searchByPhoneLogin = createAsyncThunk(
         }
     }
 );
+
+export const getMoreBanks = createAsyncThunk(
+    'banks/getMoreBanks',
+    async ({url, status}: { url: string, status: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onGet(url).reply(200, banksDb(), {
+                Authorization: `Bearer ${auth.token}`
+            });
+            const res = await instanceApi.get(url, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);

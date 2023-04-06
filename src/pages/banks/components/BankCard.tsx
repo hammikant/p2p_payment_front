@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
-import * as yup from 'yup';
 import {IBank} from '../store/types';
 import gazprom from '../../../assets/images/gazprom.png';
 import raiffeisen from '../../../assets/images/raiffeisen.png';
@@ -33,14 +32,9 @@ const icons: { [key: string]: string } = {
 
 interface IBankCardProps {
     item: IBank;
-    handlePressCard: (item: IBank) => void;
 }
 
-const schema = yup.object({
-    name: yup.string()
-});
-
-export const BankCard = ({item, handlePressCard}: IBankCardProps) => {
+export const BankCard = ({item}: IBankCardProps) => {
     const dispatch = useAppDispatch();
     const [showModal, setShowModal] = useState<boolean>(false);
     const methods = useForm();
