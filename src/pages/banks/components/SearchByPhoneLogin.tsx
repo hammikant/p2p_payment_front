@@ -3,43 +3,41 @@ import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {InputField} from '../../../fields';
-import {searchByCardNumber} from '../store/cards.thunk';
 import {useAppDispatch} from '../../../hooks/app';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
-    cardNumber: yup.string().matches(/^[0-9]+$/, 'Только цифры')
-        .min(16, 'Не меньше 16 символов')
-        .max(16, 'Не больше 16 символов'),
+    cellPhone: yup.string().matches(/^[0-9]+$/, 'Только цифры')
+        .min(11, 'Не меньше 1 символов')
+        .max(11, 'Не больше 1 символов'),
     bankName: yup.string().matches(/^[0-9]+$/, 'Только цифры')
-        .min(4, 'Не меньше 12 символов')
-        .max(4, 'Не больше 12 символов'),
+        .min(4, 'Не меньше 4 символов')
+        .max(4, 'Не больше 4 символов'),
 });
 
-export const SearchByCardNumber = () => {
+export const SearchByPhoneLogin = () => {
     const dispatch = useAppDispatch();
     const {control, register, watch, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
 
     const submit = handleSubmit(values => {
-        dispatch(searchByCardNumber({cardNum: values.cardNumber}));
     });
 
     return (
         <form className={styles.searchByCard} onSubmit={submit}>
             <div className={styles.searchByCardItem}>
                 <InputField
-                    label={'Карта'}
+                    label={'Номер телефона (логин)'}
                     control={control}
                     register={register}
-                    fieldName={'cardNumber'}
+                    fieldName={'cellPhone'}
                     errors={errors}
                     autoComplete={'off'}
-                    placeholder={'XXXX XXXX XXXX XXXX'}
+                    placeholder={''}
                     onKeyDown={(e: any) => {
                         if (e.key === 'Enter') {
-                            const value = watch('cardNumber');
+                            const value = watch('cellPhone');
                             value !== '' && submit();
                         }
                     }}
@@ -53,7 +51,7 @@ export const SearchByCardNumber = () => {
                     fieldName={'bankName'}
                     autoComplete={'off'}
                     errors={errors}
-                    placeholder={'XXXX'}
+                    placeholder={''}
                     onKeyDown={(e: any) => {
                         if (e.key === 'Enter') {
                             const value = watch('bankName');

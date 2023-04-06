@@ -8,13 +8,17 @@ import {searchByCardNumberPayments} from '../store/payments.thunk';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
-    cardNumber: yup.number().min(12, 'Минимум 12 чисел'),
-    bankName: yup.string()
+    cardNumber: yup.string().matches(/^[0-9]+$/, 'Только цифры')
+        .min(16, 'Не меньше 16 символов')
+        .max(16, 'Не больше 16 символов'),
+    bankName: yup.string().matches(/^[0-9]+$/, 'Только цифры')
+        .min(4, 'Не меньше 12 символов')
+        .max(4, 'Не больше 12 символов'),
 });
 
 export const SearchByCardNumber = () => {
     const dispatch = useAppDispatch();
-    const {control, register, handleSubmit, formState: {errors}} = useForm({
+    const {control, register, handleSubmit, watch, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -35,7 +39,8 @@ export const SearchByCardNumber = () => {
                     placeholder={'XXXX XXXX XXXX XXXX'}
                     onKeyDown={(e: any) => {
                         if (e.key === 'Enter') {
-                            submit();
+                            const value = watch('cardNumber');
+                            value !== '' && submit();
                         }
                     }}
                     backgroundLight={true}/>
@@ -49,6 +54,12 @@ export const SearchByCardNumber = () => {
                     autoComplete={'off'}
                     errors={errors}
                     placeholder={'XXXX'}
+                    onKeyDown={(e: any) => {
+                        if (e.key === 'Enter') {
+                            const value = watch('bankName');
+                            value !== '' && submit();
+                        }
+                    }}
                     backgroundLight={true}/>
             </div>
         </form>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {IBank} from '../store/types';
 import styles from './styles.module.scss';
 import {BankCard} from './BankCard';
@@ -8,13 +9,29 @@ interface IBankCardsProps {
 }
 
 export const BankCards = ({items}: IBankCardsProps) => {
+    const [heightTable, setHeightTable] = useState<number>(0);
+
+    useEffect(() => {
+        const height = window.innerHeight;
+        setHeightTable(height / 1.5);
+    }, []);
 
     const handlePressCard = () => {
 
     };
     return (
         <div className={styles.row}>
-            {items.map(item => <BankCard key={item.id} item={item} handlePressCard={handlePressCard}/>)}
+            <InfiniteScroll
+                dataLength={items.length}
+                next={() => console.log('@@@fetch')}
+                hasMore={true}
+                loader={<p className={styles.loader}>loading ...</p>}
+                height={heightTable}
+                style={{display: 'flex', flexWrap: 'wrap'}}
+            >
+                {items.map(item => <BankCard key={item.id} item={item} handlePressCard={handlePressCard}/>)}
+            </InfiniteScroll>
+
         </div>
     );
 };

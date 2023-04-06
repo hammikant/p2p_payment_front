@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classNames from 'classnames';
 import Switch from 'react-switch';
 import styles from './styles.module.scss';
@@ -7,11 +7,15 @@ interface ISwitcherProps {
     row: boolean;
     label: string;
     handleSwitch: (checked: boolean) => void;
+    checked: boolean;
 }
 
-export const Switcher = ({row, label, handleSwitch}: ISwitcherProps) => {
-    const [status, setStatus] = useState<boolean>(false);
+export const Switcher = ({row, label, checked = false, handleSwitch}: ISwitcherProps) => {
+    const [status, setStatus] = useState<boolean>(checked);
 
+    useEffect(() => {
+        setStatus(checked);
+    }, [checked]);
     const handleSwitcher = (checked: boolean) => {
         setStatus(checked);
         handleSwitch(checked);

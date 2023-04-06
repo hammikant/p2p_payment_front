@@ -19,8 +19,10 @@ import {Refresh} from './Refresh';
 import {Copy} from './Copy';
 import {Qr} from './qr';
 import {ChevronDown} from './ChevronDown';
+import {Delete} from './Delete';
 
 export {
+    Delete,
     ChevronDown,
     Qr,
     TrendDown,

@@ -84,6 +84,20 @@
     }
   }
 
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    margin: 0;
+
+    &:first-of-type {
+      margin-bottom: 12px;
+    }
+  }
+
   &TextG {
     font-family: Inter, sans-serif;
     font-style: normal;
@@ -96,5 +110,75 @@
     &:first-of-type {
       margin-top: 12px;
     }
+  }
+
+  &List {
+    background: #303740;
+    border-radius: 12px;
+    padding: 20px 24px;
+
+    &TransparentBg {
+      background: transparent;
+      padding: 0 0 32px 0;
+      border-radius: 0;
+      border-bottom: 1px solid #303740;
+    }
+  }
+
+  &ListItem {
+    display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+
+  &ListText {
+    display: block;
+    width: 50%;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    color: #FFFFFF;
+  }
+
+  &Buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &Delete {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    color: #F22451;
+
+    & svg {
+      margin-right: 10px;
+    }
+  }
+}
+
+.switchers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchByCard {
+  display: flex;
+  max-width: 720px;
+  width: 100%;
+  margin-right: -15px;
+  margin-left: -15px;
+
+  &Item {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }

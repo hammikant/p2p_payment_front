@@ -1,4 +1,7 @@
-export const banksDb = () => {
+import {BankNames, IMetaResponse} from '../types';
+import {IBank} from '../pages/banks/store/types';
+
+export const banksDb = (): { meta: IMetaResponse, banks: IBank[] } => {
     return {
         meta: {
             total: 10,
@@ -10,102 +13,122 @@ export const banksDb = () => {
             {
                 id: 1,
                 name: 'Название макс 25 символов',
-                bankName: 'vtb',
+                bankName: BankNames.vtb,
                 cards: '80шт',
                 verification: true,
                 spb: true,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 2,
                 name: 'Название макс 25 символов',
-                bankName: 'vtb',
+                bankName: BankNames.vtb,
                 cards: '100шт',
                 verification: true,
                 spb: false,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 3,
                 name: 'Название макс 25 символов',
-                bankName: 'vtb',
+                bankName: BankNames.raiffeisen,
                 cards: '50шт',
                 verification: true,
                 spb: true,
                 acceptingPayments: true,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 4,
                 name: 'Название макс 25 символов',
-                bankName: 'raiffeisen',
+                bankName: BankNames.tinkoff,
                 cards: null,
                 verification: false,
                 spb: false,
                 acceptingPayments: true,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: {cellPhone: '+7 987 654 32 10', comment: '6549'},
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 5,
                 name: 'Название макс 25 символов',
-                bankName: 'akbars',
+                bankName: BankNames.akbars,
                 cards: null,
                 verification: false,
                 spb: false,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: {cellPhone: '+7 987 654 32 10', comment: '6549'},
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 6,
                 name: 'Название макс 25 символов',
-                bankName: 'alfa',
+                bankName: BankNames.alfa,
                 cards: '80шт',
                 verification: true,
                 spb: true,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 7,
                 name: 'Название макс 25 символов',
-                bankName: 'sber',
+                bankName: BankNames.sber,
                 cards: '80шт',
                 verification: true,
                 spb: true,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 8,
                 name: 'Название макс 25 символов',
-                bankName: 'vtb',
+                bankName: BankNames.vtb,
                 cards: '80шт',
                 verification: true,
                 spb: true,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 9,
                 name: 'Название макс 25 символов',
-                bankName: 'vtb',
+                bankName: BankNames.vtb,
                 cards: '80шт',
                 verification: true,
                 spb: true,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
             {
                 id: 10,
                 name: 'Название макс 25 символов',
-                bankName: 'vtb',
+                bankName: BankNames.sbp,
                 cards: '80шт',
                 verification: true,
                 spb: true,
                 acceptingPayments: false,
-                create_as: '20 мар. 2023'
+                create_as: '20 мар. 2023',
+                verificationData: null,
+                simBankCellPhone: '+7 987 654 32 10'
             },
 
         ]

@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {IBanks} from './types';
-import {addBank, getBanks} from './banks.thunk';
+import {addBank, authorizationBank, deleteBank, getBanks, updateBank} from './banks.thunk';
 
 const initialState: IBanks = {
     loading: false,
@@ -23,7 +23,7 @@ const banksSlice = createSlice({
         });
         builder.addCase(addBank.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list.push(payload);
+            state.list = [payload, ...state.list];
         });
         builder.addCase(addBank.rejected, state => {
             state.loading = false;
@@ -37,6 +37,46 @@ const banksSlice = createSlice({
             state.meta = payload.meta;
         });
         builder.addCase(getBanks.rejected, state => {
+            state.loading = false;
+        });
+        builder.addCase(authorizationBank.pending, state => {
+            state.loading = true;
+        });
+        builder.addCase(authorizationBank.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.list = state.list.map(item => {
+                if (item.id === payload.id) {
+                    return {...item, ...payload};
+                }
+                return item;
+            });
+        });
+        builder.addCase(authorizationBank.rejected, state => {
+            state.loading = false;
+        });
+        builder.addCase(updateBank.pending, state => {
+            state.loading = true;
+        });
+        builder.addCase(updateBank.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.list = state.list.map(item => {
+                if (item.id === payload.id) {
+                    return {...item, ...payload};
+                }
+                return item;
+            });
+        });
+        builder.addCase(updateBank.rejected, state => {
+            state.loading = false;
+        });
+        builder.addCase(deleteBank.pending, state => {
+            state.loading = true;
+        });
+        builder.addCase(deleteBank.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.list = state.list.filter(item => item.id !== payload);
+        });
+        builder.addCase(deleteBank.rejected, state => {
             state.loading = false;
         });
     }

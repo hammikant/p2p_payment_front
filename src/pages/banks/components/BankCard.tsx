@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useForm} from 'react-hook-form';
+import {FormProvider, useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {IBank} from '../store/types';
 import gazprom from '../../../assets/images/gazprom.png';
@@ -12,8 +12,12 @@ import sber from '../../../assets/images/sber.png';
 import sbp from '../../../assets/images/sbp.png';
 import {Modal} from '../../../components/modal';
 import {Close} from '../../../icons';
-import {InputField, SubTitle} from '../../../fields';
+import {viewBankNames} from '../../../utils';
+import {useAppDispatch} from '../../../hooks/app';
+import {authorizationBank} from '../store/banks.thunk';
 import styles from './styles.module.scss';
+import {SettingsForm} from './SettingsForm';
+import {AuthorizationBank} from './AuthorizationBank';
 
 const icons: { [key: string]: string } = {
     gazprom,
@@ -26,6 +30,7 @@ const icons: { [key: string]: string } = {
     sbp
 };
 
+
 interface IBankCardProps {
     item: IBank;
     handlePressCard: (item: IBank) => void;
@@ -36,13 +41,16 @@ const schema = yup.object({
 });
 
 export const BankCard = ({item, handlePressCard}: IBankCardProps) => {
+    const dispatch = useAppDispatch();
     const [showModal, setShowModal] = useState<boolean>(false);
-    const {control, register, handleSubmit, setValue, formState: {errors}} = useForm();
+    const methods = useForm();
 
     const handleSelect = () => {
-        if (item.verification)
-            setShowModal(true);
-        setValue('name', item.name);
+        setShowModal(true);
+    };
+
+    const handleAuthorization = () => {
+        dispatch(authorizationBank({id: item.id, item}));
     };
 
     return (
@@ -61,7 +69,9 @@ export const BankCard = ({item, handlePressCard}: IBankCardProps) => {
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>Проверка:</span>
                         <span
-                            className={styles.bankCardListText}>{item.verification ? 'авторизован' : 'требуется авторизация'}</span>
+                            className={styles.bankCardListText}
+                            style={{color: item.verification ? '#ffffff' : '#F22451'}}
+                        >{item.verification ? 'авторизован' : 'требуется авторизация'}</span>
                     </li>
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>СБП:</span>
@@ -70,7 +80,9 @@ export const BankCard = ({item, handlePressCard}: IBankCardProps) => {
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>Платежи:</span>
                         <span
-                            className={styles.bankCardListText}>{item.acceptingPayments ? 'прием активен' : 'прием на паузе'}</span>
+                            className={styles.bankCardListText}
+                            style={{color: item.acceptingPayments ? '#91F230' : '#F22451'}}
+                        >{item.acceptingPayments ? 'прием активен' : 'прием на паузе'}</span>
                     </li>
                 </ul>
             </div>
@@ -82,19 +94,19 @@ export const BankCard = ({item, handlePressCard}: IBankCardProps) => {
                 <span className={styles.bankModalClose} onClick={() => setShowModal(false)}>
                     <Close width={'18'} height={'18'} color={'#667180'}/>
                 </span>
-                <SubTitle text={'Настройки банка'}/>
-                <p className={styles.bankModalTextG}>Добавлен: {item.create_as}</p>
-                <p className={styles.bankModalTextG}>ID: {item.id}</p>
-                <div className={'space-top-24'}/>
-                <form>
-                    <InputField
-                        control={control}
-                        register={register}
-                        fieldName={'name'}
-                        autoComplete={'off'}
-                        errors={errors}
-                        backgroundLight={false}/>
-                </form>
+                {!item.verification
+                    ? (
+                        <AuthorizationBank
+                            cellPhone={item.verificationData?.cellPhone}
+                            comment={item.verificationData?.comment}
+                            bankName={viewBankNames[item.bankName]}
+                            handleDone={handleAuthorization}
+                        />
+                    ) : (
+                        <FormProvider {...methods}>
+                            <SettingsForm item={item}/>
+                        </FormProvider>
+                    )}
             </Modal>
         </div>
     );

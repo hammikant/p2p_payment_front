@@ -13,6 +13,7 @@ import styles from './styles.module.scss';
 import {addBank, getBanks} from './store/banks.thunk';
 import {IBank} from './store/types';
 import {BankCards} from './components/BankCards';
+import {SearchByPhoneLogin, SwitchersRow} from './components';
 
 const buttons: IOption[] = [
     {label: 'Все', value: 'all'},
@@ -33,7 +34,7 @@ const schema = yup.object({
 export const Banks = () => {
     const dispatch = useAppDispatch();
     const {bankNames, simBanksCellPhones} = useAppSelector(state => state.app.commonData);
-    const {list} = useAppSelector(state => state.banks);
+    const {list, loading} = useAppSelector(state => state.banks);
     const [connectModal, setConnectModal] = useState<boolean>(false);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
 
@@ -59,9 +60,14 @@ export const Banks = () => {
         <MainLayout titlePage={'Банки'} descriptionPage={'На эти карты мы будем переводить деньги с вашего баланса'}>
             <button className={styles.connectBankButton} onClick={() => setConnectModal(true)}>Подключить карту</button>
             <div className={'space-top-32'}/>
+            <SearchByPhoneLogin/>
+            <div className={'space-top-32'}/>
             <TabsButtons items={buttons} selected={currentTab} handleClick={item => handleTabs(item)}/>
             <div className={'space-top-24'}/>
-            <BankCards items={list}/>
+            {loading ? <p style={{color: '#ffffff'}}>Loading...</p> : (
+                <BankCards items={list}/>
+            )}
+
             <Modal
                 show={connectModal}
                 widthContent={'472px'}
@@ -102,18 +108,20 @@ export const Banks = () => {
                         errors={errors}
                         backgroundLight={false}/>
                     <div className={'space-top-48'}/>
-                    <div className={styles.switchers}>
+                    <SwitchersRow>
                         <Switcher
                             row={true}
                             label={'СБП'}
+                            checked={watch('spb')}
                             handleSwitch={checked => setValue('spb', checked)}
                         />
                         <Switcher
                             row={true}
                             label={'Приём платежей'}
+                            checked={watch('acceptingPayments')}
                             handleSwitch={checked => setValue('acceptingPayments', checked)}
                         />
-                    </div>
+                    </SwitchersRow>
                     <Button text={'Подключить'} style={{width: '182px', marginTop: '48px'}} type={'submit'}/>
                 </form>
             </Modal>
