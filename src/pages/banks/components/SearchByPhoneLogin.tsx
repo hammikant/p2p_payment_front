@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {InputField} from '../../../fields';
 import {useAppDispatch} from '../../../hooks/app';
+import {searchByPhoneLogin} from '../store/banks.thunk';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
@@ -22,6 +23,7 @@ export const SearchByPhoneLogin = () => {
     });
 
     const submit = handleSubmit(values => {
+        dispatch(searchByPhoneLogin({cellPhone: values.cellPhone, bankName: values.bankName}));
     });
 
     return (

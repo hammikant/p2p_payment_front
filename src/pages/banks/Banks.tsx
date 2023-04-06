@@ -18,7 +18,7 @@ import {SearchByPhoneLogin, SwitchersRow} from './components';
 const buttons: IOption[] = [
     {label: 'Все', value: 'all'},
     {label: 'Активный', value: 'active'},
-    {label: 'Не активный', value: 'notActive'},
+    {label: 'Не активный', value: 'inactive'},
     {label: 'На паузе', value: 'pause'},
     {label: 'Отключена', value: 'disabled'},
 ];
@@ -39,7 +39,7 @@ export const Banks = () => {
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
 
     useEffect(() => {
-        dispatch(getBanks());
+        dispatch(getBanks({status: currentTab.value}));
     }, []);
 
     const {control, register, setValue, watch, formState: {errors}, reset, handleSubmit} = useForm({
@@ -47,7 +47,9 @@ export const Banks = () => {
     });
 
     const handleTabs = (item: IOption) => {
+        //@todo здесь происходит запрос по табуляции status - all, active, inactive, pause, disabled
         setCurrentTab(item);
+        dispatch(getBanks({status: item.value}));
     };
 
     const submit = handleSubmit(values => {

@@ -27,7 +27,7 @@ export const BankCards = ({items}: IBankCardsProps) => {
                 hasMore={true}
                 loader={<p className={styles.loader}>loading ...</p>}
                 height={heightTable}
-                style={{display: 'flex', flexWrap: 'wrap'}}
+                className={styles.infinityContainer}
             >
                 {items.map(item => <BankCard key={item.id} item={item} handlePressCard={handlePressCard}/>)}
             </InfiniteScroll>

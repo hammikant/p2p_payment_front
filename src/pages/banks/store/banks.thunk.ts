@@ -35,16 +35,16 @@ export const addBank = createAsyncThunk(
 
 export const getBanks = createAsyncThunk(
     'banks/getBanks',
-    async (_, {dispatch, getState}) => {
+    async ({status}: { status: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onGet('/get-bank',)
+            await mockInstanceApi.onPost('/get-bank', {status})
                 .reply(200,
                     banksDb(),
                     {
                         Authorization: `Bearer ${auth.token}`
                     });
-            const res = await instanceApi.get('/get-bank', {
+            const res = await instanceApi.post('/get-bank', {status}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -141,7 +141,7 @@ export const searchByPhoneLogin = createAsyncThunk(
                 cellPhone
             }).reply(200,
                 {
-                    cards: [{
+                    banks: [{
                         id: 10,
                         name: 'Название макс 25 символов',
                         bankName: BankNames.sbp,
