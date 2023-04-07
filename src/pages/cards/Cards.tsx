@@ -63,7 +63,7 @@ export const Cards = () => {
 
     return (
         <MainLayout titlePage={'Карты'} descriptionPage={'На эти карты мы будем переводить деньги с вашего баланса'}>
-            <button className={styles.connectCardButton} onClick={() => setConnectModal(true)}>Подключить карту</button>
+            <Button text={'Подключить карту'} variant={'outline'} onClick={() => setConnectModal(true)}/>
             <div className={'space-top-32'}/>
             <SearchByCardNumber/>
             <div className={'space-top-32'}/>
@@ -94,7 +94,7 @@ export const Cards = () => {
                         rows={10}
                         backgroundLight={false}/>
                     <div className={'space-top-32'}/>
-                    <Button text={'Подключить'} style={{width: '182px'}}/>
+                    <Button variant={'full'} text={'Подключить'} style={{width: '182px'}}/>
                 </form>
 
             </Modal>

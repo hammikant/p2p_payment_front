@@ -84,6 +84,7 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                 <div className={'space-top-48'}/>
                 <div className={styles.bankModalButtons}>
                     <Button
+                        variant={'full'}
                         text={'Сохранить'}
                         style={{width: '154px'}}
                         type={'submit'}

@@ -11,6 +11,8 @@ import {useAppSelector} from './hooks/app';
 import {alertTypes} from './types';
 import {Deposits} from './pages/deposits';
 import {Banks} from './pages/banks';
+import {ConnectCellPhones, SimBanks} from './pages/simBanks';
+import {Statistics} from './pages/statistics';
 
 function App() {
     const {initAlert} = useAppAlert();
@@ -38,6 +40,9 @@ function App() {
                 <Route path={'/deposits'} element={<Deposits/>}/>
                 <Route path={'/cards'} element={<Cards/>}/>
                 <Route path={'/banks'} element={<Banks/>}/>
+                <Route path={'/sim-banks'} element={<SimBanks/>}/>
+                <Route path={'/connect-cellphones'} element={<ConnectCellPhones/>}/>
+                <Route path={'/stats'} element={<Statistics/>}/>
                 <Route path={'*'} element={<ErrorPage/>}/>
             </Route>
         </Routes>

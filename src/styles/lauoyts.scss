@@ -15,6 +15,10 @@
   padding: 12px 0;
 }
 
+.space-top-72 {
+  padding-top: 72px;
+}
+
 .space-top-48 {
   padding-top: 48px;
 }
@@ -25,4 +29,23 @@
 
 .space-top-24 {
   padding-top: 24px;
+}
+
+.text-16 {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #FFFFFF;
+}
+
+.closeIcon {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

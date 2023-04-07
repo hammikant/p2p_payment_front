@@ -25,7 +25,7 @@ export const Header = ({title, descriptionPage}: IHeader) => {
         <div className={classNames(styles.header, 'row')}>
             <div className={'col'}>
                 <Title text={title}/>
-                {descriptionPage ? <p className={styles.headerDescription}>{descriptionPage}</p> :
+                {descriptionPage ? <div className={styles.headerDescription}>{descriptionPage}</div> :
                     <div className={'space-top-24'}/>}
             </div>
             <div

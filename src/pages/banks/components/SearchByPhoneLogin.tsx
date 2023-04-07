@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {KeyboardEvent} from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -37,7 +37,7 @@ export const SearchByPhoneLogin = () => {
                     errors={errors}
                     autoComplete={'off'}
                     placeholder={''}
-                    onKeyDown={(e: any) => {
+                    onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
                         if (e.key === 'Enter') {
                             const value = watch('cellPhone');
                             value !== '' && submit();

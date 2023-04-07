@@ -9,7 +9,9 @@ export const MainLayout = ({children, titlePage, descriptionPage}: IMainLayout) 
     return (
         <div className={styles.wrapper}>
             <div className={styles.sidebar}>
-                <div className={styles.logo}><Logo/></div>
+                <span className={styles.logo}>
+                    <Logo/>
+                </span>
                 <Sidebar/>
             </div>
             <div className={styles.pageContent}>

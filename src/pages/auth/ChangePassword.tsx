@@ -73,7 +73,7 @@ export const ChangePassword = () => {
                         errors={errors}/>
                 </div>
                 <div className={styles.formButtonWRapper}>
-                    <Button type={'submit'} text={'Сменить пароль'}/>
+                    <Button variant={'full'} type={'submit'} text={'Сменить пароль'}/>
                 </div>
             </form>
         </div>

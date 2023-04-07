@@ -24,6 +24,7 @@ export interface ITextarea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     text: string;
+    variant: 'full' | 'outline'
 }
 
 export interface ISelect extends HTMLAttributes<HTMLSelectElement> {

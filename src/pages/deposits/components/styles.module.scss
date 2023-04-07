@@ -92,31 +92,6 @@
   display: flex;
   align-items: center;
 
-  &Output {
-    width: 460px;
-    background: #303740;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-  }
-
-  &Text {
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
-    color: #FFFFFF;
-  }
-
-  &Icon {
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
   &Qr {
     width: 55px;
     height: 55px;

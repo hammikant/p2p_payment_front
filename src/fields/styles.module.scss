@@ -15,7 +15,7 @@
 
 .input {
   width: 100%;
-  padding: 12px 11px;
+  padding: 14px 11px;
   border-radius: 12px;
   font-family: Inter, sans-serif;
   font-style: normal;
@@ -61,6 +61,23 @@
 
   &:active {
     opacity: .8;
+  }
+}
+
+.outlineButton {
+  background-color: transparent;
+  border: 1px solid #303740;
+  border-radius: 12px;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #91F230;
+  padding: 12px 24px;
+
+  &:hover {
+    border: 1px solid #91F230;
   }
 }
 
@@ -159,6 +176,37 @@
       background-color: #0D1114;
       cursor: pointer;
       transition: .3s;
+    }
+  }
+}
+
+.clipBoard {
+  display: flex;
+  align-items: center;
+
+  &Output {
+    width: 460px;
+    background: #303740;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+  }
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #FFFFFF;
+  }
+
+  &Icon {
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }

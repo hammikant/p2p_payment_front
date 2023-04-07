@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Close, Copy, Qr} from '../../../icons';
+import {Close, Qr} from '../../../icons';
 import {Modal} from '../../../components/modal';
-import {SubTitle} from '../../../fields';
+import {OutputClipBoard, SubTitle} from '../../../fields';
 import styles from './styles.module.scss';
 
 export const Wallet = ({wallet, walletQRCode}: { wallet: string, walletQRCode: string }) => {
@@ -17,14 +17,12 @@ export const Wallet = ({wallet, walletQRCode}: { wallet: string, walletQRCode: s
         <>
             <label className={styles.walletLabel}>Ваш Tether TRC-20 адрес</label>
             <div className={styles.wallet}>
-                <div className={styles.walletOutput}>
-                    <span className={styles.walletText}>{wallet}</span>
-                    <span
-                        className={styles.walletIcon}
-                        onMouseUp={() => setCopyPress(false)}
-                        onMouseDown={handleClipBoard}><Copy
-                        color={isCopyPress ? '#667180' : '#ffffff'}/></span>
-                </div>
+                <OutputClipBoard
+                    text={wallet}
+                    isCopyPress={isCopyPress}
+                    onMouseUp={() => setCopyPress(false)}
+                    onMouseDown={handleClipBoard}
+                />
                 <div className={styles.walletQr} onClick={() => setShowModal(true)}>
                     <Qr/>
                 </div>
@@ -43,7 +41,7 @@ export const Wallet = ({wallet, walletQRCode}: { wallet: string, walletQRCode: s
                 <SubTitle text={'Tether TRC-20'}/>
                 <div className={'space-top-32'}/>
                 <img className={styles.walletQrCodeImage} src={walletQRCode} alt={'qr-code'}/>
-                <p className={styles.walletText}>{wallet}</p>
+                <p className={'text-16'} style={{marginBottom: '0px'}}>{wallet}</p>
             </Modal>
         </>
     );

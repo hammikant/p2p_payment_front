@@ -59,13 +59,13 @@ export const Banks = () => {
     });
 
     const handleFetchMore = () => {
-        console.log('fetch');
         dispatch(getMoreBanks({url: meta.nextPageUrl, status: currentTab.value}));
     };
 
     return (
         <MainLayout titlePage={'Банки'} descriptionPage={'На эти карты мы будем переводить деньги с вашего баланса'}>
-            <button className={styles.connectBankButton} onClick={() => setConnectModal(true)}>Подключить карту</button>
+            <Button text={'Подключить банк'} variant={'outline'} onClick={() => setConnectModal(true)}/>
+
             <div className={'space-top-32'}/>
             <SearchByPhoneLogin/>
             <div className={'space-top-32'}/>
@@ -129,7 +129,8 @@ export const Banks = () => {
                             handleSwitch={checked => setValue('acceptingPayments', checked)}
                         />
                     </SwitchersRow>
-                    <Button text={'Подключить'} style={{width: '182px', marginTop: '48px'}} type={'submit'}/>
+                    <Button variant={'full'} text={'Подключить'} style={{width: '182px', marginTop: '48px'}}
+                            type={'submit'}/>
                 </form>
             </Modal>
         </MainLayout>

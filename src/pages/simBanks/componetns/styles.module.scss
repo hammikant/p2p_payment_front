@@ -1,0 +1,124 @@
+.simBankTable {
+  background: #1B1F26;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 16px;
+
+  &Content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    border-bottom: 1px solid #303740;
+    padding-bottom: 16px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  &Button {
+    height: 48px;
+  }
+}
+
+.data {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #667180;
+}
+
+.cellPhone {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  @media screen and (max-width: 1600px) {
+    width: 25%;
+  }
+
+  &Checkbox {
+    margin-right: 12px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #FFFFFF;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  margin-left: -15px;
+  margin-right: -15px;
+
+  &Col {
+    display: flex;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    &:last-of-type {
+      flex-grow: 1;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.delete {
+  display: flex;
+  justify-content: space-between;
+
+  &Button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    color: #F22451;
+
+    & svg {
+      margin-right: 10px;
+    }
+  }
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.goBack {
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &Icon {
+    margin-right: 11px;
+  }
+
+  &Text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #667180;
+  }
+}

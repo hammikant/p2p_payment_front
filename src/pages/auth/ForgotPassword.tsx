@@ -41,7 +41,7 @@ export const ForgotPassword = () => {
                     backgroundLight={false}
                     errors={errors}/>
                 <div className={styles.formButtonWRapper}>
-                    <Button type={'submit'} text={'Восстановить доступ'}/>
+                    <Button variant={'full'} type={'submit'} text={'Восстановить доступ'}/>
                 </div>
                 <NavLink to={'/login'} className={styles.forgotAuthorizationLink}>Авторизация</NavLink>
             </form>

@@ -37,6 +37,7 @@ export const AuthorizationBank = ({bankName, cellPhone, comment, handleDone}: IA
                 </li>
             </ul>
             <Button
+                variant={'full'}
                 text={'Готово'}
                 style={{width: '143px', marginTop: '40px'}}
                 onClick={handleDone}

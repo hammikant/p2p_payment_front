@@ -66,7 +66,7 @@ export const SignIn = () => {
                 </div>
                 <NavLink to={'/forgot-password'} className={styles.forgotPasswordLink}>Забыли пароль?</NavLink>
                 <div className={styles.formButtonWRapper}>
-                    <Button type={'submit'} text={'Войти'}/>
+                    <Button variant={'full'} type={'submit'} text={'Войти'}/>
                 </div>
 
             </form>

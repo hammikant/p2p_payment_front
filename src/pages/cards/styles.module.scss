@@ -29,22 +29,6 @@
   padding-right: 15px;
 }
 
-.connectCardButton {
-  background-color: transparent;
-  border: 1px solid #303740;
-  border-radius: 12px;
-  font-family: Inter, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-  color: #91F230;
-  padding: 12px 24px;
-
-  &:hover {
-    border: 1px solid #91F230;
-  }
-}
 
 .connectModal {
   &Close {

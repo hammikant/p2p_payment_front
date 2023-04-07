@@ -76,7 +76,7 @@ export const SignUp = () => {
                         errors={errors}/>
                 </div>
                 <div className={styles.formButtonWRapper}>
-                    <Button type={'submit'} text={'Создать аккаунт'}/>
+                    <Button variant={'full'} type={'submit'} text={'Создать аккаунт'}/>
                 </div>
 
             </form>

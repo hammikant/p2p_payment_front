@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts5": "^5.3.10",
+    "@amcharts/amcharts5-fonts": "^5.0.1",
+    "@amcharts/amcharts5-geodata": "^5.1.0",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.0.0",
     "@reduxjs/toolkit": "^1.9.3",
