@@ -133,6 +133,14 @@
     cursor: pointer
   }
 
+  &Icon {
+    margin-left: 10px;
+  }
+
+  &CustomIcon {
+    margin-right: 10px;
+  }
+
   &Output {
     width: 100%;
     font-family: Inter, sans-serif;

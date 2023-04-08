@@ -13,7 +13,9 @@ export const Select = (
         errors,
         fieldName,
         setValue,
-        options
+        options,
+        customIcon,
+        ...props
     }: ISelect) => {
 
     const [showDrop, setShowDrop] = useState<boolean>(false);
@@ -34,14 +36,20 @@ export const Select = (
                     <label className={styles.label}>{label}</label>
                     <div
                         className={styles.select}
-                        style={{backgroundColor: '#0D1114'}}
+                        style={{backgroundColor: '#0D1114', ...props.style}}
                         onMouseEnter={() => setShowDrop(true)}
-                        onMouseLeave={() => setShowDrop(false)}>
+                        onMouseLeave={() => setShowDrop(false)}
+                    >
+                        {customIcon
+                            ? (<span className={styles.selectCustomIcon}>
+                                {customIcon}
+                                </span>)
+                            : null}
                         <output
                             className={styles.selectOutput}
                             {...register(fieldName)}
                         >{text}</output>
-                        <span className={styles.selectIcon}><ChevronDown/></span>
+                        {customIcon === undefined ? <span className={styles.selectIcon}><ChevronDown/></span> : null}
                         {
                             showDrop
                                 ? (

@@ -1,6 +1,6 @@
-import {ReactNode} from 'react';
+import {HTMLAttributes, ReactNode} from 'react';
 
-export interface ISimpleCardProps {
+export interface ISimpleCardProps extends HTMLAttributes<HTMLDivElement> {
     name: string;
     data: string;
     additionalData: string;

@@ -8,6 +8,7 @@ import cards from '../pages/cards/store/cards.slice';
 import deposits from '../pages/deposits/store/deposit.slice';
 import banks from '../pages/banks/store/banks.slice';
 import simBanks from '../pages/simBanks/store/simBanks.slice';
+import statistic from '../pages/statistics/store/statistic.slice';
 import app from './app.slice';
 
 const appReducer = combineReducers({
@@ -17,7 +18,8 @@ const appReducer = combineReducers({
     cards,
     deposits,
     banks,
-    simBanks
+    simBanks,
+    statistic
 });
 
 const persistConfig = {

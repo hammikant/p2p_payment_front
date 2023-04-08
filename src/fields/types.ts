@@ -27,7 +27,7 @@ export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant: 'full' | 'outline'
 }
 
-export interface ISelect extends HTMLAttributes<HTMLSelectElement> {
+export interface ISelect extends HTMLAttributes<HTMLDivElement> {
     label: string;
     control: Control;
     register: UseFormRegister<any>;
@@ -35,5 +35,6 @@ export interface ISelect extends HTMLAttributes<HTMLSelectElement> {
     errors: any;
     watch: any;
     setValue: UseFormSetValue<any>;
+    customIcon?: ReactNode;
     options: IOption[]
 }
