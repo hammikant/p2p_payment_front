@@ -28,7 +28,7 @@ export const Chart = ({items}: { items: IChart[] }) => {
         cursor.lineY.set('visible', false);
 
         // ===========================================
-        // Generate random data
+
         const date = new Date();
         date.setHours(0, 0, 0, 0);
         let value = 100;
@@ -126,7 +126,7 @@ export const Chart = ({items}: { items: IChart[] }) => {
         return () => {
             root.dispose();
         };
-    }, []);
+    }, [items]);
 
     return (
         <div id="chart" className={styles.chart}/>

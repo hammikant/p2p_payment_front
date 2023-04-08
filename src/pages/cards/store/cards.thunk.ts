@@ -56,9 +56,10 @@ export const connectCards = createAsyncThunk(
     async ({cards}: { cards: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onPost('/connect-card', {cards}).reply(200, {message: 'Подключено 85 карт'}, {
-                Authorization: `Bearer ${auth.token}`
-            });
+            await mockInstanceApi.onPost('/connect-card', {cards})
+                .reply(200, {message: 'Подключено 85 карт'}, {
+                    Authorization: `Bearer ${auth.token}`
+                });
             const res = await instanceApi.post('/connect-card', {cards}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`

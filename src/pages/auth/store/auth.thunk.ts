@@ -1,8 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
-import {mockInstanceApi} from '../../../api';
+import {instanceApi, mockInstanceApi} from '../../../api';
 import {authDb} from '../../../db';
+import {handleError} from '../../../store/app.slice';
 import {ISignInRequest, ISignUpRequest} from './types';
+import {IAuthState, setStatusConfirm} from './auth.slice';
 
 export const signUp = createAsyncThunk(
     'auth/signUp',
@@ -12,7 +14,8 @@ export const signUp = createAsyncThunk(
                 .reply(200, authDb({email: login}));
             const res = await axios.post('/registration', {login, code, password});
             return res.data;
-        } catch (e) {
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
         }
     }
 );
@@ -25,7 +28,8 @@ export const signIn = createAsyncThunk(
                 .reply(200, authDb({email: login}));
             const res = await axios.post('/login', {login, password});
             return res.data;
-        } catch (e) {
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
         }
     }
 );
@@ -38,7 +42,8 @@ export const forgotPassword = createAsyncThunk(
                 .reply(200, {sendEmail: login});
             const res = await axios.post('/forgot-password', {login});
             return res.data.sendEmail;
-        } catch (e) {
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
         }
     }
 );
@@ -47,11 +52,96 @@ export const changePassword = createAsyncThunk(
     'auth/changePassword',
     async ({password}: { password: string }, {dispatch}) => {
         try {
-            await mockInstanceApi.onPost('/forgot-password', {password})
+            await mockInstanceApi.onPost('/change-password', {password})
                 .reply(200, authDb({email: 'some User email'}));
-            const res = await axios.post('/forgot-password', {password});
+            const res = await axios.post('/change-password', {password});
             return res.data;
-        } catch (e) {
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
+export const changeDisplayName = createAsyncThunk(
+    'auth/changeDisplayName',
+    async ({displayName}: { displayName: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onPost('/change-displayname', {displayName}).reply(200, authDb({
+                email: auth.user.email,
+                displayName
+            }), {
+                Authorization: `Bearer ${auth.token}`
+            });
+            const res = await instanceApi.post('/change-displayname', {displayName}, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
+export const changeEmail = createAsyncThunk(
+    'auth/changeEmail',
+    async ({login}: { login: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onPost('/change-email', {login}).reply(200, null, {
+                Authorization: `Bearer ${auth.token}`
+            });
+            await axios.post('/change-email', {login}, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
+export const confirmEmail = createAsyncThunk(
+    'auth/confirmEmail',
+    async ({code}: { code: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onPost('/confirm-email', {code}).reply(200, {status: 'success'}, {
+                Authorization: `Bearer ${auth.token}`
+            });
+
+            const res = await axios.post('/confirm-email', {code}, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            dispatch(setStatusConfirm(res.data.status));
+            return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
+export const getMoreHistory = createAsyncThunk(
+    'auth/getMoreHistory',
+    async ({url}: { url: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onGet(url).reply(200, authDb({email: auth.user.email}), {
+                Authorization: `Bearer ${auth.token}`
+            });
+            const res = await instanceApi.get(url, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
         }
     }
 );

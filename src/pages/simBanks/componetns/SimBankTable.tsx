@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {ChangeableTitle} from '../../../components/changeableTitle';
+import {ChangeableField} from '../../../components/changeableField';
 import {ICellPhoneSimBank, ISimBank} from '../store/types';
 import {Button, OutputClipBoard, SubTitle} from '../../../fields';
 import {Close, Delete} from '../../../icons';
@@ -67,8 +67,10 @@ export const SimBankTable = ({name, create_as, redirectMail, cellPhones, id}: IS
         <div className={styles.simBankTable}>
             <div className={styles.header}>
                 <div>
-                    <ChangeableTitle title={name} handleChangeTitle={() => {
-                    }}/>
+                    <ChangeableField
+                        title={name}
+                        handleChangeTitle={() => {
+                        }}/>
                     <span className={styles.data}>Добавлен: {create_as} &#183; ID: {id}</span>
                 </div>
                 <div className={styles.headerButton}>

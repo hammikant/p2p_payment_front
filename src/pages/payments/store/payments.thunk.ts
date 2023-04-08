@@ -40,7 +40,8 @@ export const getMorePayments = createAsyncThunk(
                 }
             });
             return res.data;
-        } catch (e) {
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
         }
     }
 );

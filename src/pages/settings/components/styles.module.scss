@@ -1,0 +1,150 @@
+.displayName {
+  display: flex;
+
+  &Col {
+    &:first-of-type {
+      width: 328px;
+      margin-right: 12px;
+    }
+
+    &:last-of-type {
+      width: 154px;
+    }
+  }
+
+  &Button {
+    background: #303740;
+    border-radius: 12px;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #0D1114;
+    padding: 12px 40px;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableItem {
+  display: flex;
+}
+
+.tableItemHeader {
+  display: flex;
+  padding: 24px 0 0 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+
+  &:nth-child(1) {
+    width: 30%;
+
+    & img {
+      margin-right: 12px;
+      background-color: #1B1F26;
+      border-radius: 50%;
+    }
+  }
+
+
+  &:nth-child(2) {
+    width: 23%;
+  }
+
+  &:nth-child(3) {
+    width: 22%;
+  }
+
+  &:nth-child(4),
+  &:nth-child(5) {
+    width: 13%;
+  }
+
+  &:nth-child(4),
+  &:nth-child(5) {
+    justify-content: flex-end;
+  }
+
+  &Head {
+    display: block;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #667180;
+  }
+
+  &Text {
+    display: block;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+  }
+}
+
+.loader {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #FFFFFF;
+}
+
+.emailModalButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 48px;
+}
+
+.codeInput {
+  width: 420px !important;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+
+
+  & input {
+    margin: 0 10px;
+    background: transparent;
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: 4px solid #303740 !important;
+    font-family: Inter, sans-serif !important;;
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 80px !important;
+    line-height: 97px !important;
+    color: #FFFFFF !important;
+  }
+}
+
+.resendEmail {
+  background: transparent;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  color: #91F230;
+  margin: 58px auto 0;
+  display: inherit;
+}

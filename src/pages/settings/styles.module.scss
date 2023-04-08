@@ -1,0 +1,57 @@
+.label {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.text {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #667180;
+  margin: 0;
+
+  & span {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  &Link {
+    color: #ffffff;
+  }
+}
+
+.buttonEdit {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #91F230;
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.buttonStop {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #F22451;
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

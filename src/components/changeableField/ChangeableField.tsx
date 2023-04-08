@@ -8,7 +8,7 @@ interface IChangeableTitleParops {
     handleChangeTitle: (title: string) => void;
 }
 
-export const ChangeableTitle = ({title, handleChangeTitle}: IChangeableTitleParops) => {
+export const ChangeableField = ({title, handleChangeTitle}: IChangeableTitleParops) => {
     const refHead = useRef<HTMLDivElement | null>(null);
     const [text, setText] = useState<string>(title);
     const [isEdit, setEdit] = useState<boolean>(false);

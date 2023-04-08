@@ -1,13 +1,27 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {changePassword, forgotPassword, signIn, signUp} from './auth.thunk';
+import {IMetaResponse} from '../../../types';
+import {changeDisplayName, changePassword, forgotPassword, getMoreHistory, signIn, signUp} from './auth.thunk';
 
-interface IUser {
-    email: string
+export interface IHistoryActions {
+    data: string;
+    action: string;
+    IPAddress: string;
+    id: number,
+    userAgent: string;
+}
+
+export interface IUser {
+    email: string;
+    changeDataPassword: string;
+    displayName: string;
+    historyActions: IHistoryActions[];
+    meta: IMetaResponse;
 }
 
 export interface IAuthState {
     isAuth: boolean;
     loading: boolean;
+    statusConfirm: 'success' | 'rejected' | null;
     token: string | null;
     sendEmailForgotPassword: string;
     successForgot: boolean;
@@ -17,11 +31,21 @@ export interface IAuthState {
 const initialState: IAuthState = {
     isAuth: false,
     loading: false,
+    statusConfirm: null,
     token: null,
     sendEmailForgotPassword: '',
     successForgot: false,
     user: {
-        email: ''
+        email: '',
+        changeDataPassword: '',
+        displayName: '',
+        historyActions: [],
+        meta: {
+            total: 0,
+            nextPageUrl: null,
+            prevPageUrl: null,
+            isLastPage: false
+        }
     }
 };
 
@@ -35,17 +59,27 @@ const authSlice = createSlice({
         clearForgotModal: (state) => {
             state.sendEmailForgotPassword = '';
             state.successForgot = false;
+        },
+        setStatusConfirm: (state, {payload}) => {
+            state.statusConfirm = payload;
+        },
+        setUserData: (state, {payload}) => {
+            state.user.email = payload.email;
+            state.user.changeDataPassword = payload.changeDataPassword;
+            state.user.displayName = payload.displayName;
+            state.user.historyActions = payload.historyActions;
+            state.user.meta = payload.meta;
         }
     },
     extraReducers: builder => {
         builder.addCase(signUp.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(signUp.fulfilled, (state, {payload}) => {
+        builder.addCase(signUp.fulfilled, (state, action) => {
             state.loading = false;
             state.isAuth = true;
-            state.token = payload.token;
-            state.user.email = payload.email;
+            state.token = action.payload.token;
+
         });
         builder.addCase(signUp.rejected, (state) => {
             state.loading = false;
@@ -53,11 +87,11 @@ const authSlice = createSlice({
         builder.addCase(signIn.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(signIn.fulfilled, (state, {payload}) => {
+        builder.addCase(signIn.fulfilled, (state, action) => {
             state.loading = false;
             state.isAuth = true;
-            state.token = payload.token;
-            state.user.email = payload.email;
+            state.token = action.payload.token;
+            authSlice.caseReducers.setUserData(state, action);
         });
         builder.addCase(signIn.rejected, (state) => {
             state.loading = false;
@@ -76,18 +110,30 @@ const authSlice = createSlice({
         builder.addCase(changePassword.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(changePassword.fulfilled, (state, {payload}) => {
+        builder.addCase(changePassword.fulfilled, (state, action) => {
             state.loading = false;
             state.isAuth = true;
-            state.token = payload.token;
-            state.user.email = payload.email;
+            state.token = action.payload.token;
+            authSlice.caseReducers.setUserData(state, action);
         });
         builder.addCase(changePassword.rejected, (state) => {
             state.loading = false;
         });
+        builder.addCase(getMoreHistory.fulfilled, (state, {payload}) => {
+            state.user.email = payload.email;
+            state.user.changeDataPassword = payload.changeDataPassword;
+            state.user.historyActions = [...state.user.historyActions, ...payload.historyActions];
+            state.user.meta = payload.meta;
+        });
+        builder.addCase(changeDisplayName.fulfilled, (state, action) => {
+            state.loading = false;
+            state.isAuth = true;
+            state.token = action.payload.token;
+            authSlice.caseReducers.setUserData(state, action);
+        });
     }
 });
 
-export const {clearForgotModal, setAppLoader} = authSlice.actions;
+export const {clearForgotModal, setAppLoader, setStatusConfirm} = authSlice.actions;
 
 export default authSlice.reducer;
