@@ -4,8 +4,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {getMoreHistory} from '../auth/store/auth.thunk';
 import {Modal} from '../../components/modal';
 import {Close} from '../../icons';
-import {SubTitle} from '../../fields';
 import {setStatusConfirm} from '../auth/store/auth.slice';
+import {ChangePasswordForm} from '../../components/changePassword';
 import {DisplayName, EmailForm, Table} from './components';
 import styles from './styles.module.scss';
 
@@ -76,12 +76,8 @@ export const Settings = () => {
                 widthContent={'472px'}
                 backgroundColorOverlay={'rgba(13,17,20,0.57)'}
                 handleClickOverlay={() => setPasswordModal(false)}>
-                <span className={'closeIcon'} onClick={() => setPasswordModal(false)}>
-                    <Close width={'18'} height={'18'} color={'#667180'}/>
-                </span>
-                <SubTitle text={'Смена пароля'} style={{textAlign: 'center'}}/>
+                <ChangePasswordForm handleCancel={() => setPasswordModal(false)}/>
             </Modal>
-
         </MainLayout>
     );
 };

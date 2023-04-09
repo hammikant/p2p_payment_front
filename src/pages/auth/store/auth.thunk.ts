@@ -50,11 +50,18 @@ export const forgotPassword = createAsyncThunk(
 
 export const changePassword = createAsyncThunk(
     'auth/changePassword',
-    async ({password}: { password: string }, {dispatch}) => {
+    async ({password}: { password: string }, {dispatch, getState}) => {
         try {
+            const {auth} = getState() as { auth: IAuthState };
             await mockInstanceApi.onPost('/change-password', {password})
-                .reply(200, authDb({email: 'some User email'}));
-            const res = await axios.post('/change-password', {password});
+                .reply(200, authDb({email: auth.user.email}), {
+                    Authorization: `Bearer ${auth.token}`
+                });
+            const res = await axios.post('/change-password', {password}, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
             return res.data;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));

@@ -107,9 +107,6 @@ const authSlice = createSlice({
         builder.addCase(forgotPassword.rejected, (state) => {
             state.loading = false;
         });
-        builder.addCase(changePassword.pending, (state) => {
-            state.loading = true;
-        });
         builder.addCase(changePassword.fulfilled, (state, action) => {
             state.loading = false;
             state.isAuth = true;
