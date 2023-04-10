@@ -30,11 +30,12 @@
 
 .tableItem {
   display: flex;
+  padding-right: 8px;
 }
 
 .tableItemHeader {
   display: flex;
-  padding: 24px 0 0 0;
+  padding: 24px 16px 0 0;
 }
 
 .item {
