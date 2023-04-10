@@ -9,6 +9,11 @@ export interface ICard {
     status: 'Активна' | 'Не активна' | 'На паузе'
 }
 
+export interface IConnectCard {
+    cards: string,
+    id: number,
+    accountName?: string
+}
 
 export interface ICards {
     loading?: boolean;

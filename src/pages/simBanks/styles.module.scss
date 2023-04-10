@@ -1,4 +1,14 @@
 .simBankContent {
   overflow-y: auto;
   height: calc(100vh - 246px);
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background: #1B1F26;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #91F230;
+  }
 }

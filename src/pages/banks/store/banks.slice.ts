@@ -3,6 +3,7 @@ import {IBanks} from './types';
 import {
     addBank,
     authorizationBank,
+    connectCardsInBank,
     deleteBank,
     getBanks,
     getMoreBanks,
@@ -101,6 +102,15 @@ const banksSlice = createSlice({
         });
         builder.addCase(deleteBank.rejected, state => {
             state.loading = false;
+        });
+        builder.addCase(connectCardsInBank.fulfilled, (state, {payload}) => {
+
+            state.list = state.list.map(item => {
+                if (item.id === payload.id) {
+                    return {...item, ...payload};
+                }
+                return item;
+            });
         });
     }
 });

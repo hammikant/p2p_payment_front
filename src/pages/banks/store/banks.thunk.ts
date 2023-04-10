@@ -4,6 +4,7 @@ import {instanceApi, mockInstanceApi} from '../../../api';
 import {handleError, handleSuccess} from '../../../store/app.slice';
 import {banksDb} from '../../../db';
 import {BankNames} from '../../../types';
+import {IConnectCard} from '../../cards/store/types';
 import {IBank} from './types';
 
 export const addBank = createAsyncThunk(
@@ -185,6 +186,38 @@ export const getMoreBanks = createAsyncThunk(
                 }
             });
             return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
+export const connectCardsInBank = createAsyncThunk(
+    'banks/connectCardsInBank',
+    async ({cards, accountName, id}: IConnectCard, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            const data: { [key: string]: string | number } = {
+                cards,
+                id
+            };
+            if (accountName !== undefined) {
+                data[accountName] = accountName;
+            }
+            const cB = banksDb().banks.filter(i => i.id === id).pop();
+            await mockInstanceApi.onPost('/connect-card-in-bank', {...data})
+                .reply(200, {
+                    message: 'Подключено 85 карт', bank: {...cB, cards: '85шт', verification: true}
+                }, {
+                    Authorization: `Bearer ${auth.token}`
+                });
+            const res = await instanceApi.post('/connect-card-in-bank', {...data}, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            dispatch(handleSuccess(res.data));
+            return res.data.bank;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));
         }

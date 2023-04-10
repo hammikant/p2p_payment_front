@@ -28,7 +28,7 @@ export const BankCards = ({items, handleFetchMore, hasMore}: IBankCardsProps) =>
                 hasMore={hasMore}
                 loader={<p className={styles.loader}>loading ...</p>}
                 height={heightTable}
-                className={styles.infinityContainer}
+                className={'infinityContainer infinityContainerFlex'}
             >
                 {items.map(item => <BankCard key={item.id} item={item}/>)}
             </InfiniteScroll>

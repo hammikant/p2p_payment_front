@@ -38,6 +38,14 @@
   font-size: 16px;
   line-height: 26px;
   color: #FFFFFF;
+
+  &-green {
+    color: #91F230;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .closeIcon {
@@ -50,3 +58,23 @@
   }
 }
 
+.infinityContainer {
+  min-width: 1170px;
+  padding-right: 5px;
+
+  &Flex {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100vw - 320px);
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    background: #1B1F26;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #91F230;
+  }
+}

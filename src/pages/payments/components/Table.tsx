@@ -33,6 +33,7 @@ export const Table = ({items, fetchMoreData, hasMore}: ITableProps) => {
                 hasMore={hasMore}
                 loader={<p className={styles.loader}>loading ...</p>}
                 height={heightTable - 50}
+                className={'infinityContainer'}
             >
                 {items.map((item) => <TableItem key={item.id} item={item}/>)}
             </InfiniteScroll> : null}

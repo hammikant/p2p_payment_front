@@ -6,9 +6,8 @@
 
 .tableItem {
   display: flex;
-  border-radius: 12px;
   position: relative;
-  width: calc(100% + 32px);
+  width: calc(100% + 16px);
   margin-left: -16px;
   padding: 18px;
 
@@ -20,7 +19,7 @@
 
 .tableItemHeader {
   display: flex;
-  padding: 24px 0;
+  padding: 24px 32px 24px 0;
 }
 
 .item {

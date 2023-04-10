@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
+import {useLocation} from 'react-router-dom';
 import {MainLayout} from '../../layouts';
 import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {IOption} from '../../types';
@@ -11,8 +12,7 @@ import {Close} from '../../icons';
 import {TabsButtons} from '../../components/tabsButtons';
 import styles from './styles.module.scss';
 import {SearchByCardNumber, Table} from './components';
-import {connectCards, getCards, getMoreCards, StatusCard} from './store/cards.thunk';
-import {ICard} from './store/types';
+import {connectCards, getCards, getCardsById, getMoreCards, StatusCard} from './store/cards.thunk';
 
 const buttons: IOption[] = [
     {label: 'Все', value: 'all'},
@@ -26,13 +26,13 @@ const schema = yup.object({
 });
 
 export const Cards = () => {
+    const location = useLocation();
     const dispatch = useAppDispatch();
     const {
         cards,
         meta
     } = useAppSelector(state => state.cards);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
-    const [showCards, setShowCards] = useState<ICard[]>([]);
     const [connectModal, setConnectModal] = useState<boolean>(false);
 
     const {control, register, handleSubmit, reset, formState: {errors}} = useForm({
@@ -40,7 +40,11 @@ export const Cards = () => {
     });
 
     useEffect(() => {
-        dispatch(getCards({status: currentTab.value === 'all' ? null : currentTab.value as StatusCard}));
+        if (location.state?.id) {
+            dispatch(getCardsById({id: location.state?.id}));
+        } else {
+            dispatch(getCards({status: currentTab.value === 'all' ? null : currentTab.value as StatusCard}));
+        }
     }, []);
 
 
@@ -50,7 +54,7 @@ export const Cards = () => {
     };
 
     const submitCards = handleSubmit(values => {
-        dispatch(connectCards({cards: values.cards}));
+        dispatch(connectCards({cards: values.cards, id: 1}));
         reset();
         setConnectModal(false);
     });

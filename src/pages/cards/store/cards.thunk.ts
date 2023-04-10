@@ -1,9 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {instanceApi, mockInstanceApi} from '../../../api';
 import {IAuthState} from '../../auth/store/auth.slice';
-import {cardsDb} from '../../../db';
+import {banksDb, cardsDb} from '../../../db';
 import {handleError, handleSuccess} from '../../../store/app.slice';
 import {BankNames} from '../../../types';
+import {IConnectCard} from './types';
 
 export const enum StatusCard {
     frozen = 'Активна',
@@ -53,20 +54,32 @@ export const getMoreCards = createAsyncThunk(
 
 export const connectCards = createAsyncThunk(
     'cards/connectCards',
-    async ({cards}: { cards: string }, {dispatch, getState}) => {
+    async ({cards, accountName, id}: IConnectCard, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onPost('/connect-card', {cards})
-                .reply(200, {message: 'Подключено 85 карт'}, {
+            const data: { [key: string]: string | number } = {
+                cards,
+                id
+            };
+            if (accountName !== undefined) {
+                data[accountName] = accountName;
+            }
+            const cB = banksDb().banks.filter(i => i.id === id);
+            await mockInstanceApi.onPost('/connect-card', {...data})
+                .reply(200, {
+                    message: 'Подключено 85 карт'
+                }, {
                     Authorization: `Bearer ${auth.token}`
                 });
-            const res = await instanceApi.post('/connect-card', {cards}, {
+            const res = await instanceApi.post('/connect-card', {...data}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
             });
             dispatch(handleSuccess(res.data));
             dispatch(getCards({status: null}));
+
+            return res.data;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));
         }
@@ -129,6 +142,36 @@ export const searchByCardNumber = createAsyncThunk(
                     Authorization: `Bearer ${auth.token}`
                 });
             const res = await instanceApi.post('/search-by-card-number', {cardNum}, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
+export const getCardsById = createAsyncThunk(
+    'cards/getCardsById',
+    async ({id}: { id: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onGet(`/get-cards-by-id-bank?id=${id}`).reply(200,
+                {
+                    cards: [{
+                        bankName: BankNames.sber,
+                        num: '4001 9192 5753 7193',
+                        data: '20 мар. 2023, 15:48',
+                        id: 2,
+                        bank: 'Не подключён',
+                        status: 'Не активна'
+                    }],
+                }, {
+                    Authorization: `Bearer ${auth.token}`
+                });
+            const res = await instanceApi.get(`/get-cards-by-id-bank?id=${id}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

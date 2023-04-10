@@ -132,14 +132,8 @@
   display: flex;
   border-radius: 12px;
   position: relative;
-  width: calc(100% + 32px);
-  margin-left: -16px;
-  padding: 18px;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #1B1F26;
-  }
+  width: 100%;
+  padding: 18px 0;
 }
 
 .tableItemHeader {
