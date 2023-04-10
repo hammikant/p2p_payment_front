@@ -37,7 +37,7 @@ export const Calculator = ({exchangeRates, handleCalculation}: ICalculatorProps)
             </div>
             <span
                 className={styles.calculatorResult}>
-                Доход: {(Number(sum) * exchangeRates / 100 * 1.5).toFixed(2)} ₽
+                Доход: {(Number(sum) * 0.015).toFixed(2)} ₽
             </span>
         </div>
     );
