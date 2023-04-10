@@ -30,16 +30,24 @@ const colorsStatus: { [key: string]: string } = {
     'Не активна': '#F22451',
 };
 
+
 export const TableItem = ({item}: { item: ICard }) => {
     const dispatch = useAppDispatch();
     const [isHover, setHover] = useState<boolean>(false);
 
-    const handlePause = () => {
-        dispatch(changeStatusCard({id: item.id.toString(), status: 'pause'}));
+    const handlePause = () => { //'Активна' | 'Не активна' | 'На паузе'
+        dispatch(changeStatusCard({id: item.id.toString(), status: 'На паузе'}));
     };
+
+    const handlePlay = () => {
+        dispatch(changeStatusCard({id: item.id.toString(), status: 'Активна'}));
+    };
+
     const handleStop = () => {
-        dispatch(changeStatusCard({id: item.id.toString(), status: 'inactive'}));
+        dispatch(changeStatusCard({id: item.id.toString(), status: 'Не активна'}));
     };
+
+
     return (
         <div
             className={styles.tableItem}
@@ -62,7 +70,11 @@ export const TableItem = ({item}: { item: ICard }) => {
             </div>
             <div className={styles.item}>
                 {isHover
-                    ? <SwitchStatusCard handlePause={handlePause} handleStop={handleStop}/>
+                    ? <SwitchStatusCard
+                        status={item.status}
+                        handlePause={handlePause}
+                        handlePlay={handlePlay}
+                        handleStop={handleStop}/>
                     : (<span className={styles.itemText}
                              style={{color: colorsStatus[item.status as string]}}>{item.status}</span>)}
             </div>

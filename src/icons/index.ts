@@ -25,8 +25,10 @@ import {Checked} from './Checked';
 import {Unchecked} from './Unchecked';
 import {Back} from './Back';
 import {Calendar} from './Calendar';
+import {Play} from './Play';
 
 export {
+    Play,
     Calendar,
     Back,
     Checked,

@@ -86,9 +86,15 @@ export const connectCards = createAsyncThunk(
     }
 );
 
+const statusList: { [key: string]: string } = {
+    pause: 'На паузе',
+    inactive: 'Не активна',
+    play: 'Активна',
+};
+
 export const changeStatusCard = createAsyncThunk(
     'cards/changeStatusCard',
-    async ({id, status}: { id: string, status: 'pause' | 'inactive' }, {dispatch, getState}) => {
+    async ({id, status}: { id: string, status: 'Активна' | 'Не активна' | 'На паузе' }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
             await mockInstanceApi.onPost('/change-status-card', {
@@ -102,9 +108,9 @@ export const changeStatusCard = createAsyncThunk(
                         data: '20 мар. 2023, 15:48',
                         id: id,
                         bank: 'Не подключён',
-                        status: status === 'pause' ? 'На паузе' : 'Не активна'
+                        status: status
                     },
-                    message: `Статус карты ID ${id} изменен на ${status === 'pause' ? 'На паузе' : 'Не активна'}`
+                    message: `Статус карты ID ${id} изменен на ${status}`
                 }, {
                     Authorization: `Bearer ${auth.token}`
                 });

@@ -22,6 +22,8 @@ export interface ICards {
 }
 
 export interface ISwitchCardStatusProps {
+    status: 'Активна' | 'Не активна' | 'На паузе'
     handlePause: () => void;
     handleStop: () => void;
+    handlePlay: () => void;
 }
