@@ -129,8 +129,11 @@ export const Banks = () => {
                             handleSwitch={checked => setValue('acceptingPayments', checked)}
                         />
                     </SwitchersRow>
-                    <Button variant={'full'} text={'Подключить'} style={{width: '182px', marginTop: '48px'}}
-                            type={'submit'}/>
+                    <Button
+                        variant={'full'}
+                        text={'Подключить'}
+                        style={{width: '182px', marginTop: '48px'}}
+                        type={'submit'}/>
                 </form>
             </Modal>
         </MainLayout>

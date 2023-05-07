@@ -3,6 +3,7 @@ import axios from 'axios';
 import {instanceApi, mockInstanceApi} from '../../../api';
 import {authDb} from '../../../db';
 import {handleError} from '../../../store/app.slice';
+import {ROLE} from '../../../utils/constants';
 import {ISignInRequest, ISignUpRequest} from './types';
 import {IAuthState, setStatusConfirm} from './auth.slice';
 
@@ -11,7 +12,7 @@ export const signUp = createAsyncThunk(
     async ({login, code, password}: ISignUpRequest, {dispatch}) => {
         try {
             await mockInstanceApi.onPost('/registration', {login, code, password})
-                .reply(200, authDb({email: login}));
+                .reply(200, authDb({email: login, role: 'merchant'}));
             const res = await axios.post('/registration', {login, code, password});
             return res.data;
         } catch (e: any) {
@@ -25,7 +26,7 @@ export const signIn = createAsyncThunk(
     async ({login, password}: ISignInRequest, {dispatch}) => {
         try {
             await mockInstanceApi.onPost('/login', {login, password})
-                .reply(200, authDb({email: login}));
+                .reply(200, authDb({email: login, role: ROLE}));
             const res = await axios.post('/login', {login, password});
             return res.data;
         } catch (e: any) {
@@ -54,7 +55,7 @@ export const changePassword = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
             await mockInstanceApi.onPost('/change-password', {password})
-                .reply(200, authDb({email: auth.user.email}), {
+                .reply(200, authDb({email: auth.user.email, role: ROLE}), {
                     Authorization: `Bearer ${auth.token}`
                 });
             const res = await axios.post('/change-password', {password}, {
@@ -74,12 +75,14 @@ export const changeDisplayName = createAsyncThunk(
     async ({displayName}: { displayName: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onPost('/change-displayname', {displayName}).reply(200, authDb({
-                email: auth.user.email,
-                displayName
-            }), {
-                Authorization: `Bearer ${auth.token}`
-            });
+            await mockInstanceApi.onPost('/change-displayname', {displayName})
+                .reply(200, authDb({
+                    email: auth.user.email,
+                    displayName,
+                    role: ROLE
+                }), {
+                    Authorization: `Bearer ${auth.token}`
+                });
             const res = await instanceApi.post('/change-displayname', {displayName}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -126,26 +129,6 @@ export const confirmEmail = createAsyncThunk(
                 }
             });
             dispatch(setStatusConfirm(res.data.status));
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
-    }
-);
-
-export const getMoreHistory = createAsyncThunk(
-    'auth/getMoreHistory',
-    async ({url}: { url: string }, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onGet(url).reply(200, authDb({email: auth.user.email}), {
-                Authorization: `Bearer ${auth.token}`
-            });
-            const res = await instanceApi.get(url, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
             return res.data;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));

@@ -3,13 +3,12 @@ import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {BankNames} from '../../../types';
-import {Button, InputField, TextareaField} from '../../../fields';
+import {Button, TextareaField} from '../../../fields';
 import {useAppDispatch} from '../../../hooks/app';
 import {IConnectCard} from '../../cards/store/types';
 import {connectCardsInBank} from '../store/banks.thunk';
 
 const schema = yup.object({
-    accountNumber: yup.string().required('Поле не может быть пустым'),
     cards: yup.string().required('Поле не может быть пустым')
 });
 
@@ -30,24 +29,13 @@ export const AddCardsForm = ({bankName, handleClose, id}: IAddCardsFormProps) =>
     });
 
     const submit = handleSubmit(values => {
-        dispatch(connectCardsInBank({...values, id} as IConnectCard));
+        const cards = values.cards.split(',').map((s: string) => s.replace(' ', ''));
+        dispatch(connectCardsInBank({cards, id} as IConnectCard));
         handleClose();
     });
 
     return (
         <>
-            {bankName !== BankNames.sber
-                ? (
-                    <InputField
-                        label={'Счет'}
-                        control={control}
-                        register={register}
-                        fieldName={'accountNumber'}
-                        errors={errors}
-                        backgroundLight={false}
-                    />
-                ) : null}
-            <div className={'space-top-24'}/>
             <TextareaField
                 control={control}
                 register={register}

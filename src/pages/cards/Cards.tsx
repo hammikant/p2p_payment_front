@@ -90,7 +90,7 @@ export const Cards = () => {
                         запятую,
                         пробел или перенос строки. Можно добавить до 100 карт одновременно.</p>
 
-                    <TextareaField
+                    <TextareaField //@todo разделить по запятым на массив
                         control={control}
                         register={register}
                         fieldName={'cards'}

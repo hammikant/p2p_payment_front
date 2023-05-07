@@ -28,7 +28,14 @@ const initialState: IAppState = {
             trend: 'up'
         },
         bankNames: [],
-        simBanksCellPhones: []
+        simBanksCellPhones: [],
+        meta: {
+            total: 0,
+            nextPageUrl: '/get-history-actions?page=2',
+            prevPageUrl: '/get-history-actions?page=1',
+            isLastPage: false
+        },
+        historyActions: []
     }
 };
 
@@ -37,9 +44,10 @@ export const getCommonData = createAsyncThunk(
     async (_, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onGet('/get-common-date').reply(200, commonDb(), {
-                Authorization: `Bearer ${auth.token}`
-            });
+            await mockInstanceApi.onGet('/get-common-date')
+                .reply(200, commonDb(), {
+                    Authorization: `Bearer ${auth.token}`
+                });
             const res = await instanceApi.get('/get-common-date', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -49,6 +57,29 @@ export const getCommonData = createAsyncThunk(
             return res.data;
         } catch (e) {
 
+        }
+    }
+);
+
+export const getMoreHistory = createAsyncThunk(
+    'app/getMoreHistory',
+    async ({url}: { url: string }, {dispatch, getState}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            await mockInstanceApi.onGet(url)
+                .reply(200,
+                    commonDb(),
+                    {
+                        Authorization: `Bearer ${auth.token}`
+                    });
+            const res = await instanceApi.get(url, {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e: any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
         }
     }
 );
@@ -81,10 +112,24 @@ const appSlice = createSlice({
             state.commonData.exchangeRates = payload.exchangeRates;
             state.commonData.bankNames = payload.bankNames;
             state.commonData.simBanksCellPhones = payload.simBanksCellPhones;
+            state.commonData.meta = payload.meta;
+            state.commonData.historyActions = payload.historyActions;
         });
         builder.addCase(getCommonData.rejected, (state) => {
             state.loading = true;
         });
+        builder.addCase(getMoreHistory.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(getMoreHistory.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.commonData.meta = payload.meta;
+            state.commonData.historyActions = payload.historyActions;
+        });
+        builder.addCase(getMoreHistory.rejected, (state) => {
+            state.loading = true;
+        });
+
     }
 });
 

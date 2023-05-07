@@ -1,48 +1,14 @@
-export const authDb = ({email, displayName = ''}: { email: string, displayName?: string }) => {
+export const authDb = (
+    {
+        email,
+        displayName = '',
+        role
+    }: { email: string, displayName?: string, role: 'trader' | 'merchant' }) => {
     return {
         token: '23jk4h24h2kh5g2h345g2h35gk23452khg52kh5gk345gkj42hg2k',
         email: email,
         displayName: displayName,
         changeDataPassword: '20 мар. 2023, 15:48',
-        meta: {
-            total: 0,
-            nextPageUrl: '/get-history-actions?page=2',
-            prevPageUrl: '/get-history-actions?page=1',
-            isLastPage: false
-        },
-        historyActions: [
-            {
-                data: '20 мар. 2023, 15:48',
-                action: 'Смена пароля',
-                IPAddress: '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
-                id: 1,
-                userAgent: 'Chrome/111.0.0.0 (Mac)',
-            }, {
-                data: '20 мар. 2023, 15:48',
-                action: 'Смена пароля',
-                IPAddress: '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
-                id: 2,
-                userAgent: 'Chrome/111.0.0.0 (Mac)',
-            }, {
-                data: '20 мар. 2023, 15:48',
-                action: 'Смена пароля',
-                IPAddress: '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
-                id: 3,
-                userAgent: 'Chrome/111.0.0.0 (Mac)',
-            }, {
-                data: '20 мар. 2023, 15:48',
-                action: 'Смена пароля',
-                IPAddress: '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
-                id: 4,
-                userAgent: 'Chrome/111.0.0.0 (Mac)',
-            }, {
-                data: '20 мар. 2023, 15:48',
-                action: 'Смена пароля',
-                IPAddress: '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
-                id: 5,
-                userAgent: 'Chrome/111.0.0.0 (Mac)',
-            },
-        ]
+        role
     };
-
 };

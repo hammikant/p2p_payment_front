@@ -7,6 +7,18 @@ interface IItem {
     icon: (isActive: boolean) => ReactNode;
 }
 
+export const configMerchant: IItem[] = [
+    {
+        path: '/',
+        name: 'Платежи',
+        icon: (isActive) => <ArrowLeftRight color={isActive ? '#0D1114' : '#667180'}/>
+    }, {
+        path: '/stats',
+        name: 'Статистика',
+        icon: (isActive) => <Stat color={isActive ? '#0D1114' : '#667180'}/>
+    },
+];
+
 export const config: IItem[] = [
     {
         path: '/',

@@ -12,7 +12,6 @@ export interface ICard {
 export interface IConnectCard {
     cards: string,
     id: number,
-    accountName?: string
 }
 
 export interface ICards {

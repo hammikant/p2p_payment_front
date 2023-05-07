@@ -10,3 +10,6 @@ export const viewBankNames: { [key: string]: string } = {
     [BankNames.tinkoff]: 'Tinkoff',
     [BankNames.sber]: 'Сбербанк',
 };
+
+//export const ROLE = 'merchant';
+export const ROLE = 'trader';

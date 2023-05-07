@@ -1,3 +1,5 @@
+import {IHistoryActions} from './pages/auth/store/auth.slice';
+
 export interface IError {
     message: string;
     errors: {};
@@ -82,4 +84,6 @@ export interface ICommonData {
     exchangeRates: IExchangeRates;
     bankNames: IOption[];
     simBanksCellPhones: IOption[];
+    meta: IMetaResponse,
+    historyActions: IHistoryActions[]
 }

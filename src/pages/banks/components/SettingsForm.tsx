@@ -141,7 +141,11 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                 <div className={'space-top-32'}/>
                 <p className={'text-16'}>Чтобы добавить несколько карт, вставьте их списком через запятую, пробел или
                     перенос строки. Можно добавить до 100 карт одновременно.</p>
-                <AddCardsForm id={item.id} bankName={item.bankName} handleClose={() => setAddedCard(false)}/>
+                <AddCardsForm
+                    id={item.id}
+                    bankName={item.bankName}
+                    handleClose={() => setAddedCard(false)}
+                />
             </Modal>
         </>
     );

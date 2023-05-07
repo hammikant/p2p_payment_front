@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {IMetaResponse} from '../../../types';
-import {changeDisplayName, changePassword, forgotPassword, getMoreHistory, signIn, signUp} from './auth.thunk';
+import {changeDisplayName, changePassword, forgotPassword, signIn, signUp} from './auth.thunk';
 
 export interface IHistoryActions {
     data: string;
@@ -14,24 +14,27 @@ export interface IUser {
     email: string;
     changeDataPassword: string;
     displayName: string;
-    historyActions: IHistoryActions[];
-    meta: IMetaResponse;
+    role: 'trader' | 'merchant';
 }
 
 export interface IAuthState {
     isAuth: boolean;
     loading: boolean;
+    role: 'trader' | 'merchant';
     statusConfirm: 'success' | 'rejected' | null;
     token: string | null;
     sendEmailForgotPassword: string;
     successForgot: boolean;
-    user: IUser
+    user: IUser;
+    historyActions: IHistoryActions[];
+    meta: IMetaResponse;
 }
 
 const initialState: IAuthState = {
     isAuth: false,
     loading: false,
     statusConfirm: null,
+    role: 'trader',
     token: null,
     sendEmailForgotPassword: '',
     successForgot: false,
@@ -39,13 +42,14 @@ const initialState: IAuthState = {
         email: '',
         changeDataPassword: '',
         displayName: '',
-        historyActions: [],
-        meta: {
-            total: 0,
-            nextPageUrl: null,
-            prevPageUrl: null,
-            isLastPage: false
-        }
+        role: 'trader',
+    },
+    historyActions: [],
+    meta: {
+        total: 0,
+        nextPageUrl: null,
+        prevPageUrl: null,
+        isLastPage: false
     }
 };
 
@@ -67,8 +71,9 @@ const authSlice = createSlice({
             state.user.email = payload.email;
             state.user.changeDataPassword = payload.changeDataPassword;
             state.user.displayName = payload.displayName;
-            state.user.historyActions = payload.historyActions;
-            state.user.meta = payload.meta;
+            state.user.role = payload.role;
+            state.meta = payload.meta;
+            state.historyActions = payload.historyActions;
         }
     },
     extraReducers: builder => {
@@ -90,6 +95,7 @@ const authSlice = createSlice({
         builder.addCase(signIn.fulfilled, (state, action) => {
             state.loading = false;
             state.isAuth = true;
+            state.role = action.payload.role;
             state.token = action.payload.token;
             authSlice.caseReducers.setUserData(state, action);
         });
@@ -115,12 +121,6 @@ const authSlice = createSlice({
         });
         builder.addCase(changePassword.rejected, (state) => {
             state.loading = false;
-        });
-        builder.addCase(getMoreHistory.fulfilled, (state, {payload}) => {
-            state.user.email = payload.email;
-            state.user.changeDataPassword = payload.changeDataPassword;
-            state.user.historyActions = [...state.user.historyActions, ...payload.historyActions];
-            state.user.meta = payload.meta;
         });
         builder.addCase(changeDisplayName.fulfilled, (state, action) => {
             state.loading = false;

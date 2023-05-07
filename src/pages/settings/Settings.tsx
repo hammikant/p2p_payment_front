@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {MainLayout} from '../../layouts';
 import {useAppDispatch, useAppSelector} from '../../hooks/app';
-import {getMoreHistory} from '../auth/store/auth.thunk';
 import {Modal} from '../../components/modal';
 import {Close} from '../../icons';
 import {setStatusConfirm} from '../auth/store/auth.slice';
 import {ChangePasswordForm} from '../../components/changePassword';
+import {getMoreHistory} from '../../store/app.slice';
 import {DisplayName, EmailForm, Table} from './components';
 import styles from './styles.module.scss';
 
 export const Settings = () => {
     const dispatch = useAppDispatch();
     const {user, statusConfirm} = useAppSelector(state => state.auth);
+    const {meta, historyActions} = useAppSelector(state => state.app.commonData);
     const [emailModal, setEmailModal] = useState<boolean>(false);
     const [passwordModal, setPasswordModal] = useState<boolean>(false);
 
@@ -24,7 +25,7 @@ export const Settings = () => {
 
     const fetchMoreData = () => {
         dispatch(getMoreHistory({
-            url: user.meta.nextPageUrl
+            url: meta.nextPageUrl
         }));
     };
 
@@ -58,7 +59,7 @@ export const Settings = () => {
             <span className={styles.buttonEdit}>Отключить</span>
             <div className={styles.row}>
                 <div className={styles.col}>
-                    <Table items={user.historyActions} fetchMoreData={fetchMoreData} hasMore={!user.meta.isLastPage}/>
+                    <Table items={historyActions} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>
                 </div>
             </div>
             <Modal

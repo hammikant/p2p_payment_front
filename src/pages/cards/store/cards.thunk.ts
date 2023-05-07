@@ -54,16 +54,16 @@ export const getMoreCards = createAsyncThunk(
 
 export const connectCards = createAsyncThunk(
     'cards/connectCards',
-    async ({cards, accountName, id}: IConnectCard, {dispatch, getState}) => {
+    async ({cards, id}: IConnectCard, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
             const data: { [key: string]: string | number } = {
                 cards,
                 id
             };
-            if (accountName !== undefined) {
-                data[accountName] = accountName;
-            }
+            // if (accountName !== undefined) {
+            //     data[accountName] = accountName;
+            // }
             const cB = banksDb().banks.filter(i => i.id === id);
             await mockInstanceApi.onPost('/connect-card', {...data})
                 .reply(200, {
