@@ -9,7 +9,7 @@ export const TableItem = ({item}: { item: IDeposit }) => {
                 <span className={styles.itemText}>{item.wallet}</span>
             </div>
             <div className={styles.item}>
-                <span className={styles.itemText}>{item.data}</span>
+                <span className={styles.itemText}>{item.date}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.id}</span>

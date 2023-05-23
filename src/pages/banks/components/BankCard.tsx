@@ -1,33 +1,15 @@
 import React, {useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
 import {IBank} from '../store/types';
-import gazprom from '../../../assets/images/gazprom.png';
-import raiffeisen from '../../../assets/images/raiffeisen.png';
-import akbars from '../../../assets/images/akbars.png';
-import vtb from '../../../assets/images/vtb.png';
-import tinkoff from '../../../assets/images/tinkoff.png';
-import alfa from '../../../assets/images/alfa.png';
-import sber from '../../../assets/images/sber.png';
-import sbp from '../../../assets/images/sbp.png';
 import {Modal} from '../../../components/modal';
 import {Close} from '../../../icons';
 import {viewBankNames} from '../../../utils';
 import {useAppDispatch} from '../../../hooks/app';
 import {authorizationBank} from '../store/banks.thunk';
+import {icons} from '../../../utils/constants';
 import styles from './styles.module.scss';
 import {SettingsForm} from './SettingsForm';
 import {AuthorizationBank} from './AuthorizationBank';
-
-const icons: { [key: string]: string } = {
-    'Газпром': gazprom,
-    'Райфайзен': raiffeisen,
-    'Акбарс': akbars,
-    'ВТБ': vtb,
-    'Тинькофф': tinkoff,
-    'Альфа': alfa,
-    'Сбербанк': sber,
-    'Спб': sbp
-};
 
 
 interface IBankCardProps {

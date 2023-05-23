@@ -7,7 +7,7 @@ export interface ICalculatorProps {
 
 export interface IDeposit {
     wallet: string;
-    data: string;
+    date: string;
     id: number;
     sumUSDT: string;
 }

@@ -36,9 +36,8 @@ export const Payments = () => {
     } = useAppSelector(state => state.payments);
     const {
         balance,
-        balanceUs,
         incomeToday,
-        incomeTodayUs,
+        exchangeRates
     } = useAppSelector(state => state.app.commonData);
     const [listOptions, setListOptions] = useState<IOption[]>([]);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
@@ -72,7 +71,8 @@ export const Payments = () => {
             status: currentTab.value === 'all' ? null : currentTab.value as StatusCardPayments
         }));
     };
-
+    const balanceUs = balance > 0 ? Math.round(balance * exchangeRates.sellingRate) : balance;
+    const incomeTodayUs = incomeToday > 0 ? Math.round(incomeToday * exchangeRates.sellingRate) : incomeToday;
     return (
         <MainLayout titlePage={'Платежи'} descriptionPage={'Контролируйте выплаты на ваши реквизиты'}>
             <div className={styles.row}>

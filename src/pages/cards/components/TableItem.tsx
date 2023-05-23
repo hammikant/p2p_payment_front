@@ -1,28 +1,11 @@
 import React, {useState} from 'react';
 import {ICard} from '../store/types';
-import gazprom from '../../../assets/images/gazprom.png';
-import raiffeisen from '../../../assets/images/raiffeisen.png';
-import akbars from '../../../assets/images/akbars.png';
-import vtb from '../../../assets/images/vtb.png';
-import tinkoff from '../../../assets/images/tinkoff.png';
-import alfa from '../../../assets/images/alfa.png';
-import sber from '../../../assets/images/sber.png';
-import sbp from '../../../assets/images/sbp.png';
 import {useAppDispatch} from '../../../hooks/app';
 import {changeStatusCard} from '../store/cards.thunk';
+import {icons} from '../../../utils/constants';
 import styles from './styles.module.scss';
 import {SwitchStatusCard} from './SwitchStatusCard';
 
-const icons: { [key: string]: string } = {
-    gazprom,
-    raiffeisen,
-    akbars,
-    vtb,
-    tinkoff,
-    alfa,
-    sber,
-    sbp
-};
 
 const colorsStatus: { [key: string]: string } = {
     'Активна': '#91F230',
@@ -47,7 +30,6 @@ export const TableItem = ({item}: { item: ICard }) => {
         dispatch(changeStatusCard({id: item.id.toString(), status: 'Не активна'}));
     };
 
-
     return (
         <div
             className={styles.tableItem}
@@ -59,14 +41,14 @@ export const TableItem = ({item}: { item: ICard }) => {
                 <span className={styles.itemText}>{item.num}</span>
             </div>
             <div className={styles.item}>
-                <span className={styles.itemText}>{item.data}</span>
+                <span className={styles.itemText}>{item.date}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.id}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}
-                      style={{color: item.bank === 'Не подключён' ? '#667180' : '#ffffff'}}>{item.bank}</span>
+                      style={{color: item.bank === 'Не подключён' ? '#667180' : '#ffffff'}}>{item.bankName}</span>
             </div>
             <div className={styles.item}>
                 {isHover
