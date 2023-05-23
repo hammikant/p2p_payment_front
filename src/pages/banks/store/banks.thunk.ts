@@ -1,9 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {IAuthState} from '../../auth/store/auth.slice';
-import {instanceApi, mockInstanceApi} from '../../../api';
+import {instanceApi} from '../../../api';
 import {handleError, handleSuccess} from '../../../store/app.slice';
-import {banksDb} from '../../../db';
-import {BankNames} from '../../../types';
 import {IConnectCard} from '../../cards/store/types';
 import {IBank} from './types';
 
@@ -12,15 +10,6 @@ export const addBank = createAsyncThunk(
     async ({bank}: { bank: IBank }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            // added mock data
-            const objRequest = {...bank, verificationData: {cellPhone: '+7 987 654 32 10', comment: '6549'}};
-            await mockInstanceApi.onPost('/add-bank',
-                {bank})
-                .reply(200,
-                    {message: 'Успешно добавлен банк', bank: objRequest},
-                    {
-                        Authorization: `Bearer ${auth.token}`
-                    });
             const res = await instanceApi.post('/add-bank', {bank}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -36,20 +25,16 @@ export const addBank = createAsyncThunk(
 
 export const getBanks = createAsyncThunk(
     'banks/getBanks',
-    async ({status}: { status: string }, {dispatch, getState}) => {
+    async (_, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onPost('/get-bank', {status})
-                .reply(200,
-                    banksDb(),
-                    {
-                        Authorization: `Bearer ${auth.token}`
-                    });
-            const res = await instanceApi.post('/get-bank', {status}, {
+
+            const res = await instanceApi.get('/get-banks', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
             });
+
             return res.data;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));
@@ -67,12 +52,7 @@ export const authorizationBank = createAsyncThunk(
     async ({id, item}: IAuthorizationBankRequest, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onPost('/authorization-bank', {id})
-                .reply(200,
-                    {...item, verification: true, verificationData: null},
-                    {
-                        Authorization: `Bearer ${auth.token}`
-                    });
+
             const res = await instanceApi.post('/authorization-bank', {id}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -90,18 +70,14 @@ export const updateBank = createAsyncThunk(
     async ({bank}: { bank: IBank }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onPut('/update-bank', {bank})
-                .reply(200,
-                    {bank},
-                    {
-                        Authorization: `Bearer ${auth.token}`
-                    });
-            const res = await instanceApi.put('/update-bank', {bank}, {
+
+            const res = await instanceApi.put(`/bank/${bank.id}`, {...bank}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
             });
-            return res.data.bank;
+
+            return res.data;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));
         }
@@ -113,12 +89,7 @@ export const deleteBank = createAsyncThunk(
     async ({id}: { id: number }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onDelete(`/delete-bank?id=${id}`)
-                .reply(200,
-                    {message: `Успешно удален банк ID ${id}`},
-                    {
-                        Authorization: `Bearer ${auth.token}`
-                    });
+
             const res = await instanceApi.delete(`/delete-bank?id=${id}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -137,26 +108,7 @@ export const searchByPhoneLogin = createAsyncThunk(
     async ({cellPhone, bankName}: { cellPhone: string, bankName: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onPost('/search-by-phone-login', {
-                bankName,
-                cellPhone
-            }).reply(200,
-                {
-                    banks: [{
-                        id: 10,
-                        name: 'Название макс 25 символов',
-                        bankName: BankNames.sbp,
-                        cards: '80шт',
-                        verification: true,
-                        spb: true,
-                        acceptingPayments: false,
-                        create_as: '20 мар. 2023',
-                        verificationData: null,
-                        simBankCellPhone: '+7 987 654 32 10'
-                    }],
-                }, {
-                    Authorization: `Bearer ${auth.token}`
-                });
+
             const res = await instanceApi.post('/search-by-phone-login', {
                 bankName,
                 cellPhone
@@ -177,9 +129,7 @@ export const getMoreBanks = createAsyncThunk(
     async ({url, status}: { url: string, status: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await mockInstanceApi.onGet(url).reply(200, banksDb(), {
-                Authorization: `Bearer ${auth.token}`
-            });
+
             const res = await instanceApi.get(url, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
@@ -201,16 +151,6 @@ export const connectCardsInBank = createAsyncThunk(
                 cards,
                 id
             };
-            // if (accountName !== undefined) {
-            //     data[accountName] = accountName;
-            // }
-            const cB = banksDb().banks.filter(i => i.id === id).pop();
-            await mockInstanceApi.onPost('/connect-card-in-bank', {...data})
-                .reply(200, {
-                    message: 'Подключено 85 карт', bank: {...cB, cards: '85шт', verification: true}
-                }, {
-                    Authorization: `Bearer ${auth.token}`
-                });
             const res = await instanceApi.post('/connect-card-in-bank', {...data}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`

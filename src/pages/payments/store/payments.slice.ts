@@ -33,7 +33,6 @@ const paymentsSlice = createSlice({
         });
         builder.addCase(getPayments.fulfilled, (state, {payload}) => {
             state.cards = payload.cards;
-            state.commonData = payload.commonData;
             state.meta = payload.meta;
         });
         builder.addCase(getPayments.rejected, (state) => {

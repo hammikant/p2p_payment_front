@@ -19,14 +19,14 @@ import {SettingsForm} from './SettingsForm';
 import {AuthorizationBank} from './AuthorizationBank';
 
 const icons: { [key: string]: string } = {
-    gazprom,
-    raiffeisen,
-    akbars,
-    vtb,
-    tinkoff,
-    alfa,
-    sber,
-    sbp
+    'Газпром': gazprom,
+    'Райфайзен': raiffeisen,
+    'Акбарс': akbars,
+    'ВТБ': vtb,
+    'Тинькофф': tinkoff,
+    'Альфа': alfa,
+    'Сбербанк': sber,
+    'Спб': sbp
 };
 
 
@@ -69,14 +69,14 @@ export const BankCard = ({item}: IBankCardProps) => {
                     </li>
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>СБП:</span>
-                        <span className={styles.bankCardListText}>{item.spb ? 'включён' : 'отключён'}</span>
+                        <span className={styles.bankCardListText}>{item.sbp ? 'включён' : 'отключён'}</span>
                     </li>
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>Платежи:</span>
                         <span
                             className={styles.bankCardListText}
-                            style={{color: item.acceptingPayments ? '#91F230' : '#F22451'}}
-                        >{item.acceptingPayments ? 'прием активен' : 'прием на паузе'}</span>
+                            style={{color: item.isAcceptingPayments ? '#91F230' : '#F22451'}}
+                        >{item.isAcceptingPayments ? 'прием активен' : 'прием на паузе'}</span>
                     </li>
                 </ul>
             </div>

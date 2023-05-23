@@ -12,9 +12,9 @@ import {ISignUpRequest} from './store/types';
 import {AuthNavigate} from './components';
 
 const schema = yup.object({
-    login: yup.string().email('Не валидный email').required('Обязательное поле'),
+    email: yup.string().email('Не валидный email').required('Обязательное поле'),
     password: yup.string().min(8, 'Минимум 8 символов').required('Обязательное поле'),
-    code: yup.string().required('Обязательное поле'),
+    code: yup.string() /*.required('Обязательное поле'),*/
 });
 
 export const SignUp = () => {
@@ -49,7 +49,7 @@ export const SignUp = () => {
                         control={control}
                         autoComplete={'off'}
                         register={register}
-                        fieldName={'login'}
+                        fieldName={'email'}
                         backgroundLight={false}
                         errors={errors}/>
                 </div>

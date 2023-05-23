@@ -23,23 +23,33 @@ const buttons: IOption[] = [
     {label: 'Отключена', value: 'disabled'},
 ];
 
+const bankNames: IOption[] = [
+    {label: 'Газпром', value: 'gazprom'},
+    {label: 'Райфайзен', value: 'raiffeisen'},
+    {label: 'Акбарс', value: 'akbars'},
+    {label: 'ВТБ', value: 'vtb'},
+    {label: 'Tinkoff', value: 'tinkoff'},
+    {label: 'Альфа', value: 'alfa'},
+    {label: 'Сбербанк', value: 'sber'},
+];
+
 const schema = yup.object({
     bankName: yup.string().required('Обязательное поле'),
     simBankCellPhone: yup.string().required('Обязательное поле'),
     name: yup.string().max(25, 'Максимум 25 символов').required('Обязательное поле'),
-    acceptingPayments: yup.boolean().default(false),
-    spb: yup.boolean().default(false),
+    isAcceptingPayments: yup.boolean().default(false),
+    sbp: yup.boolean().default(false),
 });
 
 export const Banks = () => {
     const dispatch = useAppDispatch();
-    const {bankNames, simBanksCellPhones} = useAppSelector(state => state.app.commonData);
+    const {simBanksCellPhones} = useAppSelector(state => state.app.commonData);
     const {list, loading, meta} = useAppSelector(state => state.banks);
     const [connectModal, setConnectModal] = useState<boolean>(false);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
 
     useEffect(() => {
-        dispatch(getBanks({status: currentTab.value}));
+        dispatch(getBanks());
     }, []);
 
     const {control, register, setValue, watch, formState: {errors}, reset, handleSubmit} = useForm({
@@ -49,7 +59,7 @@ export const Banks = () => {
     const handleTabs = (item: IOption) => {
         //@todo здесь происходит запрос по табуляции status - all, active, inactive, pause, disabled
         setCurrentTab(item);
-        dispatch(getBanks({status: item.value}));
+        dispatch(getBanks());
     };
 
     const submit = handleSubmit(values => {
@@ -119,14 +129,14 @@ export const Banks = () => {
                         <Switcher
                             row={true}
                             label={'СБП'}
-                            checked={watch('spb')}
-                            handleSwitch={checked => setValue('spb', checked)}
+                            checked={watch('sbp')}
+                            handleSwitch={checked => setValue('sbp', checked)}
                         />
                         <Switcher
                             row={true}
                             label={'Приём платежей'}
-                            checked={watch('acceptingPayments')}
-                            handleSwitch={checked => setValue('acceptingPayments', checked)}
+                            checked={watch('isAcceptingPayments')}
+                            handleSwitch={checked => setValue('isAcceptingPayments', checked)}
                         />
                     </SwitchersRow>
                     <Button

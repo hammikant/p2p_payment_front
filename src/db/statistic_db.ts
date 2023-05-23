@@ -9,7 +9,7 @@ export const statisticDb = (): IStatistic => {
             turnoverUs: 4567,
             statisticDataList: {
                 banks: '1',
-                spb: '5',
+                sbp: '5',
                 cards: '8',
                 payments: '52'
             }

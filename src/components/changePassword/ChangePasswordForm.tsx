@@ -10,11 +10,11 @@ import {changePassword} from '../../pages/auth/store/auth.thunk';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
-    password: yup.string().min(8, 'Минимум 8 символов').required('Обязательное поле'),
+    newPassword: yup.string().min(8, 'Минимум 8 символов').required('Обязательное поле'),
     confirmPassword: yup.string()
         .required('Подтверждение обязательно')
         .min(8, 'Минимум 8 символов')
-        .oneOf([yup.ref('password')], 'Пароли не совпадают')
+        .oneOf([yup.ref('newPassword')], 'Пароли не совпадают')
 });
 
 
@@ -30,7 +30,7 @@ export const ChangePasswordForm = ({handleCancel}: { handleCancel: () => void; }
     });
 
     const handleSignIn = handleSubmit(async (values) => {
-        dispatch(changePassword({password: values.password as string}));
+        dispatch(changePassword({newPassword: values.newPassword as string}));
         handleCancel();
     });
 
@@ -57,7 +57,7 @@ export const ChangePasswordForm = ({handleCancel}: { handleCancel: () => void; }
                     icon={renderIcon()}
                     register={register}
                     backgroundLight={false}
-                    fieldName={'password'}
+                    fieldName={'newPassword'}
                     errors={errors}/>
             </div>
             <div className={'box'}>

@@ -12,8 +12,8 @@ export interface IBank {
     simBankCellPhone: string;
     cards: string | null;
     verification: boolean;
-    spb: boolean;
-    acceptingPayments: boolean;
+    sbp: boolean;
+    isAcceptingPayments: boolean;
     create_as: string;
     verificationData: IVerificationData | null
 }

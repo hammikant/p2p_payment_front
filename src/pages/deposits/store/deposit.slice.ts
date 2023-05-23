@@ -23,7 +23,7 @@ const depositSlice = createSlice({
         });
         builder.addCase(getDeposits.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list = payload.list;
+            state.list = payload.deposits;
             state.meta = payload.meta;
         });
         builder.addCase(getDeposits.rejected, state => {

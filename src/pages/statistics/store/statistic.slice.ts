@@ -15,7 +15,7 @@ const initialState: IStatisticState = {
         turnoverUs: 0,
         statisticDataList: {
             banks: '',
-            spb: '',
+            sbp: '',
             cards: '',
             payments: ''
         }

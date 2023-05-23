@@ -4,23 +4,27 @@ import {MainLayout} from '../../layouts';
 import {SimpleCard} from '../../components/simpleCard';
 import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {Refresh, TrendDown, TrendUp} from '../../icons';
-import {getCommonData} from '../../store/app.slice';
+import {getAccount} from '../../store/app.slice';
+import {ICommonData} from '../../types';
 import styles from './styles.module.scss';
 import {Calculator, Table, Wallet} from './components';
-import {getDeposits, getMoreDeposits} from './store/deposit.thunk';
+import {checkDeposit, getDeposits, getMoreDeposits} from './store/deposit.thunk';
 
 export const Deposits = () => {
     const dispatch = useAppDispatch();
     const {commonData, loading} = useAppSelector(state => state.app);
     const {list, meta} = useAppSelector(state => state.deposits);
-    const {exchangeRates, balance, balanceUs, wallet, walletQRCode} = commonData;
+    const {exchangeRates, balance, wallet, walletQRCode} = commonData as ICommonData;
 
     useEffect(() => {
         dispatch(getDeposits());
+        dispatch(getAccount());
     }, []);
 
     const handleRefresh = () => {
-        dispatch(getCommonData());
+        dispatch(checkDeposit());
+        dispatch(getDeposits());
+        dispatch(getAccount());
     };
 
     const handleCalculation = () => {
@@ -30,7 +34,7 @@ export const Deposits = () => {
     const fetchMoreData = () => {
         dispatch(getMoreDeposits({url: meta.nextPageUrl}));
     };
-
+    const balanceUs = balance > 0 ? Math.round(balance * exchangeRates.sellingRate) : balance;
     return (
         <MainLayout titlePage={'Депозиты'}>
             <div className={'row'}>
@@ -44,20 +48,21 @@ export const Deposits = () => {
                                 <div className={styles.reload}>
                                     <div
                                         className={loading ? classNames(styles.reloadIcon, styles.reloadLoad) : styles.reloadIcon}>
-                                        <Refresh/></div>
+                                        <Refresh/>
+                                    </div>
                                     <button className={styles.reloadText} onClick={handleRefresh}>Проверить пополнения
                                     </button>
                                 </div>
                                 <span className={styles.rates}>
-                                    USDТ {exchangeRates.currentRate}
-                                    {exchangeRates.trend === 'up' ? <TrendUp/> : <TrendDown/>}
+                                    USDТ {exchangeRates.sellingRate}
+                                    {exchangeRates.trand === 'up' ? <TrendUp/> : <TrendDown/>}
                                 </span>
                             </div>
                         }
                     />
                 </div>
                 <div className={'col'}>
-                    <Calculator exchangeRates={exchangeRates.currentRate} handleCalculation={handleCalculation}/>
+                    <Calculator exchangeRates={exchangeRates.sellingRate} handleCalculation={handleCalculation}/>
                 </div>
             </div>
             <div className={'row'}>

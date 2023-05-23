@@ -14,7 +14,7 @@ import {Chart} from './components';
 
 const list: { [key: string]: string } = {
     banks: 'Банков:',
-    spb: 'Номеров СБП:',
+    sbp: 'Номеров СБП:',
     cards: 'Карт:',
     payments: 'Платежей:',
 };

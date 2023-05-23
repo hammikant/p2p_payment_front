@@ -21,8 +21,8 @@ export const SettingsForm = ({item}: { item: IBank }) => {
 
     useEffect(() => {
         setValue('name', item.name);
-        setValue('spb', item.spb);
-        setValue('acceptingPayments', item.acceptingPayments);
+        setValue('sbp', item.sbp);
+        setValue('isAcceptingPayments', item.isAcceptingPayments);
     }, []);
 
     const submit = handleSubmit(values => {
@@ -100,14 +100,14 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                     <Switcher
                         row={true}
                         label={'СБП'}
-                        checked={watch('spb')}
-                        handleSwitch={checked => setValue('spb', checked)}
+                        checked={watch('sbp')}
+                        handleSwitch={checked => setValue('sbp', checked)}
                     />
                     <Switcher
                         row={true}
                         label={'Приём платежей'}
-                        checked={watch('acceptingPayments')}
-                        handleSwitch={checked => setValue('acceptingPayments', checked)}
+                        checked={watch('isAcceptingPayments')}
+                        handleSwitch={checked => setValue('isAcceptingPayments', checked)}
                     />
                 </SwitchersRow>
                 <div className={'space-top-48'}/>

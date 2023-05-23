@@ -12,7 +12,7 @@ import styles from './styles.module.scss';
 export const Header = ({title, descriptionPage}: IHeader) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const {user} = useAppSelector(state => state.auth);
+    const {commonData} = useAppSelector(state => state.app);
     const [isDrop, setDrop] = useState<boolean>(false);
 
     const handleLogout = () => {
@@ -22,7 +22,7 @@ export const Header = ({title, descriptionPage}: IHeader) => {
             dispatch(setAppLoader(false));
         }, 1000);
     };
-
+ 
     return (
         <div className={classNames(styles.header, 'row')}>
             <div className={'col'}>
@@ -36,7 +36,8 @@ export const Header = ({title, descriptionPage}: IHeader) => {
                 onMouseLeave={() => setDrop(false)}
             >
                 <div className={styles.menuTextWrap}>
-                    <span className={styles.menuText}>{user.displayName === '' ? user.email : user.displayName}</span>
+                    <span
+                        className={styles.menuText}>{commonData.email}</span>
                     <Drop color={'#91F230'}/>
                 </div>
                 {

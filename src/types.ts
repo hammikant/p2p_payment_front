@@ -1,4 +1,4 @@
-import {IHistoryActions} from './pages/auth/store/auth.slice';
+import {Role} from './hooks/useUserRole';
 
 export interface IError {
     message: string;
@@ -70,20 +70,16 @@ export type TrendRates = 'up' | 'down'
 
 export interface IExchangeRates {
     buyingRate: number;
-    currentRate: number;
-    trend: TrendRates
+    sellingRate: number;
+    trand: TrendRates
 }
 
 export interface ICommonData {
     balance: number;
-    balanceUs: number;
     incomeToday: number;
-    incomeTodayUs: number;
+    email: string;
+    role: Role;
     wallet: string;
     walletQRCode: string;
     exchangeRates: IExchangeRates;
-    bankNames: IOption[];
-    simBanksCellPhones: IOption[];
-    meta: IMetaResponse,
-    historyActions: IHistoryActions[]
 }

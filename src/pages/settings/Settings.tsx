@@ -3,30 +3,34 @@ import {MainLayout} from '../../layouts';
 import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {Modal} from '../../components/modal';
 import {Close} from '../../icons';
-import {setStatusConfirm} from '../auth/store/auth.slice';
 import {ChangePasswordForm} from '../../components/changePassword';
-import {getMoreHistory} from '../../store/app.slice';
-import {DisplayName, EmailForm, Table} from './components';
+import {terminateSessions} from '../../store/app.slice';
+import {DisplayName, EmailForm} from './components';
 import styles from './styles.module.scss';
 
 export const Settings = () => {
     const dispatch = useAppDispatch();
     const {user, statusConfirm} = useAppSelector(state => state.auth);
-    const {meta, historyActions} = useAppSelector(state => state.app.commonData);
+    const {commonData} = useAppSelector(state => state.app);
+    // const {meta, historyActions} = useAppSelector(state => state.app.commonData);
     const [emailModal, setEmailModal] = useState<boolean>(false);
     const [passwordModal, setPasswordModal] = useState<boolean>(false);
 
     useEffect(() => {
         if (statusConfirm === 'success') {
-            setEmailModal(false);
-            dispatch(setStatusConfirm(null));
+            // setEmailModal(false);
+            // dispatch(setStatusConfirm(null));
         }
     }, [statusConfirm]);
 
     const fetchMoreData = () => {
-        dispatch(getMoreHistory({
-            url: meta.nextPageUrl
-        }));
+        // dispatch(getMoreHistory({
+        //     url: meta.nextPageUrl
+        // }));
+    };
+
+    const handleTerminateSession = async () => {
+        dispatch(terminateSessions());
     };
 
     return (
@@ -34,20 +38,25 @@ export const Settings = () => {
             <DisplayName/>
             <div className={'space-top-48'}/>
             <span className={styles.label}>Email</span>
-            <p className={styles.text}>{user.email}<span className={styles.buttonEdit}
-                                                         onClick={() => setEmailModal(true)}>Изменить</span></p>
-
+            <p className={styles.text}>
+                {commonData.email}
+                <span className={styles.buttonEdit}
+                      onClick={() => setEmailModal(true)}>
+                    Изменить
+                </span>
+            </p>
             <div className={'space-top-48'}/>
             <span className={styles.label}>Пароль</span>
             <p className={styles.text}>
                 {user.changeDataPassword === '' ? 'Пароль еще не менялся' : user.changeDataPassword}
-                <span className={styles.buttonEdit} onClick={() => setPasswordModal(true)}>Изменить</span></p>
+                <span className={styles.buttonEdit} style={{margin: '0px'}}
+                      onClick={() => setPasswordModal(true)}>Изменить</span></p>
 
             <div className={'space-top-48'}/>
             <span className={styles.label}>Завершить другие сеансы</span>
             <p className={styles.text}>
                 Вход будет сброшен на всех устройствах, кроме текущего
-                <span className={styles.buttonStop}>Завершить</span></p>
+                <span className={styles.buttonStop} onClick={handleTerminateSession}>Завершить</span></p>
 
             <div className={'space-top-48'}/>
             <span className={styles.label}>Telegram-уведомления</span>
@@ -59,7 +68,7 @@ export const Settings = () => {
             <span className={styles.buttonEdit}>Отключить</span>
             <div className={styles.row}>
                 <div className={styles.col}>
-                    <Table items={historyActions} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>
+                    {/*<Table items={historyActions} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>*/}
                 </div>
             </div>
             <Modal

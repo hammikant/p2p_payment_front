@@ -4,8 +4,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {SimpleCard} from '../../components/simpleCard';
 import {IOption, StatusCardPayments} from '../../types';
 import {ListCard} from '../../components/listCard';
-import {getCommonData} from '../../store/app.slice';
 import {TabsButtons} from '../../components/tabsButtons';
+import {getAccount} from '../../store/app.slice';
 import {getMorePayments, getPayments} from './store/payments.thunk';
 import styles from './styles.module.scss';
 import {ICommonDataPayments} from './store/types';
@@ -45,7 +45,7 @@ export const Payments = () => {
 
 
     useEffect(() => {
-        dispatch(getCommonData());
+        dispatch(getAccount());
         dispatch(getPayments({status: currentTab.value === 'all' ? null : currentTab.value as StatusCardPayments}));
     }, []);
 

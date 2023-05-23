@@ -12,7 +12,7 @@ import {signIn} from './store/auth.thunk';
 import {ISignInRequest} from './store/types';
 
 const schema = yup.object({
-    login: yup.string().email('Не валидный email').required('Обязательное поле'),
+    email: yup.string().email('Не валидный email').required('Обязательное поле'),
     password: yup.string().min(8, 'Минимум 8 символов').required('Обязательное поле'),
 });
 
@@ -48,7 +48,7 @@ export const SignIn = () => {
                         control={control}
                         autoComplete={'off'}
                         register={register}
-                        fieldName={'login'}
+                        fieldName={'email'}
                         backgroundLight={false}
                         errors={errors}/>
                 </div>

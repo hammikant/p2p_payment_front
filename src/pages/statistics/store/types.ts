@@ -6,7 +6,7 @@ export interface IStatisticData {
     statisticDataList: {
         banks: string;
         cards: string;
-        spb: string;
+        sbp: string;
         payments: string;
     }
 }

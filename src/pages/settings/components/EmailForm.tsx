@@ -9,23 +9,25 @@ import {changeEmail, confirmEmail} from '../../auth/store/auth.thunk';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
-    login: yup.string().email('Не валидный email').required('Обязательное поле'),
+    email: yup.string().email('Не валидный email').required('Обязательное поле'),
 });
 
 export const EmailForm = ({handleCansel}: { handleCansel: () => void }) => {
     const dispatch = useAppDispatch();
     const [isConfirm, setConfirm] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('');
     const {control, register, formState: {errors}, reset, handleSubmit} = useForm({
         resolver: yupResolver(schema)
     });
 
     const submitEmail = handleSubmit(values => {
         setConfirm(true);
-        dispatch(changeEmail({login: values.login}));
+        setEmail(values.email);
+        dispatch(changeEmail({email: values.email}));
     });
 
     const handleConfirmEmail = (val: string) => {
-        dispatch(confirmEmail({code: val}));
+        dispatch(confirmEmail({code: val, email}));
     };
 
     const handleResend = () => {
@@ -65,7 +67,7 @@ export const EmailForm = ({handleCansel}: { handleCansel: () => void }) => {
             <InputField
                 control={control}
                 register={register}
-                fieldName={'login'}
+                fieldName={'email'}
                 errors={errors}
                 autoComplete={'off'}
                 backgroundLight={false}

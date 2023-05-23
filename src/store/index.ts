@@ -1,7 +1,6 @@
 import {AnyAction, combineReducers, configureStore, Reducer} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage/session';
 import {persistReducer} from 'redux-persist';
-import logger from 'redux-logger';
 import auth from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
 import cards from '../pages/cards/store/cards.slice';
@@ -42,7 +41,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}) //.concat(logger)
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

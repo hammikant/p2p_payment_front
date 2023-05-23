@@ -72,8 +72,8 @@ const authSlice = createSlice({
             state.user.changeDataPassword = payload.changeDataPassword;
             state.user.displayName = payload.displayName;
             state.user.role = payload.role;
-            state.meta = payload.meta;
-            state.historyActions = payload.historyActions;
+            //state.meta = payload.meta;
+            //state.historyActions = payload.historyActions;
         }
     },
     extraReducers: builder => {
@@ -84,7 +84,6 @@ const authSlice = createSlice({
             state.loading = false;
             state.isAuth = true;
             state.token = action.payload.token;
-
         });
         builder.addCase(signUp.rejected, (state) => {
             state.loading = false;

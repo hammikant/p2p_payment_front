@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@types/react-alert": "^7.0.2",
-    "@types/redux-logger": "^3.0.9"
+    "@types/redux-logger": "^3.0.9",
+    "@types/w3c-web-usb": "^1.0.6"
   }
 }
