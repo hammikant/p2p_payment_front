@@ -29,7 +29,7 @@ export const SignUp = () => {
 
     const handleSignUp = handleSubmit(async (values) => {
         await dispatch(signUp(values as ISignUpRequest));
-        navigate('/');
+        navigate('/login');
     });
 
     const renderIcon = () => (
