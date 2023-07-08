@@ -10,7 +10,7 @@ export const addBank = createAsyncThunk(
     async ({bank}: { bank: IBank }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.post('/add-bank', {bank}, {
+            const res = await instanceApi.post('finances/bank', {bank}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -29,7 +29,7 @@ export const getBanks = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get('/get-banks', {
+            const res = await instanceApi.get('/finances/banks', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -71,7 +71,7 @@ export const updateBank = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.put(`/bank/${bank.id}`, {...bank}, {
+            const res = await instanceApi.put(`/finances/bank/${bank.id}`, {...bank}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -90,7 +90,7 @@ export const deleteBank = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.delete(`/delete-bank?id=${id}`, {
+            const res = await instanceApi.delete(`/finances/bank?id=${id}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -151,7 +151,7 @@ export const connectCardsInBank = createAsyncThunk(
                 cards,
                 id
             };
-            const res = await instanceApi.post('/connect-card-in-bank', {...data}, {
+            const res = await instanceApi.post('/finances/cards/connect', {...data}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

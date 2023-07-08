@@ -9,7 +9,7 @@ export const getPayments = createAsyncThunk(
     async ({status}: { status: StatusCardPayments | null }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.get('/get-payments', {
+            const res = await instanceApi.get('/finances/payments', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
