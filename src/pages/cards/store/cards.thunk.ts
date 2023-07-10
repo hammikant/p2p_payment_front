@@ -123,7 +123,7 @@ export const getCardsById = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get(`/finances/cards`, {
+            const res = await instanceApi.get('/finances/cards', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
