@@ -4,7 +4,7 @@ import {IBank} from '../store/types';
 import styles from './styles.module.scss';
 import {BankCard} from './BankCard';
 
-interface IBankCardsProps {
+export interface IBankCardsProps {
     items: IBank[];
     handleFetchMore: () => void;
     hasMore: boolean;
@@ -17,7 +17,7 @@ export const BankCards = ({items, handleFetchMore, hasMore}: IBankCardsProps) =>
         const height = window.innerHeight;
         setHeightTable(height / 1.8);
     }, []);
-
+    
     return (
         <div className={styles.row}>
             <InfiniteScroll

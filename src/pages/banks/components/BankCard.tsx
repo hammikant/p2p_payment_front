@@ -12,7 +12,7 @@ import {SettingsForm} from './SettingsForm';
 import {AuthorizationBank} from './AuthorizationBank';
 
 
-interface IBankCardProps {
+export interface IBankCardProps {
     item: IBank;
 }
 
@@ -33,7 +33,7 @@ export const BankCard = ({item}: IBankCardProps) => {
         <div className={styles.col}>
             <div className={styles.bankCard} onClick={handleSelect}>
                 <div className={styles.bankCardHeader}>
-                    <img src={icons[item.bankName]} className={styles.bankCardLogo} alt={item.bankName}/>
+                    <img src={icons[item.bank]} className={styles.bankCardLogo} alt={item.bank}/>
                     <h3 className={styles.bankCardTitle}>{item.name}</h3>
                 </div>
                 <ul className={styles.bankCardList}>
@@ -46,12 +46,12 @@ export const BankCard = ({item}: IBankCardProps) => {
                         <span className={styles.bankCardListText}>Проверка:</span>
                         <span
                             className={styles.bankCardListText}
-                            style={{color: item.verification ? '#ffffff' : '#F22451'}}
-                        >{item.verification ? 'авторизован' : 'требуется авторизация'}</span>
+                            style={{color: item.isVerified ? '#ffffff' : '#F22451'}}
+                        >{item.isVerified ? 'авторизован' : 'требуется авторизация'}</span>
                     </li>
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>СБП:</span>
-                        <span className={styles.bankCardListText}>{item.sbp ? 'включён' : 'отключён'}</span>
+                        <span className={styles.bankCardListText}>{item.isAcceptingSbp ? 'включён' : 'отключён'}</span>
                     </li>
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>Платежи:</span>
@@ -70,12 +70,12 @@ export const BankCard = ({item}: IBankCardProps) => {
                 <span className={styles.bankModalClose} onClick={() => setShowModal(false)}>
                     <Close width={'18'} height={'18'} color={'#667180'}/>
                 </span>
-                {!item.verification
+                {!item.isVerified
                     ? (
                         <AuthorizationBank
                             cellPhone={item.verificationData?.cellPhone}
                             comment={item.verificationData?.comment}
-                            bankName={viewBankNames[item.bankName]}
+                            bankName={viewBankNames[item.bank]}
                             handleDone={handleAuthorization}
                         />
                     ) : (
