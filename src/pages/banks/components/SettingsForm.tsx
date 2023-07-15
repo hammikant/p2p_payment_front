@@ -21,7 +21,7 @@ export const SettingsForm = ({item}: { item: IBank }) => {
 
     useEffect(() => {
         setValue('name', item.name);
-        setValue('sbp', item.sbp);
+        setValue('sbp', item.isAcceptingSbp);
         setValue('isAcceptingPayments', item.isAcceptingPayments);
     }, []);
 
@@ -59,7 +59,7 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                 <ul className={classNames(styles.bankModalList, styles.bankModalListTransparentBg)}>
                     <li className={styles.bankModalListItem}>
                         <span className={styles.bankModalListText}>Банк:</span>
-                        <span className={styles.bankModalListText}>{viewBankNames[item.bankName]}</span>
+                        <span className={styles.bankModalListText}>{viewBankNames[item.bank]}</span>
                     </li>
                     <li className={styles.bankModalListItem}>
                         <span className={styles.bankModalListText}>Номер:</span>
@@ -143,7 +143,7 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                     перенос строки. Можно добавить до 100 карт одновременно.</p>
                 <AddCardsForm
                     id={item.id}
-                    bankName={item.bankName}
+                    bankName={item.bank}
                     handleClose={() => setAddedCard(false)}
                 />
             </Modal>
