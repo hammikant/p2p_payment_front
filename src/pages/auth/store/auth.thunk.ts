@@ -92,7 +92,7 @@ export const changeEmail = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            await instanceApi.post('/account/email', {email}, {
+            await instanceApi.patch('/account/email', {email}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
