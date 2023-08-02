@@ -8,11 +8,16 @@ import {SwitchStatusCard} from './SwitchStatusCard';
 
 
 const colorsStatus: { [key: string]: string } = {
-    'Активна': '#91F230',
-    'На паузе': '#667180',
-    'Не активна': '#F22451',
+    'active' : '#91F230',
+    'paused': '#667180',
+    'inactive': '#F22451',
 };
 
+const CardsStatus: { [key: string]: string } = {
+    'active' : 'Активна',
+    'paused': 'На паузе',
+    'inactive': 'Не активна',
+};
 
 export const TableItem = ({item}: { item: ICard }) => {
     const dispatch = useAppDispatch();
@@ -30,15 +35,22 @@ export const TableItem = ({item}: { item: ICard }) => {
         dispatch(changeStatusCard({id: item.id.toString(), status: 'Не активна'}));
     };
 
+    const cardData = () => { 
+        const partsCard = item.number.toString().match(/.{1,4}/g);
+        const result = partsCard.join(' ');
+        return (result);
+    };
+    
     return (
         <div
-            className={styles.tableItem}
+            className={styles.TableItem}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
+        <div className={styles.tableItem}>
             <div className={styles.item}>
-                <img src={icons[item.bankName as string]} alt={item.bankName}/>
-                <span className={styles.itemText}>{item.num}</span>
+                <img src={icons[item.bank as string]} alt={item.bank}/>
+                <span className={styles.itemText}>{cardData()}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.date}</span>
@@ -46,10 +58,7 @@ export const TableItem = ({item}: { item: ICard }) => {
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.id}</span>
             </div>
-            <div className={styles.item}>
-                <span className={styles.itemText}
-                      style={{color: item.bank === 'Не подключён' ? '#667180' : '#ffffff'}}>{item.bankName}</span>
-            </div>
+            <div className={styles.item}></div>
             <div className={styles.item}>
                 {isHover
                     ? <SwitchStatusCard
@@ -58,8 +67,9 @@ export const TableItem = ({item}: { item: ICard }) => {
                         handlePlay={handlePlay}
                         handleStop={handleStop}/>
                     : (<span className={styles.itemText}
-                             style={{color: colorsStatus[item.status as string]}}>{item.status}</span>)}
+                             style={{color: colorsStatus[item.status as string]}}>{CardsStatus[item.status as string]}</span>)}
             </div>
+        </div>
         </div>
     );
 };

@@ -7,9 +7,9 @@
 .tableItem {
   display: flex;
   position: relative;
-  width: calc(100% + 16px);
-  margin-left: -16px;
-  padding: 18px;
+  width: calc(100% + 4px);
+  margin-left: -14px;
+  padding: 14px;
 
   &:hover {
     cursor: pointer;

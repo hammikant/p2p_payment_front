@@ -9,7 +9,7 @@ export const getStatistic = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get('/get-statistic', {
+            const res = await instanceApi.get('/finances/statistics', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

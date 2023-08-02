@@ -27,7 +27,7 @@ export const Table = ({items, fetchMoreData, hasMore}: ITableProps) => {
             <div className={styles.tableItemHeader}>
                 {heads.map((name, index) => <TableHead key={index} name={name}/>)}
             </div>
-            {items.length > 0 ? <InfiniteScroll
+            {items?.length > 0 ? <InfiniteScroll
                 dataLength={items.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
@@ -35,7 +35,7 @@ export const Table = ({items, fetchMoreData, hasMore}: ITableProps) => {
                 height={heightTable - 50}
                 className={'infinityContainer'}
             >
-                {items.map((item) => <TableItem key={item.id} item={item}/>)}
+                {items?.map((item) => <TableItem key={item.id} item={item}/>)}
             </InfiniteScroll> : null}
         </div>
     );

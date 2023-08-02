@@ -11,7 +11,7 @@ interface ITableProps {
     hasMore: boolean;
 }
 
-const heads: string[] = ['Счёт', 'Дата', 'ID', 'Банк', 'Статус'];
+const heads: string[] = ['Счёт', 'Дата', 'ID', '', 'Статус'];
 
 export const Table = ({items, hasMore, fetchMoreData}: ITableProps) => {
     const [heightTable, setHeightTable] = useState<number>(0);

@@ -1,12 +1,11 @@
 import {bankNames, IMetaResponse} from '../../../types';
 
 export interface ICard {
-    bankName: bankNames;
-    num: string;
+    bank: bankNames;
+    number: string;
     date: string;
     id: number;
-    bank: 'Не подключён' | 'Подключён';
-    status: 'Активна' | 'Не активна' | 'На паузе'
+    status?: 'Активна' | 'Не активна' | 'На паузе'
 }
 
 export interface IConnectCard {

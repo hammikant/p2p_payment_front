@@ -8,14 +8,14 @@ export interface IVerificationData {
 export interface IBank {
     id: number;
     name: string;
-    bankName: BankNames
+    bank: BankNames;
     simBankCellPhone: string;
     cards: string | null;
-    verification: boolean;
-    sbp: boolean;
+    isVerified: boolean;
+    isAcceptingSbp: boolean;
     isAcceptingPayments: boolean;
     create_as: string;
-    verificationData: IVerificationData | null
+    verificationData: IVerificationData | null;
 }
 
 export interface IBanks {

@@ -8,7 +8,7 @@ export const signUp = createAsyncThunk(
     'auth/signUp',
     async ({email, code, password}: ISignUpRequest, {dispatch}) => {
         try {
-            const res = await instanceApi.post('/registration', {email, code, password});
+            const res = await instanceApi.post('/account/registration', {email, code, password});
 
             return res.data;
         } catch (e: any) {
@@ -21,7 +21,7 @@ export const signIn = createAsyncThunk(
     'auth/signIn',
     async ({email, password}: ISignInRequest, {dispatch}) => {
         try {
-            const res = await instanceApi.post('/login', {email, password});
+            const res = await instanceApi.post('/account/login', {email, password});
 
             return res.data;
         } catch (e: any) {
@@ -34,7 +34,7 @@ export const forgotPassword = createAsyncThunk(
     'auth/forgotPassword',
     async ({login}: { login: string }, {dispatch}) => {
         try {
-            const res = await instanceApi.post('/forgot-password', {login});
+            const res = await instanceApi.post('/account/restore', {login});
             return res.data.sendEmail;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));
@@ -49,7 +49,7 @@ export const changePassword = createAsyncThunk(
             const {auth} = getState() as { auth: IAuthState };
             const {app} = getState() as { app: IAppState };
 
-            const res = await instanceApi.post('/change-password', {newPassword}, {
+            const res = await instanceApi.post('/account/password', {newPassword}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -74,7 +74,7 @@ export const changeDisplayName = createAsyncThunk(
     async ({displayName}: { displayName: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.post('/change-displayname', {displayName}, {
+            const res = await instanceApi.post('/account/display-name', {displayName}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -92,7 +92,7 @@ export const changeEmail = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            await instanceApi.post('/change-email', {email}, {
+            await instanceApi.patch('/account/email', {email}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -108,7 +108,7 @@ export const confirmEmail = createAsyncThunk(
     async ({code, email}: { code: string, email: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.post('/change-email/confirm', {code, email}, {
+            const res = await instanceApi.post('/account/email/confim', {code, email}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

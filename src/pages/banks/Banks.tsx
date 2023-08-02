@@ -28,7 +28,7 @@ const bankNames: IOption[] = [
     {label: 'Райфайзен', value: 'raiffeisen'},
     {label: 'Акбарс', value: 'akbars'},
     {label: 'ВТБ', value: 'vtb'},
-    {label: 'Tinkoff', value: 'tinkoff'},
+    {label: 'Тинькофф', value: 'tinkoff'},
     {label: 'Альфа', value: 'alfa'},
     {label: 'Сбербанк', value: 'sber'},
 ];
@@ -61,9 +61,9 @@ export const Banks = () => {
         setCurrentTab(item);
         dispatch(getBanks());
     };
-
+ 
     const submit = handleSubmit(values => {
-        dispatch(addBank({bank: {...values, verification: false} as IBank}));
+        dispatch(addBank({bank: {...values, isVerified: false} as IBank}));
         reset();
         setConnectModal(false);
     });
