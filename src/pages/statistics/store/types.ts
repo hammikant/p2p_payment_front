@@ -18,6 +18,5 @@ export interface IChart {
 }
 
 export interface IStatistic {
-    common: IStatisticData;
     chart: IChart[]
 }

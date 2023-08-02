@@ -108,8 +108,9 @@
   }
 
   &QrCodeImage {
-    width: 100%;
-    object-fit: cover;
+    width: 320px;
+    height: 320px;
+    object-fit: contain;
   }
 
   &CloseModal {
@@ -139,6 +140,7 @@
 .tableItemHeader {
   display: flex;
   padding: 24px 0;
+  min-width: 1170px;
 }
 
 .item {

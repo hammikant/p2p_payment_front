@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {ICards} from './types';
 import {changeStatusCard, getCards, getCardsById, getMoreCards, searchByCardNumber} from './cards.thunk';
+import {ICardsState} from './types';
 
-const initialState: ICards = {
+const initialState: ICardsState = {
     loading: false,
     cards: [],
     meta: {

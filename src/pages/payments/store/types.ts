@@ -1,6 +1,6 @@
 import {bankNames, IMetaResponse, statusCard} from '../../../types';
 
-export interface ICard {
+export interface IPayments {
     bankName: bankNames;
     num: string;
     data: string;
@@ -18,9 +18,9 @@ export interface ICommonDataPayments {
     frozen: number;
 }
 
-export interface IPayments {
+export interface IPaymentsState {
     loading?: boolean;
-    cards: ICard[],
+    payments: IPayments[],
     meta: IMetaResponse;
     commonData: ICommonDataPayments
 }

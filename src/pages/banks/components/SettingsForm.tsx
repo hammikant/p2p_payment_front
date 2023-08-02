@@ -44,7 +44,7 @@ export const SettingsForm = ({item}: { item: IBank }) => {
     return (
         <>
             <SubTitle text={'Настройки банка'}/>
-            <p className={styles.bankModalTextG}>Добавлен: {item.create_as}</p>
+            {/*<p className={styles.bankModalTextG}>Добавлен: {'нет даты'}</p>*/}
             <p className={styles.bankModalTextG}>ID: {item.id}</p>
             <div className={'space-top-24'}/>
             <form>
@@ -61,10 +61,10 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                         <span className={styles.bankModalListText}>Банк:</span>
                         <span className={styles.bankModalListText}>{viewBankNames[item.bank]}</span>
                     </li>
-                    <li className={styles.bankModalListItem}>
-                        <span className={styles.bankModalListText}>Номер:</span>
-                        <span className={styles.bankModalListText}>{item.simBankCellPhone}</span>
-                    </li>
+                    {/*<li className={styles.bankModalListItem}>*/}
+                    {/*    <span className={styles.bankModalListText}>Номер:</span>*/}
+                    {/*    <span className={styles.bankModalListText}>{'нет данных'}</span>*/}
+                    {/*</li>*/}
                     <li className={styles.bankModalListItem}>
                         <span className={styles.bankModalListText}>Проверка:</span>
                         <span className={styles.bankModalListText}>авторизован</span>

@@ -1,6 +1,6 @@
 import {BankNames} from '../types';
-import gazprom from '../assets/images/gazprom.png';
-import raiffeisen from '../assets/images/raiffeisen.png';
+import gazrpom from '../assets/images/gazrpom.png';
+import raifaisen from '../assets/images/raifaisen.png';
 import akbars from '../assets/images/akbars.png';
 import vtb from '../assets/images/vtb.png';
 import tinkoff from '../assets/images/tinkoff.png';
@@ -13,8 +13,8 @@ export const viewBankNames: { [key: string]: string } = {
     [BankNames.sbp]: 'СПБ',
     [BankNames.alfa]: 'Альфа',
     [BankNames.vtb]: 'ВТБ',
-    [BankNames.gazprom]: 'Газпром',
-    [BankNames.raiffeisen]: 'Райфайзен',
+    [BankNames.gazrpom]: 'Газпром',
+    [BankNames.raifaisen]: 'Райфайзен',
     [BankNames.tinkoff]: 'Tinkoff',
     [BankNames.sber]: 'Сбербанк',
 };
@@ -23,12 +23,17 @@ export const viewBankNames: { [key: string]: string } = {
 export const ROLE = 'trader';
 
 export const icons: { [key: string]: string } = {
-    'gazprom': gazprom,
-    'raiffeisen': raiffeisen,
-    'akbars': akbars,
-    'vtb': vtb,
-    'tinkoff': tinkoff,
-    'alfa': alfa,
-    'sber': sber,
-    'spb': sbp
+    gazrpom: gazrpom,
+    raifaisen: raifaisen,
+    akbars: akbars,
+    vtb: vtb,
+    tinkoff: tinkoff,
+    alfa: alfa,
+    sber: sber,
+    sbp: sbp
+};
+
+export const errorsMessage:{[key: string]: string} = {
+    '0': 'Упс!',
+    'invitation_code': 'Код приглашения'
 };

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {ICard} from '../store/types';
 import {useAppDispatch} from '../../../hooks/app';
 import {changeStatusCard} from '../store/cards.thunk';
-import {icons} from '../../../utils/constants';
+import {icons, viewBankNames} from '../../../utils/constants';
+import {ICard} from '../store/types';
 import styles from './styles.module.scss';
 import {SwitchStatusCard} from './SwitchStatusCard';
 
@@ -35,12 +35,12 @@ export const TableItem = ({item}: { item: ICard }) => {
         dispatch(changeStatusCard({id: item.id.toString(), status: 'Не активна'}));
     };
 
-    const cardData = () => { 
+    const cardData = () => {
         const partsCard = item.number.toString().match(/.{1,4}/g);
         const result = partsCard.join(' ');
         return (result);
     };
-    
+
     return (
         <div
             className={styles.TableItem}

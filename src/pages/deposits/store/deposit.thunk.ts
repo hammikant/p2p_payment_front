@@ -6,18 +6,13 @@ import {handleError} from '../../../store/app.slice';
 export const getDeposits = createAsyncThunk(
     'deposits/getDeposits',
     async (_, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-
-            const res = await instanceApi.get('/finances/deposits', {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.get('/finances/deposits', {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );
 

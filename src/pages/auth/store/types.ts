@@ -1,7 +1,7 @@
 export interface ISignUpRequest {
     email: string;
     password: string;
-    code: string;
+    invitation_code: string;
 }
 
 export interface ISignInRequest {

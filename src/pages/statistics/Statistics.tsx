@@ -12,12 +12,6 @@ import {Calendar} from '../../icons';
 import {getStatistic} from './store/statistic.thunk';
 import {Chart} from './components';
 
-const list: { [key: string]: string } = {
-    banks: 'Банков:',
-    sbp: 'Номеров СБП:',
-    cards: 'Карт:',
-    payments: 'Платежей:',
-};
 
 const rangeList: IOption[] = [
     {label: 'За день', value: 'day'},
@@ -32,9 +26,7 @@ const schema = yup.object({
 
 export const Statistics = () => {
     const dispatch = useAppDispatch();
-    const {common, chart} = useAppSelector(state => state.statistic);
-
-    const [dataList, setDataList] = useState<IOption[]>([]);
+    const {chart} = useAppSelector(state => state.statistic);
 
     const {control, register, handleSubmit, watch, setValue, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
@@ -43,15 +35,6 @@ export const Statistics = () => {
     useEffect(() => {
         dispatch(getStatistic());
     }, []);
-
-    useEffect(() => {
-        const items: IOption[] = [];
-        for (const key in common.statisticDataList) {
-            items.push({label: list[key], value: common.statisticDataList[key]});
-        }
-        setDataList(items);
-        setValue('data', rangeList[0].label);
-    }, [common]);
 
     return (
         <MainLayout titlePage={'Статистика'} descriptionPage={'Какое-то небольшое описание раздела'}>
@@ -72,21 +55,21 @@ export const Statistics = () => {
                 <div className={'col'}>
                     <SimpleCard
                         name={'Доход'}
-                        data={`${common.income} ₽`}
-                        additionalData={`$${common.incomeUs}`}
+                        data={`${'common.income'} ₽`}
+                        additionalData={`$${'common.incomeUs'}`}
                         style={{height: '160px'}}
                     />
                 </div>
                 <div className={'col'}>
                     <SimpleCard
                         name={'Оборот'}
-                        data={`${common.turnover} ₽`}
-                        additionalData={`$${common.turnoverUs}`}
+                        data={`${'common.turnover'} ₽`}
+                        additionalData={`$${'common.turnoverUs'}`}
                         style={{height: '160px'}}
                     />
                 </div>
                 <div className={'col'}>
-                    <ListCard items={dataList}/>
+                    <ListCard items={[]}/>
                 </div>
             </div>
             <div className={'row'}>

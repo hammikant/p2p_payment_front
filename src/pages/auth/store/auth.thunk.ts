@@ -6,14 +6,9 @@ import {IAuthState, setStatusConfirm} from './auth.slice';
 
 export const signUp = createAsyncThunk(
     'auth/signUp',
-    async ({email, code, password}: ISignUpRequest, {dispatch}) => {
-        try {
-            const res = await instanceApi.post('/account/registration', {email, code, password});
-
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+    async ({email, invitation_code, password}: ISignUpRequest, {dispatch}) => {
+        const res = await instanceApi.post('/account/registration', {email, invitation_code, password});
+        return res.data;
     }
 );
 
@@ -21,7 +16,7 @@ export const signIn = createAsyncThunk(
     'auth/signIn',
     async ({email, password}: ISignInRequest, {dispatch}) => {
         try {
-            const res = await instanceApi.post('/account/login', {email, password});
+            const res = await instanceApi.post('/login', {email, password});
 
             return res.data;
         } catch (e: any) {
@@ -92,7 +87,7 @@ export const changeEmail = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            await instanceApi.patch('/account/email', {email}, {
+            await instanceApi.post('/account/email', {email}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

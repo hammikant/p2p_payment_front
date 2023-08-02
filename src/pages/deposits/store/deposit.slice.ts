@@ -10,7 +10,7 @@ const initialState: IDeposits = {
         total: 0,
         isLastPage: false
     },
-    list: []
+    deposits: []
 };
 
 const depositSlice = createSlice({
@@ -23,7 +23,7 @@ const depositSlice = createSlice({
         });
         builder.addCase(getDeposits.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list = payload.deposits;
+            state.deposits = payload.deposits;
             state.meta = payload.meta;
         });
         builder.addCase(getDeposits.rejected, state => {
@@ -34,7 +34,7 @@ const depositSlice = createSlice({
         });
         builder.addCase(getMoreDeposits.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list = [...state.list, ...payload.list];
+            state.deposits = [...state.deposits, ...payload.deposits];
             state.meta = payload.meta;
         });
         builder.addCase(getMoreDeposits.rejected, state => {

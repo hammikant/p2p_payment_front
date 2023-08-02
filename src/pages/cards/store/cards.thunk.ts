@@ -33,7 +33,6 @@ export const getMoreCards = createAsyncThunk(
     async ({url, status}: { url: string, status: StatusCard | null }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-
             const res = await instanceApi.get(url, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`

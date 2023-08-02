@@ -14,7 +14,7 @@ import {Alert} from './components/alert';
 
 const options = {
     position: positions.BOTTOM_LEFT,
-    timeout: 3000,
+    timeout: 0,
     offset: '20px',
     transition: transitions.SCALE,
 };

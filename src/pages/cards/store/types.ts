@@ -1,11 +1,11 @@
 import {bankNames, IMetaResponse} from '../../../types';
 
 export interface ICard {
-    bank: bankNames;
-    number: string;
-    date: string;
     id: number;
-    status?: 'Активна' | 'Не активна' | 'На паузе'
+    bank: bankNames
+    number: number;
+    date: string;
+    status: string;
 }
 
 export interface IConnectCard {
@@ -13,14 +13,14 @@ export interface IConnectCard {
     id: number,
 }
 
-export interface ICards {
+export interface ICardsState {
     loading?: boolean;
     cards: ICard[];
     meta: IMetaResponse
 }
 
 export interface ISwitchCardStatusProps {
-    status: 'Активна' | 'Не активна' | 'На паузе'
+    status: string;
     handlePause: () => void;
     handleStop: () => void;
     handlePlay: () => void;

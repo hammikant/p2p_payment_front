@@ -13,8 +13,8 @@ import {checkDeposit, getDeposits, getMoreDeposits} from './store/deposit.thunk'
 export const Deposits = () => {
     const dispatch = useAppDispatch();
     const {commonData, loading} = useAppSelector(state => state.app);
-    const {list, meta} = useAppSelector(state => state.deposits);
-    const {exchangeRates, balance, wallet, walletQRCode} = commonData as ICommonData;
+    const {deposits, meta} = useAppSelector(state => state.deposits);
+    const {exchangeRates, balance, wallet, walletQR} = commonData as ICommonData;
 
     useEffect(() => {
         dispatch(getDeposits());
@@ -69,14 +69,14 @@ export const Deposits = () => {
                 <div className={'col'}>
                     <p className={styles.description}>Для пополнения баланса отправьте любую сумму на ваш личный Tether
                         TRC-20 адрес и нажмите «Проверить пополнения» через несколько минут</p>
-                    <Wallet wallet={wallet} walletQRCode={walletQRCode}/>
+                    <Wallet wallet={wallet} walletQR={walletQR}/>
                 </div>
             </div>
             <div className={'space-top-32'}/>
             <h3 className={styles.sectionTitle}>Транзакции</h3>
             <div className={'row'}>
                 <div className={'col'}>
-                    <Table items={list} hasMore={!meta.isLastPage} fetchMoreData={fetchMoreData}/>
+                    <Table items={deposits} hasMore={!meta.isLastPage} fetchMoreData={fetchMoreData}/>
                 </div>
             </div>
         </MainLayout>

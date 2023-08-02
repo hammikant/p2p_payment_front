@@ -15,5 +15,5 @@ export interface IDeposit {
 export interface IDeposits {
     loading?: boolean;
     meta: IMetaResponse;
-    list: IDeposit[]
+    deposits: IDeposit[]
 }

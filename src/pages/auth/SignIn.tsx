@@ -68,7 +68,6 @@ export const SignIn = () => {
                 <div className={styles.formButtonWRapper}>
                     <Button variant={'full'} type={'submit'} text={'Войти'}/>
                 </div>
-
             </form>
         </div>
     );

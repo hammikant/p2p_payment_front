@@ -1,4 +1,4 @@
-import {BankNames, IMetaResponse} from '../../../types';
+import {  BankNames, IMetaResponse} from '../../../types';
 
 export interface IVerificationData {
     cellPhone: string;
@@ -6,16 +6,15 @@ export interface IVerificationData {
 }
 
 export interface IBank {
+    accountNumber: string;
+    bank: BankNames
+    cards: number;
     id: number;
-    name: string;
-    bank: BankNames;
-    simBankCellPhone: string;
-    cards: string | null;
-    isVerified: boolean;
-    isAcceptingSbp: boolean;
     isAcceptingPayments: boolean;
-    create_as: string;
-    verificationData: IVerificationData | null;
+    isAcceptingSbp: boolean;
+    name: string;
+    phoneNumber: string;
+    verification: boolean;
 }
 
 export interface IBanks {

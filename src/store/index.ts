@@ -1,6 +1,7 @@
 import {AnyAction, combineReducers, configureStore, Reducer} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage/session';
 import {persistReducer} from 'redux-persist';
+import logger from 'redux-logger';
 import auth from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
 import cards from '../pages/cards/store/cards.slice';
@@ -8,7 +9,9 @@ import deposits from '../pages/deposits/store/deposit.slice';
 import banks from '../pages/banks/store/banks.slice';
 import simBanks from '../pages/simBanks/store/simBanks.slice';
 import statistic from '../pages/statistics/store/statistic.slice';
-import app from './app.slice';
+import {instanceApi} from '../api';
+import {errorsMessage} from '../utils/constants';
+import app, {handleError} from './app.slice';
 
 const appReducer = combineReducers({
     app,
@@ -41,7 +44,23 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}) //.concat(logger)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger)
+});
+
+instanceApi.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    const {data} = error.response;
+    const keys = Object.keys(data);
+    const values = Object.values(data);
+    if(keys.length > 0) {
+        for (let i = 0; i < values.length; i++) {
+            const translate = errorsMessage[keys[i]] ?? keys[i];
+            store.dispatch(handleError({message: `${translate}: ${values[i]}`, errors: {}}));
+        }
+        return Promise.reject(error);
+    }
+    return Promise.reject(error);
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

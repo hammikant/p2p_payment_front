@@ -31,7 +31,7 @@ export const Payments = () => {
     const dispatch = useAppDispatch();
     const {
         commonData,
-        cards,
+        payments,
         meta
     } = useAppSelector(state => state.payments);
     const {
@@ -114,7 +114,7 @@ export const Payments = () => {
             </div>
             <div className={styles.row}>
                 <div className={styles.col}>
-                    <Table items={cards} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>
+                    <Table items={payments} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>
                 </div>
             </div>
         </MainLayout>

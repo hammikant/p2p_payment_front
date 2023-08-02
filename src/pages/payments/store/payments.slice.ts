@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {IPayments} from './types';
 import {getMorePayments, getPayments, searchByCardNumberPayments} from './payments.thunk';
+import {IPaymentsState} from './types';
 
-const initialState: IPayments = {
+const initialState: IPaymentsState = {
     loading: false,
     commonData: {
         payments: 0,
@@ -11,7 +11,7 @@ const initialState: IPayments = {
         onPayment: 0,
         frozen: 0,
     },
-    cards: [],
+    payments: [],
     meta: {
         total: 0,
         nextPageUrl: null,
@@ -32,7 +32,7 @@ const paymentsSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(getPayments.fulfilled, (state, {payload}) => {
-            state.cards = payload.cards;
+            state.payments = payload.payments;
             state.meta = payload.meta;
         });
         builder.addCase(getPayments.rejected, (state) => {
@@ -43,7 +43,7 @@ const paymentsSlice = createSlice({
         });
         builder.addCase(searchByCardNumberPayments.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.cards = payload.cards;
+            state.payments = payload.payments;
         });
         builder.addCase(searchByCardNumberPayments.rejected, (state) => {
             state.loading = false;
@@ -55,7 +55,7 @@ const paymentsSlice = createSlice({
         builder.addCase(getMorePayments.fulfilled, (state, {payload}) => {
             state.loading = false;
             state.commonData = payload.commonData;
-            state.cards = [...state.cards, ...payload.cards];
+            state.payments = [...state.payments, ...payload.payments];
             state.meta = payload.meta;
         });
         builder.addCase(getMorePayments.rejected, (state) => {

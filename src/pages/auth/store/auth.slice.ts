@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, Draft} from '@reduxjs/toolkit';
 import {IMetaResponse} from '../../../types';
 import {changeDisplayName, changePassword, forgotPassword, signIn, signUp} from './auth.thunk';
 
@@ -57,71 +57,69 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setAppLoader: (state, {payload}) => {
+        setAppLoader: (state:Draft<IAuthState>, {payload}) => {
             state.loading = payload;
         },
-        clearForgotModal: (state) => {
+        clearForgotModal: (state:Draft<IAuthState>) => {
             state.sendEmailForgotPassword = '';
             state.successForgot = false;
         },
-        setStatusConfirm: (state, {payload}) => {
+        setStatusConfirm: (state:Draft<IAuthState>, {payload}) => {
             state.statusConfirm = payload;
         },
-        setUserData: (state, {payload}) => {
+        setUserData: (state:Draft<IAuthState>, {payload}) => {
             state.user.email = payload.email;
             state.user.changeDataPassword = payload.changeDataPassword;
             state.user.displayName = payload.displayName;
             state.user.role = payload.role;
-            //state.meta = payload.meta;
-            //state.historyActions = payload.historyActions;
         }
     },
     extraReducers: builder => {
-        builder.addCase(signUp.pending, (state) => {
+        builder.addCase(signUp.pending, (state:Draft<IAuthState>) => {
             state.loading = true;
         });
-        builder.addCase(signUp.fulfilled, (state, action) => {
+        builder.addCase(signUp.fulfilled, (state:Draft<IAuthState>, action) => {
             state.loading = false;
             state.isAuth = true;
             state.token = action.payload.token;
         });
-        builder.addCase(signUp.rejected, (state) => {
+        builder.addCase(signUp.rejected, (state:Draft<IAuthState>) => {
             state.loading = false;
         });
-        builder.addCase(signIn.pending, (state) => {
+        builder.addCase(signIn.pending, (state:Draft<IAuthState>) => {
             state.loading = true;
         });
-        builder.addCase(signIn.fulfilled, (state, action) => {
+        builder.addCase(signIn.fulfilled, (state:Draft<IAuthState>, action) => {
             state.loading = false;
             state.isAuth = true;
-            state.role = action.payload.role;
-            state.token = action.payload.token;
+            state.role = action.payload?.role;
+            state.token = action.payload?.token;
             authSlice.caseReducers.setUserData(state, action);
         });
-        builder.addCase(signIn.rejected, (state) => {
+        builder.addCase(signIn.rejected, (state:Draft<IAuthState>) => {
             state.loading = false;
         });
-        builder.addCase(forgotPassword.pending, (state) => {
+        builder.addCase(forgotPassword.pending, (state:Draft<IAuthState>) => {
             state.loading = true;
         });
-        builder.addCase(forgotPassword.fulfilled, (state, {payload}) => {
+        builder.addCase(forgotPassword.fulfilled, (state:Draft<IAuthState>, {payload}) => {
             state.loading = false;
             state.sendEmailForgotPassword = payload;
             state.successForgot = true;
         });
-        builder.addCase(forgotPassword.rejected, (state) => {
+        builder.addCase(forgotPassword.rejected, (state:Draft<IAuthState>) => {
             state.loading = false;
         });
-        builder.addCase(changePassword.fulfilled, (state, action) => {
+        builder.addCase(changePassword.fulfilled, (state:Draft<IAuthState>, action) => {
             state.loading = false;
             state.isAuth = true;
             state.token = action.payload.token;
             authSlice.caseReducers.setUserData(state, action);
         });
-        builder.addCase(changePassword.rejected, (state) => {
+        builder.addCase(changePassword.rejected, (state:Draft<IAuthState>) => {
             state.loading = false;
         });
-        builder.addCase(changeDisplayName.fulfilled, (state, action) => {
+        builder.addCase(changeDisplayName.fulfilled, (state:Draft<IAuthState>, action) => {
             state.loading = false;
             state.isAuth = true;
             state.token = action.payload.token;

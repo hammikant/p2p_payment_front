@@ -4,7 +4,7 @@ import {Modal} from '../../../components/modal';
 import {OutputClipBoard, SubTitle} from '../../../fields';
 import styles from './styles.module.scss';
 
-export const Wallet = ({wallet, walletQRCode}: { wallet: string, walletQRCode: string }) => {
+export const Wallet = ({wallet, walletQR}: { wallet: string, walletQR: string }) => {
     const [isCopyPress, setCopyPress] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -29,7 +29,7 @@ export const Wallet = ({wallet, walletQRCode}: { wallet: string, walletQRCode: s
             </div>
             <Modal
                 show={showModal}
-                widthContent={'448px'}
+                widthContent={'400px'}
                 backgroundColorOverlay={'rgba(13,17,20,0.57)'}
                 handleClickOverlay={() => setShowModal(false)}>
                 <span
@@ -40,7 +40,7 @@ export const Wallet = ({wallet, walletQRCode}: { wallet: string, walletQRCode: s
                 </span>
                 <SubTitle text={'Tether TRC-20'}/>
                 <div className={'space-top-32'}/>
-                <img className={styles.walletQrCodeImage} src={walletQRCode} alt={'qr-code'}/>
+                <img className={styles.walletQrCodeImage} src={walletQR} alt={'qr-code'}/>
                 <p className={'text-16'} style={{marginBottom: '0px'}}>{wallet}</p>
             </Modal>
         </>

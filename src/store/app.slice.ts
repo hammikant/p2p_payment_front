@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, Draft} from '@reduxjs/toolkit';
 import {ICommonData, IError, ISuccess} from '../types';
 import {IAuthState} from '../pages/auth/store/auth.slice';
 import {instanceApi} from '../api';
@@ -20,13 +20,12 @@ const initialState: IAppState = {
         role: 'trader',
         email: '',
         wallet: '',
-        walletQRCode: '',
+        walletQR: '',
         exchangeRates: {
             buyingRate: 0,
             sellingRate: 0,
             trand: 'up'
         },
-
     }
 };
 
@@ -87,45 +86,32 @@ const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        handleError: (state, {payload}: { payload: IError | null }) => {
-
+        handleError: (state:Draft<IAppState>, {payload}: { payload: IError | null }) => {
             state.error = payload;
         },
-        handleSuccess: (state, {payload}: { payload: ISuccess | null }) => {
+        handleSuccess: (state:Draft<IAppState>, {payload}: { payload: ISuccess | null }) => {
             state.success = payload;
         },
         clearStorage: () => {
         }
     },
     extraReducers: builder => {
-        builder.addCase(getAccount.pending, (state) => {
+        builder.addCase(getAccount.pending, (state:Draft<IAppState>) => {
             state.loading = true;
         });
-        builder.addCase(getAccount.fulfilled, (state, {payload}) => {
+        builder.addCase(getAccount.fulfilled, (state:Draft<IAppState>, {payload}) => {
             state.loading = false;
             state.commonData.balance = payload.balance;
             state.commonData.incomeToday = payload.incomeToday;
             state.commonData.wallet = payload.wallet;
-            state.commonData.walletQRCode = payload.walletQRCode;
+            state.commonData.walletQR = payload.walletQR;
             state.commonData.exchangeRates = payload.exchangeRates;
             state.commonData.role = payload.role;
             state.commonData.email = payload.email;
         });
-        builder.addCase(getAccount.rejected, (state) => {
+        builder.addCase(getAccount.rejected, (state:Draft<IAppState>) => {
             state.loading = true;
         });
-        // builder.addCase(getMoreHistory.pending, (state) => {
-        //     state.loading = true;
-        // });
-        // builder.addCase(getMoreHistory.fulfilled, (state, {payload}) => {
-        //     state.loading = false;
-        //     state.commonData.meta = payload.meta;
-        //     state.commonData.historyActions = payload.historyActions;
-        // });
-        // builder.addCase(getMoreHistory.rejected, (state) => {
-        //     state.loading = true;
-        // });
-
     }
 });
 

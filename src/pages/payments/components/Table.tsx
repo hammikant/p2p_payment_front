@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import {ICard} from '../store/types';
+import {IPayments} from '../store/types';
 import styles from './styles.module.scss';
 import {TableItem} from './TableItem';
 import {TableHead} from './TableHead';
 
 interface ITableProps {
-    items: ICard[],
+    items: IPayments[],
     fetchMoreData: () => void;
     hasMore: boolean;
 }

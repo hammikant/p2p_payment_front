@@ -40,8 +40,8 @@ export const enum StatusCardPayments {
 }
 
 export const enum BankNames {
-    gazprom = 'gazprom',
-    raiffeisen = 'raiffeisen',
+    gazrpom = 'gazrpom',
+    raifaisen = 'raifaisen',
     akbars = 'akbars',
     vtb = 'vtb',
     tinkoff = 'tinkoff',
@@ -60,8 +60,8 @@ export type bankNames =
     | BankNames.sbp
     | BankNames.alfa
     | BankNames.vtb
-    | BankNames.gazprom
-    | BankNames.raiffeisen
+    | BankNames.gazrpom
+    | BankNames.raifaisen
     | BankNames.tinkoff
     | BankNames.sber
 
@@ -80,6 +80,6 @@ export interface ICommonData {
     email: string;
     role: Role;
     wallet: string;
-    walletQRCode: string;
+    walletQR: string;
     exchangeRates: IExchangeRates;
 }

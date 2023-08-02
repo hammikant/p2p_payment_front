@@ -8,18 +8,6 @@ interface IStatisticState extends IStatistic {
 
 const initialState: IStatisticState = {
     loading: false,
-    common: {
-        income: 0,
-        incomeUs: 0,
-        turnover: 0,
-        turnoverUs: 0,
-        statisticDataList: {
-            banks: '',
-            sbp: '',
-            cards: '',
-            payments: ''
-        }
-    },
     chart: []
 };
 
@@ -33,7 +21,6 @@ export const statisticSlice = createSlice({
         });
         builder.addCase(getStatistic.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.common = payload.common;
             state.chart = payload.chart;
         });
         builder.addCase(getStatistic.rejected, state => {

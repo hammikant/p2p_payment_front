@@ -1,7 +1,7 @@
 import React from 'react';
-import {ICard} from '../store/types';
-import gazprom from '../../../assets/images/gazprom.png';
-import raiffeisen from '../../../assets/images/raiffeisen.png';
+import {IPayments} from '../store/types';
+import gazprom from '../../../assets/images/gazrpom.png';
+import raiffeisen from '../../../assets/images/raifaisen.png';
 import akbars from '../../../assets/images/akbars.png';
 import vtb from '../../../assets/images/vtb.png';
 import tinkoff from '../../../assets/images/tinkoff.png';
@@ -28,7 +28,7 @@ const colorsStatus: { [key: string]: string } = {
     'Отмена': '#F22451'
 };
 
-export const TableItem = ({item}: { item: ICard }) => {
+export const TableItem = ({item}: { item: IPayments }) => {
     return (
         <div className={styles.tableItem}>
             <div className={styles.item}>

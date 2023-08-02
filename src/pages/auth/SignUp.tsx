@@ -14,12 +14,11 @@ import {AuthNavigate} from './components';
 const schema = yup.object({
     email: yup.string().email('Не валидный email').required('Обязательное поле'),
     password: yup.string().min(8, 'Минимум 8 символов').required('Обязательное поле'),
-    code: yup.string() /*.required('Обязательное поле'),*/
+    invitation_code: yup.string().required('Обязательное поле'),
 });
 
 export const SignUp = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -29,7 +28,6 @@ export const SignUp = () => {
 
     const handleSignUp = handleSubmit(async (values) => {
         await dispatch(signUp(values as ISignUpRequest));
-        navigate('/login');
     });
 
     const renderIcon = () => (
@@ -71,7 +69,7 @@ export const SignUp = () => {
                         control={control}
                         autoComplete={'off'}
                         register={register}
-                        fieldName={'code'}
+                        fieldName={'invitation_code'}
                         backgroundLight={false}
                         errors={errors}/>
                 </div>

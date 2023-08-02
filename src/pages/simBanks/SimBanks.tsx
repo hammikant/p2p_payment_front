@@ -27,7 +27,7 @@ export const SimBanks = () => {
     });
 
     useEffect(() => {
-        dispatch(getSimBanks());
+       // dispatch(getSimBanks());
     }, []);
 
     const submit = handleSubmit(values => {

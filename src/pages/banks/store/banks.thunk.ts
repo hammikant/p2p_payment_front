@@ -8,37 +8,27 @@ import {IBank} from './types';
 export const addBank = createAsyncThunk(
     'banks/addBank',
     async ({bank}: { bank: IBank }, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.post('finances/bank', {bank}, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            dispatch(handleSuccess({message: res.data.message}));
-            return res.data.bank;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.post('/finances/bank', {...bank}, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        dispatch(handleSuccess({message: res.data.message}));
+        return res.data.bank;
     }
 );
 
 export const getBanks = createAsyncThunk(
     'banks/getBanks',
     async (_, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-
-            const res = await instanceApi.get('/finances/banks', {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.get('/finances/banks', {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );
 
@@ -71,7 +61,7 @@ export const updateBank = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.put(`/finances/bank/${bank.id}`, {...bank}, {
+            const res = await instanceApi.put(`/bank/${bank.id}`, {...bank}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -90,7 +80,7 @@ export const deleteBank = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.delete(`/finances/bank?id=${id}`, {
+            const res = await instanceApi.delete(`/delete-bank?id=${id}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -151,7 +141,7 @@ export const connectCardsInBank = createAsyncThunk(
                 cards,
                 id
             };
-            const res = await instanceApi.post('/finances/cards/connect', {...data}, {
+            const res = await instanceApi.post('/connect-card-in-bank', {...data}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

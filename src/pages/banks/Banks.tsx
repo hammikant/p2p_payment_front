@@ -24,8 +24,8 @@ const buttons: IOption[] = [
 ];
 
 const bankNames: IOption[] = [
-    {label: 'Газпром', value: 'gazprom'},
-    {label: 'Райфайзен', value: 'raiffeisen'},
+    {label: 'Газпром', value: 'gazrpom'},
+    {label: 'Райфайзен', value: 'raifaisen'},
     {label: 'Акбарс', value: 'akbars'},
     {label: 'ВТБ', value: 'vtb'},
     {label: 'Тинькофф', value: 'tinkoff'},
@@ -34,16 +34,15 @@ const bankNames: IOption[] = [
 ];
 
 const schema = yup.object({
-    bankName: yup.string().required('Обязательное поле'),
-    simBankCellPhone: yup.string().required('Обязательное поле'),
+    bank: yup.string().required('Обязательное поле'),
     name: yup.string().max(25, 'Максимум 25 символов').required('Обязательное поле'),
+    phoneNumber: yup.string().max(12, 'Максимум 12 символов').required('Обязательное поле'),
     isAcceptingPayments: yup.boolean().default(false),
-    sbp: yup.boolean().default(false),
+    isAcceptingSbp: yup.boolean().default(false),
 });
 
 export const Banks = () => {
     const dispatch = useAppDispatch();
-    const {simBanksCellPhones} = useAppSelector(state => state.app.commonData);
     const {list, loading, meta} = useAppSelector(state => state.banks);
     const [connectModal, setConnectModal] = useState<boolean>(false);
     const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
@@ -101,21 +100,19 @@ export const Banks = () => {
                         label={'Банк'}
                         control={control}
                         register={register}
-                        fieldName={'bankName'}
+                        fieldName={'bank'}
                         errors={errors}
                         watch={watch}
                         options={bankNames}
                         setValue={setValue}/>
                     <div className={'space-top-24'}/>
-                    <Select
-                        label={'Телефон'}
+                    <InputField
+                        label={'Номер телефона'}
                         control={control}
                         register={register}
-                        fieldName={'simBankCellPhone'}
+                        fieldName={'phoneNumber'}
                         errors={errors}
-                        watch={watch}
-                        options={simBanksCellPhones}
-                        setValue={setValue}/>
+                        backgroundLight={false}/>
                     <div className={'space-top-24'}/>
                     <InputField
                         label={'Отображаемое название'}
@@ -129,8 +126,8 @@ export const Banks = () => {
                         <Switcher
                             row={true}
                             label={'СБП'}
-                            checked={watch('sbp')}
-                            handleSwitch={checked => setValue('sbp', checked)}
+                            checked={watch('isAcceptingSbp')}
+                            handleSwitch={checked => setValue('isAcceptingSbp', checked)}
                         />
                         <Switcher
                             row={true}
