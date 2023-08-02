@@ -9,7 +9,7 @@ export const getDeposits = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get('/get-deposits', {
+            const res = await instanceApi.get('/finances/deposits', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -26,7 +26,7 @@ export const checkDeposit = createAsyncThunk(
     async (_, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.get('/check-deposits', {
+            const res = await instanceApi.get('/finances/deposits/check', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

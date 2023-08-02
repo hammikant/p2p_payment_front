@@ -34,7 +34,7 @@ export const Deposits = () => {
     const fetchMoreData = () => {
         dispatch(getMoreDeposits({url: meta.nextPageUrl}));
     };
-    const balanceUs = balance > 0 ? Math.round(balance * exchangeRates.sellingRate) : balance;
+    const balanceUs = balance > 0 ? Math.round(balance / exchangeRates.sellingRate) : balance;
     return (
         <MainLayout titlePage={'Депозиты'}>
             <div className={'row'}>

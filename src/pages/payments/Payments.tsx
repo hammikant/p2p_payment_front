@@ -71,7 +71,7 @@ export const Payments = () => {
             status: currentTab.value === 'all' ? null : currentTab.value as StatusCardPayments
         }));
     };
-    const balanceUs = balance > 0 ? Math.round(balance * exchangeRates.sellingRate) : balance;
+    const balanceUs = balance > 0 ? Math.round(balance / exchangeRates.sellingRate) : balance;
     const incomeTodayUs = incomeToday > 0 ? Math.round(incomeToday * exchangeRates.sellingRate) : incomeToday;
     return (
         <MainLayout titlePage={'Платежи'} descriptionPage={'Контролируйте выплаты на ваши реквизиты'}>

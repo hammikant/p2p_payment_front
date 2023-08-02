@@ -16,7 +16,7 @@ export const getCards = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get('/get-cards', {
+            const res = await instanceApi.get('/finances/cards', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -59,7 +59,7 @@ export const connectCards = createAsyncThunk(
             //     data[accountName] = accountName;
             // }
 
-            const res = await instanceApi.post('/connect-card', {...data}, {
+            const res = await instanceApi.post('/finances/cards/connect', {...data}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -86,7 +86,7 @@ export const changeStatusCard = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.post('/change-status-card', {id, status}, {
+            const res = await instanceApi.put('/finances/card', {id, status}, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
@@ -123,7 +123,7 @@ export const getCardsById = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get(`/get-cards-by-id-bank?id=${id}`, {
+            const res = await instanceApi.get('/finances/cards', {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

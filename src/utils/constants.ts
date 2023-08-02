@@ -23,12 +23,12 @@ export const viewBankNames: { [key: string]: string } = {
 export const ROLE = 'trader';
 
 export const icons: { [key: string]: string } = {
-    'Газпром': gazprom,
-    'Райфайзен': raiffeisen,
-    'Акбарс': akbars,
-    'ВТБ': vtb,
-    'Тинькофф': tinkoff,
-    'Альфа': alfa,
-    'Сбербанк': sber,
-    'Спб': sbp
+    'gazprom': gazprom,
+    'raiffeisen': raiffeisen,
+    'akbars': akbars,
+    'vtb': vtb,
+    'tinkoff': tinkoff,
+    'alfa': alfa,
+    'sber': sber,
+    'spb': sbp
 };
