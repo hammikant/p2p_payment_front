@@ -31,7 +31,7 @@ export const EmailForm = ({handleCansel}: { handleCansel: () => void }) => {
     };
 
     const handleResend = () => {
-
+        dispatch(changeEmail({email}));
     };
 
     if (isConfirm) {

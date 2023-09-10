@@ -9,8 +9,8 @@ export interface ICard {
 }
 
 export interface IConnectCard {
-    cards: string,
-    id: number,
+    cardNumbers: string,
+    bankAccountId: number,
 }
 
 export interface ICardsState {

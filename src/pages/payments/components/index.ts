@@ -1,7 +1,7 @@
 import {Table} from './Table';
-import {SearchByCardNumber} from './SearchByCardNumber';
+import {Filter} from './Filter';
 
 export {
     Table,
-    SearchByCardNumber
+    Filter
 };

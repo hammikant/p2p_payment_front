@@ -9,17 +9,14 @@ export interface ICellPhoneSimBank {
 }
 
 export interface ISimBank {
+    apiKey: string;
+    displayName: string;
     id: number;
-    name: string;
-    create_as: string;
-    redirectMail: string;
-    confirmationCode: string;
-    cellPhones: ICellPhoneSimBank[];
 }
 
 export interface ISimBankStore {
     loading?: boolean;
-    list: ISimBank[];
+    simBanks: ISimBank[];
     meta: IMetaResponse;
 }
 

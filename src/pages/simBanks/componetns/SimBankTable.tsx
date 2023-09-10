@@ -5,13 +5,13 @@ import {ICellPhoneSimBank, ISimBank} from '../store/types';
 import {Button, OutputClipBoard, SubTitle} from '../../../fields';
 import {Close, Delete} from '../../../icons';
 import {useAppDispatch} from '../../../hooks/app';
-import {deleteCellPhones, deleteSimBank} from '../store/simBanks.thunk';
+import {changeDisplayName, deleteCellPhones, deleteSimBank} from '../store/simBanks.thunk';
 import {Modal} from '../../../components/modal';
 import {setConnectingCellPhones} from '../store/simBanks.slice';
 import styles from './styles.module.scss';
 import {CellPhoneList} from './CellPhoneList';
 
-export const SimBankTable = ({name, create_as, redirectMail, cellPhones, id}: ISimBank) => {
+export const SimBankTable = ({id, displayName, apiKey}: ISimBank) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [phones, setPhones] = useState<ICellPhoneSimBank[]>([]);
@@ -21,14 +21,14 @@ export const SimBankTable = ({name, create_as, redirectMail, cellPhones, id}: IS
     const [isDeleteCellPhones, setDeleteCellPhonesModal] = useState<boolean>(false);
     const [isCopyPress, setCopyPress] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (isSelectAll) {
-            const items = cellPhones.map(item => ({...item, status: 'active'})) as ICellPhoneSimBank[];
-            setPhones(items);
-        } else {
-            setPhones(cellPhones);
-        }
-    }, [cellPhones, isSelectAll]);
+    // useEffect(() => {
+    //     if (isSelectAll) {
+    //         const items = cellPhones.map(item => ({...item, status: 'active'})) as ICellPhoneSimBank[];
+    //         setPhones(items);
+    //     } else {
+    //         setPhones(cellPhones);
+    //     }
+    // }, [cellPhones, isSelectAll]);
 
     const handleChecked = (id: number) => {
         const items = phones.map(item => {
@@ -53,7 +53,7 @@ export const SimBankTable = ({name, create_as, redirectMail, cellPhones, id}: IS
 
     const handleClipBoard = async () => {
         setCopyPress(true);
-        await navigator.clipboard.writeText(redirectMail);
+       // await navigator.clipboard.writeText(redirectMail);
     };
 
     const handleConnect = () => {
@@ -68,38 +68,39 @@ export const SimBankTable = ({name, create_as, redirectMail, cellPhones, id}: IS
             <div className={styles.header}>
                 <div>
                     <ChangeableField
-                        title={name}
-                        handleChangeTitle={() => {
-                        }}/>
-                    <span className={styles.data}>Добавлен: {create_as} &#183; ID: {id}</span>
+                        title={displayName}
+                        handleChangeTitle={(title) => dispatch(changeDisplayName({
+                            id, displayName: title, apiKey
+                        }))}/>
+                    <span className={styles.data}>ID: {id}</span>
                 </div>
-                <div className={styles.headerButton}>
-                    <Button
-                        text={isSelectAll ? 'Снять выделение' : 'Выбрать все номера'}
-                        variant={'outline'}
-                        style={{color: '#ffffff'}}
-                        onClick={() => setSelectAll(!isSelectAll)}
-                    />
-                </div>
+                {/*<div className={styles.headerButton}>*/}
+                {/*    <Button*/}
+                {/*        text={isSelectAll ? 'Снять выделение' : 'Выбрать все номера'}*/}
+                {/*        variant={'outline'}*/}
+                {/*        style={{color: '#ffffff'}}*/}
+                {/*        onClick={() => setSelectAll(!isSelectAll)}*/}
+                {/*    />*/}
+                {/*</div>*/}
             </div>
             <div className={'space-top-24'}/>
             <CellPhoneList items={phones} interactive={true} handleChecked={handleChecked}/>
             <div className={'space-top-32'}/>
             <div className={styles.footer}>
-                <div className={styles.footerCol}>
-                    <Button
-                        text={'Подключить'}
-                        variant={'full'}
-                        onClick={() => setShowModal(true)}
-                    />
-                </div>
-                <div className={styles.footerCol}>
-                    <Button
-                        text={'Удалить номера'}
-                        variant={'outline'}
-                        onClick={() => setDeleteCellPhonesModal(true)}
-                    />
-                </div>
+                {/*<div className={styles.footerCol}>*/}
+                {/*    <Button*/}
+                {/*        text={'Подключить'}*/}
+                {/*        variant={'full'}*/}
+                {/*        onClick={() => setShowModal(true)}*/}
+                {/*    />*/}
+                {/*</div>*/}
+                {/*<div className={styles.footerCol}>*/}
+                {/*    <Button*/}
+                {/*        text={'Удалить номера'}*/}
+                {/*        variant={'outline'}*/}
+                {/*        onClick={() => setDeleteCellPhonesModal(true)}*/}
+                {/*    />*/}
+                {/*</div>*/}
                 <div className={styles.footerCol}>
                     <button
                         className={styles.deleteButton}
@@ -128,7 +129,7 @@ export const SimBankTable = ({name, create_as, redirectMail, cellPhones, id}: IS
                     чего нажмите кнопку «Далее»</p>
                 <div className={'space-top-24'}/>
                 <OutputClipBoard
-                    text={redirectMail}
+                    text={'redirectMail'}
                     isCopyPress={isCopyPress}
                     onMouseUp={() => setCopyPress(false)}
                     onMouseDown={handleClipBoard}

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getMorePayments, getPayments, searchByCardNumberPayments} from './payments.thunk';
+import {getMorePayments, getPayments, paymentsFilter} from './payments.thunk';
 import {IPaymentsState} from './types';
 
 const initialState: IPaymentsState = {
@@ -38,14 +38,15 @@ const paymentsSlice = createSlice({
         builder.addCase(getPayments.rejected, (state) => {
             state.loading = false;
         });
-        builder.addCase(searchByCardNumberPayments.pending, (state) => {
+        builder.addCase(paymentsFilter.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(searchByCardNumberPayments.fulfilled, (state, {payload}) => {
+        builder.addCase(paymentsFilter.fulfilled, (state, {payload}) => {
             state.loading = false;
             state.payments = payload.payments;
+            state.meta = payload.meta;
         });
-        builder.addCase(searchByCardNumberPayments.rejected, (state) => {
+        builder.addCase(paymentsFilter.rejected, (state) => {
             state.loading = false;
         });
 

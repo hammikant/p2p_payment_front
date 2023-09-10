@@ -3,11 +3,11 @@ import {IBanks} from './types';
 import {
     addBank,
     authorizationBank,
+    banksFilter,
     connectCardsInBank,
     deleteBank,
     getBanks,
     getMoreBanks,
-    searchByPhoneLogin,
     updateBank
 } from './banks.thunk';
 
@@ -48,15 +48,15 @@ const banksSlice = createSlice({
         builder.addCase(getBanks.rejected, state => {
             state.loading = false;
         });
-        builder.addCase(searchByPhoneLogin.pending, state => {
+        builder.addCase(banksFilter.pending, state => {
             state.loading = true;
         });
-        builder.addCase(searchByPhoneLogin.fulfilled, (state, {payload}) => {
+        builder.addCase(banksFilter.fulfilled, (state, {payload}) => {
             state.loading = false;
             state.list = payload.banks;
             state.meta = payload.meta;
         });
-        builder.addCase(searchByPhoneLogin.rejected, state => {
+        builder.addCase(banksFilter.rejected, state => {
             state.loading = false;
         });
         builder.addCase(getMoreBanks.fulfilled, (state, {payload}) => {

@@ -12,7 +12,6 @@ export const Settings = () => {
     const dispatch = useAppDispatch();
     const {user, statusConfirm} = useAppSelector(state => state.auth);
     const {commonData} = useAppSelector(state => state.app);
-    // const {meta, historyActions} = useAppSelector(state => state.app.commonData);
     const [emailModal, setEmailModal] = useState<boolean>(false);
     const [passwordModal, setPasswordModal] = useState<boolean>(false);
 
@@ -23,11 +22,6 @@ export const Settings = () => {
         }
     }, [statusConfirm]);
 
-    const fetchMoreData = () => {
-        // dispatch(getMoreHistory({
-        //     url: meta.nextPageUrl
-        // }));
-    };
 
     const handleTerminateSession = async () => {
         dispatch(terminateSessions());

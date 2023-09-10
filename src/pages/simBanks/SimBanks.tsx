@@ -13,13 +13,13 @@ import {addSimBank, getSimBanks} from './store/simBanks.thunk';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
-    name: yup.string().max(25, 'Максимум 25 символов').required('Обязательное поле'),
+    displayName: yup.string().max(25, 'Максимум 25 символов').required('Обязательное поле'),
     apiKey: yup.string().required('Обязательное поле')
 });
 
 export const SimBanks = () => {
     const dispatch = useAppDispatch();
-    const {list, meta, loading} = useAppSelector(state => state.simBanks);
+    const {simBanks, meta, loading} = useAppSelector(state => state.simBanks);
     const [connectionModal, setConnectModal] = useState<boolean>(false);
 
     const {control, register, handleSubmit, formState: {errors}} = useForm({
@@ -27,11 +27,11 @@ export const SimBanks = () => {
     });
 
     useEffect(() => {
-       // dispatch(getSimBanks());
+       dispatch(getSimBanks());
     }, []);
 
     const submit = handleSubmit(values => {
-        dispatch(addSimBank(values as { name: string, apiKey: string }));
+        dispatch(addSimBank(values as { displayName: string, apiKey: string }));
         setConnectModal(false);
     });
 
@@ -40,15 +40,12 @@ export const SimBanks = () => {
             <Button text={'Добавить SIM-Банк'} variant={'outline'} onClick={() => setConnectModal(true)}/>
             <div className={'space-top-32'}/>
             <div className={styles.simBankContent}>
-                {list.map((bank: ISimBank) =>
+                {simBanks.map((bank: ISimBank) =>
                     <SimBankTable
                         key={bank.id}
-                        name={bank.name}
+                        displayName={bank.displayName}
                         id={bank.id}
-                        confirmationCode={bank.confirmationCode}
-                        redirectMail={bank.redirectMail}
-                        create_as={bank.create_as}
-                        cellPhones={bank.cellPhones}
+                        apiKey={bank.apiKey}
                     />)}
             </div>
             <Modal
@@ -72,7 +69,7 @@ export const SimBanks = () => {
                         label={'Название SIM-Банка'}
                         control={control}
                         register={register}
-                        fieldName={'name'}
+                        fieldName={'displayName'}
                         errors={errors}
                         backgroundLight={false}
                     />

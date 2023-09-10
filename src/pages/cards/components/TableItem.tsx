@@ -6,15 +6,20 @@ import {ICard} from '../store/types';
 import styles from './styles.module.scss';
 import {SwitchStatusCard} from './SwitchStatusCard';
 
+export const enum StatusCard {
+    active = 'active',
+    paused = 'paused',
+    inactive = 'inactive',
+}
 
 const colorsStatus: { [key: string]: string } = {
-    'active' : '#91F230',
+    'active': '#91F230',
     'paused': '#667180',
     'inactive': '#F22451',
 };
 
 const CardsStatus: { [key: string]: string } = {
-    'active' : 'Активна',
+    'active': 'Активна',
     'paused': 'На паузе',
     'inactive': 'Не активна',
 };
@@ -23,16 +28,16 @@ export const TableItem = ({item}: { item: ICard }) => {
     const dispatch = useAppDispatch();
     const [isHover, setHover] = useState<boolean>(false);
 
-    const handlePause = () => { //'Активна' | 'Не активна' | 'На паузе'
-        dispatch(changeStatusCard({id: item.id.toString(), status: 'На паузе'}));
+    const handlePause = () => {
+        dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.paused}));
     };
 
     const handlePlay = () => {
-        dispatch(changeStatusCard({id: item.id.toString(), status: 'Активна'}));
+        dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.active}));
     };
 
     const handleStop = () => {
-        dispatch(changeStatusCard({id: item.id.toString(), status: 'Не активна'}));
+        dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.inactive}));
     };
 
     const cardData = () => {
@@ -47,29 +52,29 @@ export const TableItem = ({item}: { item: ICard }) => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
-        <div className={styles.tableItem}>
-            <div className={styles.item}>
-                <img src={icons[item.bank as string]} alt={item.bank}/>
-                <span className={styles.itemText}>{cardData()}</span>
+            <div className={styles.tableItem}>
+                <div className={styles.item}>
+                    <img src={icons[item.bank as string]} alt={item.bank}/>
+                    <span className={styles.itemText}>{cardData()}</span>
+                </div>
+                <div className={styles.item}>
+                    <span className={styles.itemText}>{item.date}</span>
+                </div>
+                <div className={styles.item}>
+                    <span className={styles.itemText}>{item.id}</span>
+                </div>
+                <div className={styles.item}></div>
+                <div className={styles.item}>
+                    {isHover
+                        ? <SwitchStatusCard
+                            status={item.status}
+                            handlePause={handlePause}
+                            handlePlay={handlePlay}
+                            handleStop={handleStop}/>
+                        : (<span className={styles.itemText}
+                                 style={{color: colorsStatus[item.status as string]}}>{CardsStatus[item.status as string]}</span>)}
+                </div>
             </div>
-            <div className={styles.item}>
-                <span className={styles.itemText}>{item.date}</span>
-            </div>
-            <div className={styles.item}>
-                <span className={styles.itemText}>{item.id}</span>
-            </div>
-            <div className={styles.item}></div>
-            <div className={styles.item}>
-                {isHover
-                    ? <SwitchStatusCard
-                        status={item.status}
-                        handlePause={handlePause}
-                        handlePlay={handlePlay}
-                        handleStop={handleStop}/>
-                    : (<span className={styles.itemText}
-                             style={{color: colorsStatus[item.status as string]}}>{CardsStatus[item.status as string]}</span>)}
-            </div>
-        </div>
         </div>
     );
 };

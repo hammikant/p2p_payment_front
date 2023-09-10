@@ -2,6 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
+import {string} from 'yup';
 import {BankNames} from '../../../types';
 import {Button, TextareaField} from '../../../fields';
 import {useAppDispatch} from '../../../hooks/app';
@@ -9,11 +10,11 @@ import {IConnectCard} from '../../cards/store/types';
 import {connectCardsInBank} from '../store/banks.thunk';
 
 const schema = yup.object({
-    cards: yup.string().required('Поле не может быть пустым')
+    cardNumbers: yup.string().required('Поле не может быть пустым')
 });
 
 const schemaSber = yup.object({
-    cards: yup.string().required('Поле не может быть пустым')
+    cardNumbers: yup.string().required('Поле не может быть пустым')
 });
 
 interface IAddCardsFormProps {
@@ -29,8 +30,10 @@ export const AddCardsForm = ({bankName, handleClose, id}: IAddCardsFormProps) =>
     });
 
     const submit = handleSubmit(values => {
-        const cards = values.cards.split(',').map((s: string) => s.replace(' ', ''));
-        dispatch(connectCardsInBank({cards, id} as IConnectCard));
+        const cards = values.cardNumbers.split(',')
+            .map((s: string) => s.replaceAll(' ', ''))
+            .map((s:string) => s.replaceAll('-', ''));
+        dispatch(connectCardsInBank({cardNumbers : cards, bankAccountId: id} as IConnectCard));
         handleClose();
     });
 
@@ -39,7 +42,7 @@ export const AddCardsForm = ({bankName, handleClose, id}: IAddCardsFormProps) =>
             <TextareaField
                 control={control}
                 register={register}
-                fieldName={'cards'}
+                fieldName={'cardNumbers'}
                 errors={errors}
                 backgroundLight={false}
                 rows={10}

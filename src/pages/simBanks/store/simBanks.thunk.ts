@@ -2,41 +2,47 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {IAuthState} from '../../auth/store/auth.slice';
 import {instanceApi} from '../../../api';
 import {handleError, handleSuccess} from '../../../store/app.slice';
-import {ICellPhoneSimBank} from './types';
+import {ICellPhoneSimBank, ISimBank} from './types';
 
 export const addSimBank = createAsyncThunk(
     'sinBanks/addSimBank',
-    async ({name, apiKey}: { name: string, apiKey: string }, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
+    async ({displayName, apiKey}: { displayName: string, apiKey: string }, { getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.post('/add-sim-banks', {name, apiKey}, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const res = await instanceApi.post('/messages/sim-bank', {displayName, apiKey}, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );
 
 export const getSimBanks = createAsyncThunk(
     'sinBanks/getSimBanks',
     async (_, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
+        const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get('/get-sim-banks', {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const res = await instanceApi.get('/messages/sim-banks', {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
+    }
+);
+
+export const changeDisplayName = createAsyncThunk(
+    'sinBanks/changeDisplayName',
+    async ({displayName, apiKey, id}:ISimBank, {getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
+
+        const res = await instanceApi.put(`/messages/sim-bank/${id}`, {displayName, apiKey},{
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );
 
@@ -65,7 +71,7 @@ export const deleteSimBank = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.delete(`/delete-sim-banks?id=${id}`, {
+            const res = await instanceApi.delete(`/messages/sim-bank/${id}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

@@ -15,7 +15,7 @@ const heads: string[] = ['Счёт', 'Дата', 'ID', '', 'Статус'];
 
 export const Table = ({items, hasMore, fetchMoreData}: ITableProps) => {
     const [heightTable, setHeightTable] = useState<number>(0);
-
+    console.log('@@@@@@@ items', items);
     useEffect(() => {
         const height = window.innerHeight / 1.8;
         setHeightTable(height);

@@ -15,6 +15,7 @@ export const Select = (
         setValue,
         options,
         customIcon,
+        onChangeItem,
         ...props
     }: ISelect) => {
 
@@ -25,6 +26,9 @@ export const Select = (
         setShowDrop(false);
         setValue(fieldName, item.value);
         setText(item.label);
+        if(onChangeItem) {
+            onChangeItem(item);
+        }
     };
 
     return (

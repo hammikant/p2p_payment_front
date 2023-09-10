@@ -1,55 +1,42 @@
 import React from 'react';
 import {IPayments} from '../store/types';
-import gazprom from '../../../assets/images/gazrpom.png';
-import raiffeisen from '../../../assets/images/raifaisen.png';
-import akbars from '../../../assets/images/akbars.png';
-import vtb from '../../../assets/images/vtb.png';
-import tinkoff from '../../../assets/images/tinkoff.png';
-import alfa from '../../../assets/images/alfa.png';
-import sber from '../../../assets/images/sber.png';
-import sbp from '../../../assets/images/sbp.png';
 import styles from './styles.module.scss';
 
-const icons: { [key: string]: string } = {
-    gazprom,
-    raiffeisen,
-    akbars,
-    vtb,
-    tinkoff,
-    alfa,
-    sber,
-    sbp
+const colorsStatus: { [key: string]: string } = {
+    'success': '#91F230',
+    'frozen': '#4972CF',
+    'on_payment': '#667180',
+    'canceled': '#F22451'
 };
 
-const colorsStatus: { [key: string]: string } = {
-    'Успех': '#91F230',
-    'Заморожено': '#4972CF',
-    'Оплата': '#667180',
-    'Отмена': '#F22451'
+const viewStatus:{[key:string]: string} = {
+    on_payment: 'Оплата',
+    frozen: 'Заморожено',
+    success: 'Успех',
+    canceled: 'Отмена'
 };
 
 export const TableItem = ({item}: { item: IPayments }) => {
     return (
         <div className={styles.tableItem}>
             <div className={styles.item}>
-                <img src={icons[item.bankName as string]} alt={item.bankName}/>
-                <span className={styles.itemText}>{item.num}</span>
+                <span className={styles.itemText}>{item.cardNumber}</span>
             </div>
             <div className={styles.item}>
-                <span className={styles.itemText}>{item.data}</span>
+                <span className={styles.itemText}>{item.date}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.id}</span>
             </div>
             <div className={styles.item}>
-                <span className={styles.itemText}>{item.sum}</span>
+                <span className={styles.itemText}>{item.amount}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.profit}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}
-                      style={{color: colorsStatus[item.status as string]}}>{item.status}</span>
+                      style={{color: colorsStatus[item.status as string]}}>{viewStatus[item.status]}</span>
             </div>
         </div>
     );

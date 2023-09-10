@@ -93,26 +93,6 @@ export const deleteBank = createAsyncThunk(
     }
 );
 
-export const searchByPhoneLogin = createAsyncThunk(
-    'cards/searchByPhoneLogin',
-    async ({cellPhone, bankName}: { cellPhone: string, bankName: string }, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-
-            const res = await instanceApi.post('/search-by-phone-login', {
-                bankName,
-                cellPhone
-            }, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
-    }
-);
 
 export const getMoreBanks = createAsyncThunk(
     'banks/getMoreBanks',
@@ -134,22 +114,31 @@ export const getMoreBanks = createAsyncThunk(
 
 export const connectCardsInBank = createAsyncThunk(
     'banks/connectCardsInBank',
-    async ({cards, id}: IConnectCard, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-            const data: { [key: string]: string | number } = {
-                cards,
-                id
-            };
-            const res = await instanceApi.post('/connect-card-in-bank', {...data}, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            dispatch(handleSuccess(res.data));
-            return res.data.bank;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+    async ({cardNumbers, bankAccountId}: IConnectCard, {dispatch, getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
+        const data: { [key: string]: string | number } = {
+            cardNumbers,
+            bankAccountId
+        };
+        const res = await instanceApi.post('/finances/cards/connect', {...data}, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        dispatch(handleSuccess({message: 'Успешно подключено'}));
+        return res.data.bank;
+    }
+);
+
+export const banksFilter = createAsyncThunk(
+    'cards/banksFilter',
+    async ({params}:{params: string},{getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.get(`/finances/banks?${params}`, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );

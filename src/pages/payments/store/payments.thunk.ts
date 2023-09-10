@@ -6,7 +6,7 @@ import {handleError} from '../../../store/app.slice';
 
 export const getPayments = createAsyncThunk(
     'payments/getPayments',
-    async ({status}: { status: StatusCardPayments | null }, {dispatch, getState}) => {
+    async ({status}: { status: StatusCardPayments | null }, { getState}) => {
         const {auth} = getState() as { auth: IAuthState };
         const res = await instanceApi.get('/finances/payments', {
             headers: {
@@ -35,12 +35,12 @@ export const getMorePayments = createAsyncThunk(
     }
 );
 
-export const searchByCardNumberPayments = createAsyncThunk(
-    'cards/searchByCardNumberPayments',
-    async ({cardNum}: { cardNum: string }, {dispatch, getState}) => {
+export const paymentsFilter = createAsyncThunk(
+    'cards/paymentsFilter',
+    async ({params}: { params: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.post('/search-by-card-number-payments', {cardNum}, {
+            const res = await instanceApi.get(`/finances/payments?${params}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

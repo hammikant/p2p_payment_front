@@ -10,10 +10,11 @@ import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {IOption} from '../../types';
 import {TabsButtons} from '../../components/tabsButtons';
 import styles from './styles.module.scss';
-import {addBank, getBanks, getMoreBanks} from './store/banks.thunk';
+import {addBank, banksFilter, getBanks, getMoreBanks} from './store/banks.thunk';
 import {IBank} from './store/types';
 import {BankCards} from './components/BankCards';
-import {SearchByPhoneLogin, SwitchersRow} from './components';
+import {  SwitchersRow} from './components';
+import {Filter} from './components/Filter';
 
 const buttons: IOption[] = [
     {label: 'Все', value: 'all'},
@@ -58,11 +59,12 @@ export const Banks = () => {
     const handleTabs = (item: IOption) => {
         //@todo здесь происходит запрос по табуляции status - all, active, inactive, pause, disabled
         setCurrentTab(item);
-        dispatch(getBanks());
+        //dispatch(getBanks());
+        dispatch(banksFilter({params: ''}));
     };
- 
+
     const submit = handleSubmit(values => {
-        dispatch(addBank({bank: {...values, isVerified: false} as IBank}));
+        dispatch(addBank({bank: {...values, verification: false} as IBank}));
         reset();
         setConnectModal(false);
     });
@@ -76,7 +78,7 @@ export const Banks = () => {
             <Button text={'Подключить банк'} variant={'outline'} onClick={() => setConnectModal(true)}/>
 
             <div className={'space-top-32'}/>
-            <SearchByPhoneLogin/>
+            <Filter/>
             <div className={'space-top-32'}/>
             <TabsButtons items={buttons} selected={currentTab} handleClick={item => handleTabs(item)}/>
             <div className={'space-top-24'}/>

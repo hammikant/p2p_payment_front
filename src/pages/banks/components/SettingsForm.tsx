@@ -139,8 +139,7 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                 </span>
                 <SubTitle text={'Подключить карты'}/>
                 <div className={'space-top-32'}/>
-                <p className={'text-16'}>Чтобы добавить несколько карт, вставьте их списком через запятую, пробел или
-                    перенос строки. Можно добавить до 100 карт одновременно.</p>
+                <p className={'text-16'}>Чтобы добавить несколько карт, вставьте их списком через запятую. Можно добавить до 100 карт одновременно.</p>
                 <AddCardsForm
                     id={item.id}
                     bankName={item.bank}

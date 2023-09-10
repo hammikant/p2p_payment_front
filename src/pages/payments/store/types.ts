@@ -1,13 +1,12 @@
 import {bankNames, IMetaResponse, statusCard} from '../../../types';
 
 export interface IPayments {
-    bankName: bankNames;
-    num: string;
-    data: string;
+    amount: number;
+    cardNumber: string;
+    date: string;
     id: number;
-    sum: number;
-    profit: number;
-    status: statusCard
+    profit: number
+    status: string;
 }
 
 export interface ICommonDataPayments {

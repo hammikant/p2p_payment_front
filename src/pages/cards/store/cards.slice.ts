@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {changeStatusCard, getCards, getCardsById, getMoreCards, searchByCardNumber} from './cards.thunk';
+import {cardsFilter, changeStatusCard, getCards, getCardsById, getMoreCards} from './cards.thunk';
 import {ICardsState} from './types';
 
 const initialState: ICardsState = {
@@ -32,14 +32,14 @@ const cardsSlice = createSlice({
         builder.addCase(getCards.rejected, (state) => {
             state.loading = true;
         });
-        builder.addCase(searchByCardNumber.pending, (state) => {
+        builder.addCase(cardsFilter.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(searchByCardNumber.fulfilled, (state, {payload}) => {
+        builder.addCase(cardsFilter.fulfilled, (state, {payload}) => {
             state.loading = false;
             state.cards = payload.cards;
         });
-        builder.addCase(searchByCardNumber.rejected, (state) => {
+        builder.addCase(cardsFilter.rejected, (state) => {
             state.loading = true;
         });
         builder.addCase(getCardsById.pending, (state) => {

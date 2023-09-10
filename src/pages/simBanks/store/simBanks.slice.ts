@@ -1,6 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {ICellPhoneSimBank, ISimBankStore} from './types';
-import {addSimBank, connectCellPhonesInSimBank, deleteCellPhones, deleteSimBank, getSimBanks} from './simBanks.thunk';
+import {ICellPhoneSimBank, ISimBank, ISimBankStore} from './types';
+import {
+    addSimBank,
+    changeDisplayName,
+    connectCellPhonesInSimBank,
+    deleteCellPhones,
+    deleteSimBank,
+    getSimBanks
+} from './simBanks.thunk';
 
 interface IStore extends ISimBankStore {
     connectingCellPhones: ICellPhoneSimBank[]
@@ -8,7 +15,7 @@ interface IStore extends ISimBankStore {
 
 const initialState: IStore = {
     loading: false,
-    list: [],
+    simBanks: [],
     connectingCellPhones: [],
     meta: {
         total: 0,
@@ -35,7 +42,7 @@ const simBanksSlice = createSlice({
         });
         builder.addCase(getSimBanks.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list = payload.list;
+            state.simBanks = payload.simBanks;
             state.meta = payload.meta;
         });
         builder.addCase(getSimBanks.rejected, state => {
@@ -46,7 +53,7 @@ const simBanksSlice = createSlice({
         });
         builder.addCase(addSimBank.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list = [payload, ...state.list];
+            state.simBanks = [payload, ...state.simBanks];
             state.meta = payload.meta;
         });
         builder.addCase(addSimBank.rejected, state => {
@@ -58,7 +65,7 @@ const simBanksSlice = createSlice({
         });
         builder.addCase(deleteSimBank.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list = state.list.filter(item => item.id !== payload);
+            state.simBanks = state.simBanks.filter(item => item.id !== payload);
         });
         builder.addCase(deleteSimBank.rejected, state => {
             state.loading = false;
@@ -68,9 +75,9 @@ const simBanksSlice = createSlice({
         });
         builder.addCase(connectCellPhonesInSimBank.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.list = state.list.map(item => {
+            state.simBanks = state.simBanks.map(item => {
                 if (item.id === payload.id) {
-                    return {...item, cellPhones: payload.cellPhones};
+                    return {...item};
                 }
                 return item;
             });
@@ -84,9 +91,9 @@ const simBanksSlice = createSlice({
         builder.addCase(deleteCellPhones.fulfilled, (state, {payload}) => {
             const delIds = payload.cellPhones.map((i: ICellPhoneSimBank) => i.id);
             state.loading = false;
-            state.list = state.list.map(item => {
+            state.simBanks = state.simBanks.map(item => {
                 if (item.id === payload.id) {
-                    return {...item, cellPhones: item.cellPhones.filter(i => !delIds.includes(i.id))};
+                    return {...item};
                 }
                 return item;
             });
@@ -94,7 +101,21 @@ const simBanksSlice = createSlice({
         builder.addCase(deleteCellPhones.rejected, state => {
             state.loading = false;
         });
-
+        builder.addCase(changeDisplayName.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(changeDisplayName.fulfilled, (state, payload:any) => {
+            state.loading = false;
+            state.simBanks = state.simBanks.map(item => {
+                if (item.id === payload.payload.id) {
+                    return {...item, ...payload.payload};
+                }
+                return item;
+            });
+        });
+        builder.addCase(changeDisplayName.rejected, (state) => {
+            state.loading = false;
+        });
     }
 });
 

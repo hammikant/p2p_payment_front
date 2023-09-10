@@ -6,10 +6,11 @@ import {IOption, StatusCardPayments} from '../../types';
 import {ListCard} from '../../components/listCard';
 import {TabsButtons} from '../../components/tabsButtons';
 import {getAccount} from '../../store/app.slice';
+import {getBanks} from '../banks/store/banks.thunk';
 import {getMorePayments, getPayments} from './store/payments.thunk';
 import styles from './styles.module.scss';
 import {ICommonDataPayments} from './store/types';
-import {SearchByCardNumber, Table} from './components';
+import {Filter, Table} from './components';
 
 const listLabels: { [key: string]: string } = {
     payments: 'Платежей:',
@@ -45,6 +46,7 @@ export const Payments = () => {
 
     useEffect(() => {
         dispatch(getAccount());
+        dispatch(getBanks());
         dispatch(getPayments({status: currentTab.value === 'all' ? null : currentTab.value as StatusCardPayments}));
     }, []);
 
@@ -105,7 +107,7 @@ export const Payments = () => {
                 </div>
             </div>
             <div className={'space-top-32'}/>
-            <SearchByCardNumber/>
+            <Filter/>
             <div className={'space-top-32'}/>
             <div className={styles.row}>
                 <div className={styles.col}>
@@ -114,7 +116,7 @@ export const Payments = () => {
             </div>
             <div className={styles.row}>
                 <div className={styles.col}>
-                    <Table items={payments} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>
+                    <Table items={payments} fetchMoreData={fetchMoreData} hasMore={meta.nextPageUrl !== null}/>
                 </div>
             </div>
         </MainLayout>

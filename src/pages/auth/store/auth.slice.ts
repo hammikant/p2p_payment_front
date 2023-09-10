@@ -68,10 +68,10 @@ const authSlice = createSlice({
             state.statusConfirm = payload;
         },
         setUserData: (state:Draft<IAuthState>, {payload}) => {
-            state.user.email = payload.email;
-            state.user.changeDataPassword = payload.changeDataPassword;
-            state.user.displayName = payload.displayName;
-            state.user.role = payload.role;
+            state.user.email = payload?.email;
+            state.user.changeDataPassword = payload?.changeDataPassword;
+            state.user.displayName = payload?.displayName;
+            state.user.role = payload?.role;
         }
     },
     extraReducers: builder => {
@@ -85,6 +85,7 @@ const authSlice = createSlice({
         });
         builder.addCase(signUp.rejected, (state:Draft<IAuthState>) => {
             state.loading = false;
+            state.isAuth = false;
         });
         builder.addCase(signIn.pending, (state:Draft<IAuthState>) => {
             state.loading = true;

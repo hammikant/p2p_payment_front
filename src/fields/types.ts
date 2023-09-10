@@ -36,5 +36,6 @@ export interface ISelect extends HTMLAttributes<HTMLDivElement> {
     watch: any;
     setValue: UseFormSetValue<any>;
     customIcon?: ReactNode;
-    options: IOption[]
+    options: IOption[];
+    onChangeItem?:(opt:IOption) => void;
 }
