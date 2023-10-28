@@ -12,9 +12,9 @@ import {checkDeposit, getDeposits, getMoreDeposits} from './store/deposit.thunk'
 
 export const Deposits = () => {
     const dispatch = useAppDispatch();
-    const {commonData, loading} = useAppSelector(state => state.app);
+    const {commonData, loading, exchangeRates} = useAppSelector(state => state.app);
     const {deposits, meta} = useAppSelector(state => state.deposits);
-    const {exchangeRates, balance, wallet, walletQR} = commonData as ICommonData;
+    const {onPaymentBalance, balance, wallet, walletQR} = commonData as ICommonData;
 
     useEffect(() => {
         dispatch(getDeposits());
@@ -34,15 +34,16 @@ export const Deposits = () => {
     const fetchMoreData = () => {
         dispatch(getMoreDeposits({url: meta.nextPageUrl}));
     };
-    const balanceUs = balance > 0 ? Math.round(balance / exchangeRates.sellingRate) : balance;
+    const balanceUs = balance;
     return (
         <MainLayout titlePage={'Депозиты'}>
+            <div id={'container'}>
             <div className={'row'}>
-                <div className={'col'}>
+                <div className={styles.box}>
                     <SimpleCard
                         name={'Баланс'}
                         data={`${balance} ₽`}
-                        additionalData={`$${balanceUs}`}
+                        additionalData={`$${(balance / exchangeRates.usdtrub).toFixed(2)}`}
                         footer={
                             <div className={styles.cardFooter}>
                                 <div className={styles.reload}>
@@ -54,15 +55,14 @@ export const Deposits = () => {
                                     </button>
                                 </div>
                                 <span className={styles.rates}>
-                                    USDТ {exchangeRates.sellingRate}
-                                    {exchangeRates.trand === 'up' ? <TrendUp/> : <TrendDown/>}
+                                    USDТ
                                 </span>
                             </div>
                         }
                     />
                 </div>
-                <div className={'col'}>
-                    <Calculator exchangeRates={exchangeRates.sellingRate} handleCalculation={handleCalculation}/>
+                <div className={styles.box}>
+                    <Calculator exchangeRates={exchangeRates.usdtrub} handleCalculation={handleCalculation}/>
                 </div>
             </div>
             <div className={'row'}>
@@ -74,6 +74,7 @@ export const Deposits = () => {
             </div>
             <div className={'space-top-32'}/>
             <h3 className={styles.sectionTitle}>Транзакции</h3>
+            </div>
             <div className={'row'}>
                 <div className={'col'}>
                     <Table items={deposits} hasMore={!meta.isLastPage} fetchMoreData={fetchMoreData}/>

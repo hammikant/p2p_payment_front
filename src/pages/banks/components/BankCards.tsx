@@ -17,7 +17,7 @@ export const BankCards = ({items, handleFetchMore, hasMore}: IBankCardsProps) =>
         const height = window.innerHeight;
         setHeightTable(height / 1.8);
     }, []);
-    
+
     return (
         <div className={styles.row}>
             <InfiniteScroll
@@ -30,7 +30,7 @@ export const BankCards = ({items, handleFetchMore, hasMore}: IBankCardsProps) =>
                 height={heightTable}
                 className={'infinityContainer infinityContainerFlex'}
             >
-                {items.map(item => <BankCard key={item.id} item={item}/>)}
+                {items.map((item, index) => <BankCard key={`${item.id}-${index}`} item={item}/>)}
             </InfiniteScroll>
 
         </div>

@@ -23,8 +23,8 @@ export const Table = ({items, fetchMoreData, hasMore}: ITableProps) => {
 
 
     return (
-        <div className={styles.table}>
-            <div className={styles.tableItemHeader}>
+        <div className={'table'}>
+            <div className={'tableHead'}>
                 {heads.map((name, index) => <TableHead key={index} name={name}/>)}
             </div>
             {items.length > 0 ? <InfiniteScroll

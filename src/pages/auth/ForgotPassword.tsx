@@ -23,7 +23,7 @@ export const ForgotPassword = () => {
     });
 
     const handleSignIn = handleSubmit(async (values) => {
-        dispatch(forgotPassword({login: values.login as string}));
+        dispatch(forgotPassword({email: values.login as string}));
         reset();
     });
 

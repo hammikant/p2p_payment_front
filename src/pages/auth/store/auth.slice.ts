@@ -1,6 +1,8 @@
 import {createSlice, Draft} from '@reduxjs/toolkit';
 import {IMetaResponse} from '../../../types';
-import {changeDisplayName, changePassword, forgotPassword, signIn, signUp} from './auth.thunk';
+import {changeDisplayName, changePassword, forgotPassword, restoreConfirmation, signIn, signUp} from './auth.thunk';
+
+export type Role = 'trader' | 'merchant';
 
 export interface IHistoryActions {
     data: string;
@@ -87,7 +89,19 @@ const authSlice = createSlice({
             state.loading = false;
             state.isAuth = false;
         });
-        builder.addCase(signIn.pending, (state:Draft<IAuthState>) => {
+        builder.addCase(restoreConfirmation.fulfilled, (state:Draft<IAuthState>, action) => {
+            state.loading = false;
+            state.token = action.payload.token;
+        });
+        builder.addCase(restoreConfirmation.rejected, (state:Draft<IAuthState>) => {
+            state.loading = false;
+            state.isAuth = false;
+        });
+
+        builder.addCase(restoreConfirmation.pending, (state:Draft<IAuthState>) => {
+            state.loading = true;
+        });
+        builder.addCase(signIn.pending, (state) => {
             state.loading = true;
         });
         builder.addCase(signIn.fulfilled, (state:Draft<IAuthState>, action) => {

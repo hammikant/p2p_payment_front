@@ -36,7 +36,8 @@ export const enum StatusCardPayments {
     success = 'Успех',
     frozen = 'Заморожено',
     payment = 'Оплата',
-    cancellation = 'Отмена'
+    cancellation = 'Отмена',
+    all = 'Все'
 }
 
 export const enum BankNames {
@@ -68,12 +69,6 @@ export type bankNames =
 
 export type TrendRates = 'up' | 'down'
 
-export interface IExchangeRates {
-    buyingRate: number;
-    sellingRate: number;
-    trand: TrendRates
-}
-
 export interface ICommonData {
     balance: number;
     incomeToday: number;
@@ -81,5 +76,15 @@ export interface ICommonData {
     role: Role;
     wallet: string;
     walletQR: string;
-    exchangeRates: IExchangeRates;
+    frozenBalance: string;
+    onPaymentBalance: string;
+    displayName: string;
+}
+
+export interface SearchByBankProps {
+    handleBankFilter: (params: string) => void;
+}
+
+export interface SearchByInputProps {
+    handleInputFilter: (params: string) => void;
 }

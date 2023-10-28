@@ -118,9 +118,9 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                         style={{width: '154px'}}
                         type={'submit'}
                         onClick={submit}/>
-                    <button className={styles.bankModalDelete} type={'button'} onClick={handleDeleteBank}>
-                        <Delete/> Удалить банк
-                    </button>
+                    {/*<button className={styles.bankModalDelete} type={'button'} onClick={handleDeleteBank}>*/}
+                    {/*    <Delete/> Удалить банк*/}
+                    {/*</button>*/}
                 </div>
             </form>
             <Modal

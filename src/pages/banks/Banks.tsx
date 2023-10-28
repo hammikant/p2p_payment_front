@@ -9,20 +9,16 @@ import {Close} from '../../icons';
 import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {IOption} from '../../types';
 import {TabsButtons} from '../../components/tabsButtons';
+import {buttonsTabs} from '../../utils/constants';
 import styles from './styles.module.scss';
 import {addBank, banksFilter, getBanks, getMoreBanks} from './store/banks.thunk';
 import {IBank} from './store/types';
 import {BankCards} from './components/BankCards';
-import {  SwitchersRow} from './components';
+import {SwitchersRow} from './components';
 import {Filter} from './components/Filter';
+import {setUseFilterStatus} from './store/banks.slice';
 
-const buttons: IOption[] = [
-    {label: 'Все', value: 'all'},
-    {label: 'Активный', value: 'active'},
-    {label: 'Не активный', value: 'inactive'},
-    {label: 'На паузе', value: 'pause'},
-    {label: 'Отключена', value: 'disabled'},
-];
+
 
 const bankNames: IOption[] = [
     {label: 'Газпром', value: 'gazrpom'},
@@ -44,27 +40,46 @@ const schema = yup.object({
 
 export const Banks = () => {
     const dispatch = useAppDispatch();
-    const {list, loading, meta} = useAppSelector(state => state.banks);
+    const {list, meta} = useAppSelector(state => state.banks);
     const [connectModal, setConnectModal] = useState<boolean>(false);
-    const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
+    const [currentTab, setCurrentTab] = useState<IOption>(buttonsTabs[0]);
+    const [paramsBank, setParamsBank] = useState<string>('');
+    const [paramsTab, setParamsTab] = useState<string>('');
 
     useEffect(() => {
-        dispatch(getBanks());
-    }, []);
+        if(paramsTab === '' && paramsBank === '') {
+            dispatch(getBanks());
+        }
+        if(paramsBank !== '' && paramsTab === '') {
+            dispatch(banksFilter({params: paramsBank}));
+        }
+        if(paramsTab !== '' && paramsBank === '') {
+            dispatch(banksFilter({params: paramsTab}));
+        }
+        if(paramsBank !== '' && paramsTab !== '') {
+            dispatch(banksFilter({params: `${paramsTab}&${paramsBank}`}));
+        }
+
+        return () => {
+            dispatch(setUseFilterStatus(false));
+        };
+    }, [paramsBank, paramsTab]);
 
     const {control, register, setValue, watch, formState: {errors}, reset, handleSubmit} = useForm({
         resolver: yupResolver(schema)
     });
 
     const handleTabs = (item: IOption) => {
-        //@todo здесь происходит запрос по табуляции status - all, active, inactive, pause, disabled
         setCurrentTab(item);
-        //dispatch(getBanks());
-        dispatch(banksFilter({params: ''}));
+        setParamsTab(item.value === 'all' ? '' : item.value);
+    };
+
+    const handleBankFilter = (params: string) => {
+        setParamsBank(params === 'all' ? '' : `bank=${params}`);
     };
 
     const submit = handleSubmit(values => {
-        dispatch(addBank({bank: {...values, verification: false} as IBank}));
+        dispatch(addBank({bank: {...values, isVerified: false} as IBank}));
         reset();
         setConnectModal(false);
     });
@@ -78,14 +93,11 @@ export const Banks = () => {
             <Button text={'Подключить банк'} variant={'outline'} onClick={() => setConnectModal(true)}/>
 
             <div className={'space-top-32'}/>
-            <Filter/>
+            <Filter handleBankFilter={handleBankFilter}/>
             <div className={'space-top-32'}/>
-            <TabsButtons items={buttons} selected={currentTab} handleClick={item => handleTabs(item)}/>
+            <TabsButtons items={buttonsTabs} selected={currentTab} handleClick={item => handleTabs(item)}/>
             <div className={'space-top-24'}/>
-            {loading ? <p style={{color: '#ffffff'}}>Loading...</p> : (
-                <BankCards items={list} hasMore={!meta.isLastPage} handleFetchMore={handleFetchMore}/>
-            )}
-
+            <BankCards items={list} hasMore={!meta.isLastPage} handleFetchMore={handleFetchMore}/>
             <Modal
                 show={connectModal}
                 widthContent={'472px'}

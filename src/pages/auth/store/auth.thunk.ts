@@ -22,9 +22,17 @@ export const signIn = createAsyncThunk(
 
 export const forgotPassword = createAsyncThunk(
     'auth/forgotPassword',
-    async ({login}: { login: string }, {dispatch}) => {
-        const res = await instanceApi.post('/account/restore', {login});
+    async ({email}: { email: string }, {dispatch}) => {
+        const res = await instanceApi.post('/account/restore', {email});
         return res.data.sendEmail;
+    }
+);
+
+export const restoreConfirmation = createAsyncThunk(
+    'auth/restoreConfirmation',
+    async ({params}: {params:string}) => {
+        const res = await instanceApi.put(`/account/${params}`, null);
+        return res.data;
     }
 );
 

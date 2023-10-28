@@ -4,7 +4,7 @@ export interface ICard {
     id: number;
     bank: bankNames
     number: number;
-    date: string;
+    updatedAt: string;
     status: string;
 }
 

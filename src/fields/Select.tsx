@@ -20,7 +20,7 @@ export const Select = (
     }: ISelect) => {
 
     const [showDrop, setShowDrop] = useState<boolean>(false);
-    const [text, setText] = useState<string>('');
+    const [text, setText] = useState<string>(options[0]?.label ?? '');
 
     const handleSelect = (item: IOption) => {
         setShowDrop(false);

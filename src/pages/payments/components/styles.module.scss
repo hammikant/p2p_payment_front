@@ -36,7 +36,7 @@
 .tableItemHeader {
   display: flex;
   padding: 24px 16px 0 0;
-  min-width: 1170px;
+  width: calc(100vw - 370px);
 }
 
 .item {
@@ -48,6 +48,8 @@
     width: 30%;
 
     & img {
+      width: 40px;
+      height: 40px;
       margin-right: 12px;
       background-color: #1B1F26;
       border-radius: 50%;
@@ -105,6 +107,7 @@
 
   &Item {
     width: 100%;
+    max-width: 298px;
     padding-right: 15px;
     padding-left: 15px;
   }

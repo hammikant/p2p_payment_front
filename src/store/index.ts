@@ -12,6 +12,7 @@ import statistic from '../pages/statistics/store/statistic.slice';
 import {instanceApi} from '../api';
 import {errorsMessage} from '../utils/constants';
 import app, {handleError} from './app.slice';
+import {appApi} from './app.api';
 
 const appReducer = combineReducers({
     app,
@@ -44,13 +45,18 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat( process.env.NODE_ENV ==='development' ? logger : null)
 });
 
 instanceApi.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     const {data} = error.response;
+    if(data?.includes('<!DOCTYPE html>')) {
+        console.log(data);
+        store.dispatch(handleError({message: 'Не известная шибка', errors: {}}));
+        return Promise.reject(error);
+    }
     const keys = Object.keys(data);
     const values = Object.values(data);
     if(keys.length > 0) {

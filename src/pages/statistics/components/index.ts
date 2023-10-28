@@ -1,5 +1,5 @@
-import {Chart} from './Chart';
-
+import {MerchantContent} from './MerchantContent';
+import {TraderContent} from './TraderContent';
 export {
-    Chart
+    TraderContent, MerchantContent
 };

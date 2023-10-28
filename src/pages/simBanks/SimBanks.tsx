@@ -19,10 +19,10 @@ const schema = yup.object({
 
 export const SimBanks = () => {
     const dispatch = useAppDispatch();
-    const {simBanks, meta, loading} = useAppSelector(state => state.simBanks);
+    const {simBanks} = useAppSelector(state => state.simBanks);
     const [connectionModal, setConnectModal] = useState<boolean>(false);
-
-    const {control, register, handleSubmit, formState: {errors}} = useForm({
+    const [isEdit, setEdit] = useState<boolean>(false);
+    const {control, register, handleSubmit, setValue, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -30,8 +30,15 @@ export const SimBanks = () => {
        dispatch(getSimBanks());
     }, []);
 
+
     const submit = handleSubmit(values => {
-        dispatch(addSimBank(values as { displayName: string, apiKey: string }));
+        if(isEdit) {
+            dispatch(addSimBank(values as { displayName: string, apiKey: string }));
+            setEdit(false);
+        } else {
+
+        }
+
         setConnectModal(false);
     });
 
@@ -46,6 +53,12 @@ export const SimBanks = () => {
                         displayName={bank.displayName}
                         id={bank.id}
                         apiKey={bank.apiKey}
+                        handleEdit={() => {
+                            setConnectModal(true);
+                            setEdit(true);
+                            setValue('displayName', bank.displayName);
+                            setValue('apiKey', bank.apiKey);
+                        }}
                     />)}
             </div>
             <Modal
@@ -84,7 +97,7 @@ export const SimBanks = () => {
                     />
                     <div className={'space-top-32'}/>
                     <Button
-                        text={'Добавить'}
+                        text={isEdit ? 'Изменить' : 'Добавить'}
                         variant={'full'}
                         style={{width: '148px'}}
                         type={'submit'}

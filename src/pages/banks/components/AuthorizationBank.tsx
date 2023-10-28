@@ -8,7 +8,7 @@ interface IAuthorizationBankProps extends IVerificationData {
     handleDone: () => void;
 }
 
-export const AuthorizationBank = ({bankName, cellPhone, comment, handleDone}: IAuthorizationBankProps) => {
+export const AuthorizationBank = ({bankName, cellPhone, authorizationAmount, comment, handleDone}: IAuthorizationBankProps) => {
     return (
         <>
             <SubTitle text={'Авторизация'}/>
@@ -29,7 +29,7 @@ export const AuthorizationBank = ({bankName, cellPhone, comment, handleDone}: IA
                 </li>
                 <li className={styles.bankModalListItem}>
                     <span className={styles.bankModalListText}>Сумма:</span>
-                    <span className={styles.bankModalListText}>1 ₽</span>
+                    <span className={styles.bankModalListText}>{authorizationAmount} ₽</span>
                 </li>
                 <li className={styles.bankModalListItem}>
                     <span className={styles.bankModalListText}>Комментарий:</span>

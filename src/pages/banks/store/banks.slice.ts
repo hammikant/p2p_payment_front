@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {fa, tr} from '@faker-js/faker';
 import {IBanks} from './types';
 import {
     addBank,
@@ -13,6 +14,7 @@ import {
 
 const initialState: IBanks = {
     loading: false,
+    isUseFilter: false,
     list: [],
     meta: {
         isLastPage: false,
@@ -25,7 +27,11 @@ const initialState: IBanks = {
 const banksSlice = createSlice({
     name: 'banks',
     initialState,
-    reducers: {},
+    reducers: {
+        setUseFilterStatus: (state, {payload}:{payload: boolean}) => {
+            state.isUseFilter = payload;
+        }
+    },
     extraReducers: builder => {
         builder.addCase(addBank.pending, state => {
             state.loading = true;
@@ -39,6 +45,7 @@ const banksSlice = createSlice({
         });
         builder.addCase(getBanks.pending, state => {
             state.loading = true;
+            state.isUseFilter = false;
         });
         builder.addCase(getBanks.fulfilled, (state, {payload}) => {
             state.loading = false;
@@ -50,6 +57,7 @@ const banksSlice = createSlice({
         });
         builder.addCase(banksFilter.pending, state => {
             state.loading = true;
+            state.isUseFilter = true;
         });
         builder.addCase(banksFilter.fulfilled, (state, {payload}) => {
             state.loading = false;
@@ -58,6 +66,7 @@ const banksSlice = createSlice({
         });
         builder.addCase(banksFilter.rejected, state => {
             state.loading = false;
+            state.isUseFilter = false;
         });
         builder.addCase(getMoreBanks.fulfilled, (state, {payload}) => {
             state.list = [...state.list, ...payload.banks];
@@ -104,7 +113,6 @@ const banksSlice = createSlice({
             state.loading = false;
         });
         builder.addCase(connectCardsInBank.fulfilled, (state, {payload}) => {
-
             state.list = state.list.map(item => {
                 if (item.id === payload.id) {
                     return {...item, ...payload};
@@ -112,7 +120,12 @@ const banksSlice = createSlice({
                 return item;
             });
         });
+        builder.addCase(connectCardsInBank.rejected, state => {
+            state.loading = false;
+        });
     }
 });
+
+export const {setUseFilterStatus} = banksSlice.actions;
 
 export default banksSlice.reducer;

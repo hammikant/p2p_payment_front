@@ -5,66 +5,53 @@ import {SimpleCard} from '../../components/simpleCard';
 import {IOption, StatusCardPayments} from '../../types';
 import {ListCard} from '../../components/listCard';
 import {TabsButtons} from '../../components/tabsButtons';
-import {getAccount} from '../../store/app.slice';
-import {getBanks} from '../banks/store/banks.thunk';
-import {getMorePayments, getPayments} from './store/payments.thunk';
+import {useInterval} from '../../hooks/useInterval';
+import {buttonsTabsPayments} from '../../utils/constants';
+import {getMorePayments, getPayments, paymentsFilter} from './store/payments.thunk';
 import styles from './styles.module.scss';
-import {ICommonDataPayments} from './store/types';
 import {Filter, Table} from './components';
 
-const listLabels: { [key: string]: string } = {
-    payments: 'Платежей:',
-    turnover: 'Оборот:',
-    income: 'Доход:',
-    onPayment: 'На оплате:',
-    frozen: 'Заморожено:',
-};
-
-const buttons: IOption[] = [
-    {label: 'Все', value: 'all'},
-    {label: 'Успех', value: 'success'},
-    {label: 'Заморожено', value: 'frozen'},
-    {label: 'Оплата', value: 'payment'},
-    {label: 'Отмена', value: 'cancellation'},
-];
 
 export const Payments = () => {
     const dispatch = useAppDispatch();
     const {
-        commonData,
         payments,
+        income,
         meta
     } = useAppSelector(state => state.payments);
     const {
         balance,
-        incomeToday,
-        exchangeRates
+        onPaymentBalance
     } = useAppSelector(state => state.app.commonData);
-    const [listOptions, setListOptions] = useState<IOption[]>([]);
-    const [currentTab, setCurrentTab] = useState<IOption>({label: buttons[0].label, value: buttons[0].value});
+    const {role} = useAppSelector(state => state.auth);
+    const {exchangeRates} = useAppSelector(state => state.app);
+    const [currentTab, setCurrentTab] = useState<IOption>(buttonsTabsPayments[0]);
 
-
-    useEffect(() => {
-        dispatch(getAccount());
-        dispatch(getBanks());
-        dispatch(getPayments({status: currentTab.value === 'all' ? null : currentTab.value as StatusCardPayments}));
-    }, []);
-
+    const [paramsBank, setParamsBank] = useState<string>('');
+    const [paramsTab, setParamsTab] = useState<string>('');
 
     useEffect(() => {
-        const createOptions: IOption[] = [];
-        for (const key in commonData) {
-            createOptions.push({
-                label: listLabels[key],
-                value: commonData[key as keyof ICommonDataPayments].toString()
-            });
+        if(paramsTab === '' && paramsBank === '') {
+            dispatch(getPayments());
         }
-        setListOptions(createOptions);
-    }, [commonData]);
+        if(paramsBank !== '' && paramsTab === '') {
+            dispatch(paymentsFilter({params: paramsBank}));
+        }
+        if(paramsTab !== '' && paramsBank === '') {
+            dispatch(paymentsFilter({params: paramsTab}));
+        }
+        if(paramsBank !== '' && paramsTab !== '') {
+            dispatch(paymentsFilter({params: `${paramsTab}&${paramsBank}`}));
+        }
+    }, [paramsBank, paramsTab]);
 
     const handleTabs = (item: IOption) => {
         setCurrentTab(item);
-        dispatch(getPayments({status: item.value === 'all' ? null : item.value as StatusCardPayments}));
+        setParamsTab(item.value === 'all' ? '' : `status=${item.value}`);
+    };
+
+    const handleBankFilter = (params: string) => {
+        setParamsBank(params === 'all' ? '' : `bank=${params}`);
     };
 
     const fetchMoreData = () => {
@@ -73,45 +60,47 @@ export const Payments = () => {
             status: currentTab.value === 'all' ? null : currentTab.value as StatusCardPayments
         }));
     };
-    const balanceUs = balance > 0 ? Math.round(balance / exchangeRates.sellingRate) : balance;
-    const incomeTodayUs = incomeToday > 0 ? Math.round(incomeToday * exchangeRates.sellingRate) : incomeToday;
+
     return (
         <MainLayout titlePage={'Платежи'} descriptionPage={'Контролируйте выплаты на ваши реквизиты'}>
-            <div className={styles.row}>
-                <div className={styles.col}>
-                    <SimpleCard
-                        name={'Баланс'}
-                        data={`${balance} ₽`}
-                        additionalData={`$${balanceUs}`}
-                        footer={
-                            <div className={styles.cardFooter}><span
-                                className={styles.cardFooterText}>{`${commonData.onPayment} ₽ на оплате`}</span>
-                            </div>
-                        }
-                    />
+            <div id={'container'}>
+                <div className={styles.row}>
+                    <div className={styles.col}>
+                        <SimpleCard
+                            name={'Баланс'}
+                            data={`${balance} ₽`}
+                            additionalData={`$${(balance / exchangeRates.usdtrub).toFixed(2)}`}
+                            footer={
+                                <div className={styles.cardFooter}><span
+                                    className={styles.cardFooterText}>{`${onPaymentBalance} ₽ на оплате`}</span>
+                                </div>
+                            }
+                        />
+                    </div>
+                    {role === 'trader' ? <div className={styles.col}>
+                        <SimpleCard
+                            name={'Доход сегодня'}
+                            data={`${income.day} ₽`}
+                            additionalData={`$${(income.day / exchangeRates.usdtrub).toFixed(2)}`}
+                            footer={
+                                <div className={styles.cardFooter}><span
+                                    className={styles.cardFooterText}>{'2% с каждого платежа'}</span>
+                                </div>
+                            }
+                        />
+                    </div> : null}
+                    <div className={styles.col}>
+                        <ListCard/>
+                    </div>
                 </div>
-                <div className={styles.col}>
-                    <SimpleCard
-                        name={'Доход сегодня'}
-                        data={`${incomeToday} ₽`}
-                        additionalData={`$${incomeTodayUs}`}
-                        footer={
-                            <div className={styles.cardFooter}><span
-                                className={styles.cardFooterText}>{'2% с каждого платежа'}</span>
-                            </div>
-                        }
-                    />
-                </div>
-                <div className={styles.col}>
-                    <ListCard items={listOptions}/>
-                </div>
-            </div>
-            <div className={'space-top-32'}/>
-            <Filter/>
-            <div className={'space-top-32'}/>
-            <div className={styles.row}>
-                <div className={styles.col}>
-                    <TabsButtons items={buttons} selected={currentTab} handleClick={item => handleTabs(item)}/>
+                <div className={'space-top-32'}/>
+                <Filter handleBankFilter={handleBankFilter}/>
+                <div className={'space-top-32'}/>
+                <div className={styles.row}>
+                    <div className={'col'}>
+                        <TabsButtons items={buttonsTabsPayments} selected={currentTab}
+                                     handleClick={item => handleTabs(item)}/>
+                    </div>
                 </div>
             </div>
             <div className={styles.row}>

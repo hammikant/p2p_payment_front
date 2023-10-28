@@ -3,6 +3,7 @@ import {  BankNames, IMetaResponse} from '../../../types';
 export interface IVerificationData {
     cellPhone: string;
     comment: string;
+    authorizationAmount: string | null
 }
 
 export interface IBank {
@@ -14,11 +15,18 @@ export interface IBank {
     isAcceptingSbp: boolean;
     name: string;
     phoneNumber: string;
-    verification: boolean;
+    isVerified: boolean;
+    authorizationComment: string | null;
+    authorizationAmount: string | null;
 }
 
 export interface IBanks {
     loading?: boolean;
+    isUseFilter: boolean;
     list: IBank[];
     meta: IMetaResponse;
+}
+
+export interface IBankRequest {
+
 }

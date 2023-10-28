@@ -5,10 +5,11 @@ import styles from './styles.module.scss';
 
 interface IChangeableTitleParops {
     title: string;
-    handleChangeTitle: (title: string) => void;
+    //handleChangeTitle: (title: string) => void;
+    handleEdit: () => void;
 }
 
-export const ChangeableField = ({title, handleChangeTitle}: IChangeableTitleParops) => {
+export const ChangeableField = ({title, /* handleChangeTitle, */ handleEdit}: IChangeableTitleParops) => {
     const refHead = useRef<HTMLDivElement | null>(null);
     const [text, setText] = useState<string>(title);
     const [isEdit, setEdit] = useState<boolean>(false);
@@ -23,7 +24,7 @@ export const ChangeableField = ({title, handleChangeTitle}: IChangeableTitleParo
 
     const saveText = () => {
         setEdit(false);
-        handleChangeTitle(text);
+      //  handleChangeTitle(text);
     };
 
     return (
@@ -44,7 +45,10 @@ export const ChangeableField = ({title, handleChangeTitle}: IChangeableTitleParo
                     style={{width}}
                 />
             }
-            <div className={styles.changeableTitleIcon} onClick={() => setEdit(!isEdit)}>
+            <div className={styles.changeableTitleIcon} onClick={() => {
+               // setEdit(!isEdit)
+                handleEdit();
+            }}>
                 <Edit color={isEdit ? '#ffffff' : '#667180'}/>
             </div>
         </div>

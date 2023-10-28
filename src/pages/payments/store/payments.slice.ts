@@ -4,6 +4,7 @@ import {IPaymentsState} from './types';
 
 const initialState: IPaymentsState = {
     loading: false,
+    isUseFilterPayment: false,
     commonData: {
         payments: 0,
         turnover: '0/0',
@@ -12,6 +13,12 @@ const initialState: IPaymentsState = {
         frozen: 0,
     },
     payments: [],
+    income: {
+        day: 0, total: 0
+    },
+    turnover: {
+        day: 0, total: 0
+    },
     meta: {
         total: 0,
         nextPageUrl: null,
@@ -33,13 +40,17 @@ const paymentsSlice = createSlice({
         });
         builder.addCase(getPayments.fulfilled, (state, {payload}) => {
             state.payments = payload.payments;
+            state.income = payload.income;
+            state.turnover = payload.turnover;
             state.meta = payload.meta;
+            state.isUseFilterPayment = false;
         });
         builder.addCase(getPayments.rejected, (state) => {
             state.loading = false;
         });
         builder.addCase(paymentsFilter.pending, (state) => {
             state.loading = true;
+            state.isUseFilterPayment = true;
         });
         builder.addCase(paymentsFilter.fulfilled, (state, {payload}) => {
             state.loading = false;
@@ -48,6 +59,7 @@ const paymentsSlice = createSlice({
         });
         builder.addCase(paymentsFilter.rejected, (state) => {
             state.loading = false;
+            state.isUseFilterPayment = false;
         });
 
         builder.addCase(getMorePayments.pending, (state) => {

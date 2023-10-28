@@ -22,11 +22,11 @@ function App() {
     useEffect(() => {
         error !== null && initAlert({
             type: alertTypes.ERROR,
-            text: error?.message ?? '',
+            text: error?.message ?? 'Не известная ошибка',
         });
         success !== null && initAlert({
             type: alertTypes.SUCCESS,
-            text: success?.message ?? '',
+            text: success?.message ?? 'Не известная ошибка',
         });
     }, [error, success]);
 
@@ -36,6 +36,7 @@ function App() {
             <Route path={'/login'} element={<SignIn/>}/>
             <Route path={'/forgot-password'} element={<ForgotPassword/>}/>
             <Route path={'/change-password'} element={<ChangePassword/>}/>
+            <Route path={'/restore'} element={<ChangePassword/>}/>
             <Route path={'/'} element={<PrivateRoute/>}>
                 <Route path={'/'} element={<Payments/>}/>
                 <Route path={'/deposits'} element={<Deposits/>}/>

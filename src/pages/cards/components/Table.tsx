@@ -15,15 +15,17 @@ const heads: string[] = ['Счёт', 'Дата', 'ID', '', 'Статус'];
 
 export const Table = ({items, hasMore, fetchMoreData}: ITableProps) => {
     const [heightTable, setHeightTable] = useState<number>(0);
-    console.log('@@@@@@@ items', items);
+
     useEffect(() => {
-        const height = window.innerHeight / 1.8;
+        const rootHeight = document.getElementById('root').clientHeight;
+        const containerHeight = document.getElementById('container').clientHeight;
+        const height = rootHeight - containerHeight - 126 - 76 - 16;
         setHeightTable(height);
     }, []);
 
     return (
-        <div className={styles.table}>
-            <div className={styles.tableItemHeader}>
+        <div className={'table'}>
+            <div className={'tableHead'}>
                 {heads.map((name, index) => <TableHead key={index} name={name}/>)}
             </div>
             {items.length > 0 ? <InfiniteScroll
@@ -31,7 +33,7 @@ export const Table = ({items, hasMore, fetchMoreData}: ITableProps) => {
                 next={fetchMoreData}
                 hasMore={hasMore}
                 loader={<p className={styles.loader}>loading ...</p>}
-                height={heightTable - 50}
+                height={heightTable}
                 className={'infinityContainer'}
             >
                 {items.map((item) => <TableItem key={item.id} item={item}/>)}

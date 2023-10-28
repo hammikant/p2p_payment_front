@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../../../hooks/app';
 import {changeStatusCard} from '../store/cards.thunk';
-import {icons, viewBankNames} from '../../../utils/constants';
+import {icons} from '../../../utils/constants';
 import {ICard} from '../store/types';
 import styles from './styles.module.scss';
 import {SwitchStatusCard} from './SwitchStatusCard';
@@ -48,7 +48,6 @@ export const TableItem = ({item}: { item: ICard }) => {
 
     return (
         <div
-            className={styles.TableItem}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
@@ -58,7 +57,7 @@ export const TableItem = ({item}: { item: ICard }) => {
                     <span className={styles.itemText}>{cardData()}</span>
                 </div>
                 <div className={styles.item}>
-                    <span className={styles.itemText}>{item.date}</span>
+                    <span className={styles.itemText}>{item.updatedAt}</span>
                 </div>
                 <div className={styles.item}>
                     <span className={styles.itemText}>{item.id}</span>

@@ -7,6 +7,7 @@ import { Select} from '../../../fields';
 import {IOption} from '../../../types';
 import {IBank} from '../../banks/store/types';
 import {cardsFilter, getCards} from '../store/cards.thunk';
+import {optionsBanksList} from '../../../utils/constants';
 
 const schema = yup.object({
     id: yup.string()
@@ -14,18 +15,6 @@ const schema = yup.object({
 
 export const SearchByBank = () => {
     const dispatch = useAppDispatch();
-    const {list} = useAppSelector(state => state.banks);
-    const [option, setOption] = useState<IOption[]>([]);
-    console.log('@@@@@@ list', list);
-    useEffect(() => {
-        const opt = list.map((item: IBank) => {
-            return {
-                value: item.id,
-                label: item.name
-            };
-        });
-        setOption([...opt, {value: 'all', label: 'Все'}]);
-    }, [list]);
 
     const {control, register, watch, setValue, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
@@ -48,7 +37,7 @@ export const SearchByBank = () => {
             errors={errors}
             watch={watch}
             setValue={setValue}
-            options={option}
+            options={optionsBanksList}
             onChangeItem={() => submit()}
             style={{
                 backgroundColor: 'rgb(27, 31, 38)'

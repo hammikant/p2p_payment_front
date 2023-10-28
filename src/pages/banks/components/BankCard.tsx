@@ -5,8 +5,7 @@ import {Modal} from '../../../components/modal';
 import {Close} from '../../../icons';
 import {viewBankNames} from '../../../utils';
 import {useAppDispatch} from '../../../hooks/app';
-import {authorizationBank} from '../store/banks.thunk';
-import {icons} from '../../../utils/constants';
+import {formatPhoneNumber} from '../../../utils';
 import styles from './styles.module.scss';
 import {SettingsForm} from './SettingsForm';
 import {AuthorizationBank} from './AuthorizationBank';
@@ -44,7 +43,8 @@ export const BankCard = ({item}: IBankCardProps) => {
     };
 
     const handleAuthorization = () => {
-        dispatch(authorizationBank({id: item.id, item}));
+        // dispatch(authorizationBank({id: item.id, item}));
+        setShowModal(false);
     };
 
     return (
@@ -64,8 +64,8 @@ export const BankCard = ({item}: IBankCardProps) => {
                         <span className={styles.bankCardListText}>Проверка:</span>
                         <span
                             className={styles.bankCardListText}
-                            style={{color: item.verification ? '#ffffff' : '#F22451'}}
-                        >{item.verification ? 'авторизован' : 'требуется авторизация'}</span>
+                            style={{color: item.isVerified ? '#ffffff' : '#F22451'}}
+                        >{item.isVerified ? 'авторизован' : 'требуется авторизация'}</span>
                     </li>
                     <li className={styles.bankCardListItem}>
                         <span className={styles.bankCardListText}>СБП:</span>
@@ -88,11 +88,12 @@ export const BankCard = ({item}: IBankCardProps) => {
                 <span className={styles.bankModalClose} onClick={() => setShowModal(false)}>
                     <Close width={'18'} height={'18'} color={'#667180'}/>
                 </span>
-                {!item.verification
+                {!item.isVerified
                     ? (
                         <AuthorizationBank
-                            cellPhone={''}
-                            comment={''}
+                            cellPhone={formatPhoneNumber(item.phoneNumber ?? '')}
+                            comment={item.authorizationComment}
+                            authorizationAmount={item.authorizationAmount}
                             bankName={viewBankNames[item.bank]}
                             handleDone={handleAuthorization}
                         />

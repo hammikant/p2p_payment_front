@@ -12,7 +12,7 @@ export const getCards = createAsyncThunk(
     async ({status}: { status: StatusCard | null }, {dispatch, getState}) => {
         const {auth} = getState() as { auth: IAuthState };
 
-        const res = await instanceApi.get('/finances/cards', {
+        const res = await instanceApi.get(`/finances/${auth.role}/cards`, {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }
@@ -46,7 +46,7 @@ export const connectCards = createAsyncThunk(
             cardNumbers,
             bankAccountId
         };
-        const res = await instanceApi.post('/finances/cards/connect', {...data}, {
+        const res = await instanceApi.post(`/finances/${auth.role}/cards/connect`, {...data}, {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }
@@ -62,7 +62,7 @@ export const changeStatusCard = createAsyncThunk(
     async ({id, status}: { id: string, status: StatusCard.active | StatusCard.paused | StatusCard.inactive }, {dispatch, getState}) => {
         const {auth} = getState() as { auth: IAuthState };
 
-        const res = await instanceApi.put(`/finances/card/${id}`, {status}, {
+        const res = await instanceApi.put(`/finances/${auth.role}/card/${id}`, {status}, {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }
@@ -96,7 +96,7 @@ export const cardsFilter = createAsyncThunk(
     'cards/cardsFilter',
     async ({params}:{params: string},{getState}) => {
         const {auth} = getState() as { auth: IAuthState };
-        const res = await instanceApi.get(`/finances/cards?${params}`, {
+        const res = await instanceApi.get(`/finances/${auth.role}/cards?${params.slice(1)}`, {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }

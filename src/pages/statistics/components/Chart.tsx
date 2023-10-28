@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import am5themes_Dark from '@amcharts/amcharts5/themes/Dark';
 import * as am5xy from '@amcharts/amcharts5/xy';
@@ -6,10 +6,18 @@ import {IChart} from '../store/types';
 import styles from './styles.module.scss';
 
 export const Chart = ({items}: { items: IChart[] }) => {
+    const [height, setHeightTable] = useState<number>(0);
+
+    useEffect(() => {
+        const rootHeight = document.getElementById('root').clientHeight;
+        const containerHeight = document.getElementById('container').clientHeight;
+        const height = rootHeight - containerHeight - 126 - 76 - 16;
+        setHeightTable(height);
+    }, []);
 
     useEffect(() => {
         const root = am5.Root.new('chart');
-
+        root._logo.dispose();
         root.setThemes([
             am5themes_Dark.new(root)
         ]);
@@ -29,26 +37,26 @@ export const Chart = ({items}: { items: IChart[] }) => {
 
         // ===========================================
 
-        const date = new Date();
-        date.setHours(0, 0, 0, 0);
-        let value = 100;
+        // const date = new Date();
+        // date.setHours(0, 0, 0, 0);
+        // let value = 100;
 
         function generateData(item: IChart) {
-            value = Math.round((Math.random() * 10 - 5) + value);
+            const date = new Date(item.date.replace(' ', 'T'));
+            // value = Math.round((Math.random() * 10 - 5) + value);
             am5.time.add(date, 'day', 1);
-
             return {
-                date: date.getTime(),
-                value: value,
+                date: new Date(item.date.replace(' ', 'T')).getTime(),
+                value: item.income,
                 income: item.income,
                 turnover: item.turnover,
-                create_as: item.create_as
+                create_as: item.date
             };
         }
 
         function generateDatas(items: IChart[]) {
             const data = [];
-            for (var i = 0; i < items.length; ++i) {
+            for (let i = 0; i < items?.length; ++i) {
                 data.push(generateData(items[i]));
             }
             return data;
@@ -109,13 +117,32 @@ export const Chart = ({items}: { items: IChart[] }) => {
 
         // Add scrollbar
         chart.set('scrollbarX', am5.Scrollbar.new(root, {
-            orientation: 'horizontal'
+            orientation: 'horizontal',
+            maxHeight: 5
         }));
+        const scrollbarX = chart.get('scrollbarX');
+
+        scrollbarX.thumb.setAll({
+            fill: am5.color('#91F230'),
+            fillOpacity: 0.2,
+        });
+
+        function customizeGrip(grip: any) {
+            grip.get('background').setAll({
+                fill: am5.color('#91F230'),
+                stroke: am5.color('#ffffff'),
+                strokeWidth: 3
+            });
+
+        }
+
+        customizeGrip(chart.get('scrollbarX').startGrip);
+        customizeGrip(chart.get('scrollbarX').endGrip);
 
         series.set('stroke', am5.color('#91F230'));
         series.set('fill', am5.color('#91F230'));
 
-        const data = generateDatas(items);
+        const data = generateDatas(items as IChart[]);
         series.data.setAll(data);
 
 
@@ -129,7 +156,7 @@ export const Chart = ({items}: { items: IChart[] }) => {
     }, [items]);
 
     return (
-        <div id="chart" className={styles.chart}/>
+        <div id="chart" className={styles.chart} style={{height: `${height}px`}}/>
     );
 };
 

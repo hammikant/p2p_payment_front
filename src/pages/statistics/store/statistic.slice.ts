@@ -8,7 +8,8 @@ interface IStatisticState extends IStatistic {
 
 const initialState: IStatisticState = {
     loading: false,
-    chart: []
+    chart: [],
+    stats: null
 };
 
 export const statisticSlice = createSlice({
@@ -21,7 +22,7 @@ export const statisticSlice = createSlice({
         });
         builder.addCase(getStatistic.fulfilled, (state, {payload}) => {
             state.loading = false;
-            state.chart = payload.chart;
+            state.stats = payload;
         });
         builder.addCase(getStatistic.rejected, state => {
             state.loading = false;

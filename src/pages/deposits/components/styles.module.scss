@@ -23,6 +23,15 @@
     display: inline-block;
     margin-top: 22px;
   }
+
+  &__box{
+    width: 460px;
+
+    &:first-of-type{
+      margin-right: 14px;
+    }
+
+  }
 }
 
 .label {
@@ -140,7 +149,7 @@
 .tableItemHeader {
   display: flex;
   padding: 24px 0;
-  min-width: 1170px;
+  width: calc(100vw - 370px);
 }
 
 .item {

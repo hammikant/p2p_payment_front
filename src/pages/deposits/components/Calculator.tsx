@@ -1,16 +1,16 @@
 import React, {ChangeEvent, useState} from 'react';
 import {ICalculatorProps} from '../store/types';
+import {useAppSelector} from '../../../hooks/app';
 import styles from './styles.module.scss';
 
 export const Calculator = ({exchangeRates, handleCalculation}: ICalculatorProps) => {
     const [sum, setSum] = useState<string>('');
 
-
     return (
         <div className={styles.calculator}>
             <h3 className={styles.calculatorTitle}>Калькулятор</h3>
             <div className={'row'}>
-                <div className={'col'}>
+                <div className={styles.calculator__box}>
                     <label className={styles.label}>Сумма</label>
                     <div className={styles.inputWrapper}>
                         <input
@@ -27,7 +27,7 @@ export const Calculator = ({exchangeRates, handleCalculation}: ICalculatorProps)
                         <span className={styles.inputIcon}>₽</span>
                     </div>
                 </div>
-                <div className={'col'}>
+                <div className={styles.calculator__box}>
                     <label className={styles.label}>Курс</label>
                     <div className={styles.inputWrapper}>
                         <input readOnly value={exchangeRates} className={styles.input}/>
@@ -37,7 +37,7 @@ export const Calculator = ({exchangeRates, handleCalculation}: ICalculatorProps)
             </div>
             <span
                 className={styles.calculatorResult}>
-                Доход: {(Number(sum) * 0.015).toFixed(2)} ₽
+                Доход: {(Number(sum) * 0.02).toFixed(2)} ₽
             </span>
         </div>
     );

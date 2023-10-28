@@ -5,13 +5,13 @@ import {ICellPhoneSimBank, ISimBank} from '../store/types';
 import {Button, OutputClipBoard, SubTitle} from '../../../fields';
 import {Close, Delete} from '../../../icons';
 import {useAppDispatch} from '../../../hooks/app';
-import {changeDisplayName, deleteCellPhones, deleteSimBank} from '../store/simBanks.thunk';
+import {changeSimBank, deleteCellPhones, deleteSimBank} from '../store/simBanks.thunk';
 import {Modal} from '../../../components/modal';
 import {setConnectingCellPhones} from '../store/simBanks.slice';
 import styles from './styles.module.scss';
 import {CellPhoneList} from './CellPhoneList';
 
-export const SimBankTable = ({id, displayName, apiKey}: ISimBank) => {
+export const SimBankTable = ({id, displayName, apiKey, handleEdit}: ISimBank) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [phones, setPhones] = useState<ICellPhoneSimBank[]>([]);
@@ -69,9 +69,11 @@ export const SimBankTable = ({id, displayName, apiKey}: ISimBank) => {
                 <div>
                     <ChangeableField
                         title={displayName}
-                        handleChangeTitle={(title) => dispatch(changeDisplayName({
-                            id, displayName: title, apiKey
-                        }))}/>
+                        handleEdit={handleEdit}
+                        // handleChangeTitle={(title) => dispatch(changeDisplayName({
+                        //     id, displayName: title, apiKey
+                        // }))}
+                    />
                     <span className={styles.data}>ID: {id}</span>
                 </div>
                 {/*<div className={styles.headerButton}>*/}

@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {ICellPhoneSimBank, ISimBank, ISimBankStore} from './types';
 import {
     addSimBank,
-    changeDisplayName,
+    changeSimBank,
     connectCellPhonesInSimBank,
     deleteCellPhones,
     deleteSimBank,
@@ -101,10 +101,10 @@ const simBanksSlice = createSlice({
         builder.addCase(deleteCellPhones.rejected, state => {
             state.loading = false;
         });
-        builder.addCase(changeDisplayName.pending, (state) => {
+        builder.addCase(changeSimBank.pending, (state) => {
             state.loading = true;
         });
-        builder.addCase(changeDisplayName.fulfilled, (state, payload:any) => {
+        builder.addCase(changeSimBank.fulfilled, (state, payload:any) => {
             state.loading = false;
             state.simBanks = state.simBanks.map(item => {
                 if (item.id === payload.payload.id) {
@@ -113,7 +113,7 @@ const simBanksSlice = createSlice({
                 return item;
             });
         });
-        builder.addCase(changeDisplayName.rejected, (state) => {
+        builder.addCase(changeSimBank.rejected, (state) => {
             state.loading = false;
         });
     }

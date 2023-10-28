@@ -5,15 +5,18 @@ import {handleError} from '../../../store/app.slice';
 
 export const getStatistic = createAsyncThunk(
     'statistic/getStatistic',
-    async (_, {dispatch, getState}) => {
+    async ({params = undefined}: { params?: string }, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get('/finances/statistics', {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
+            const res = await instanceApi.get(
+                params
+                    ? `/account/${auth.role}/stats?${params}`
+                    : `/account/${auth.role}/stats`, {
+                    headers: {
+                        Authorization: `Bearer ${auth.token}`
+                    }
+                });
             return res.data;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));

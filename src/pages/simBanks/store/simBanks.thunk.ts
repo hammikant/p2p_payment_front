@@ -32,7 +32,7 @@ export const getSimBanks = createAsyncThunk(
     }
 );
 
-export const changeDisplayName = createAsyncThunk(
+export const changeSimBank = createAsyncThunk(
     'sinBanks/changeDisplayName',
     async ({displayName, apiKey, id}:ISimBank, {getState}) => {
         const {auth} = getState() as { auth: IAuthState };
@@ -43,6 +43,13 @@ export const changeDisplayName = createAsyncThunk(
             }
         });
         return res.data;
+    }
+);
+
+export const getSimBankNumber = createAsyncThunk(
+    'sinBanks/getSimBankNumber',
+    async () => {
+
     }
 );
 

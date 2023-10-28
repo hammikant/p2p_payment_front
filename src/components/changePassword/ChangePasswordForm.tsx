@@ -45,7 +45,7 @@ export const ChangePasswordForm = ({handleCancel}: { handleCancel: () => void; }
         </div>
     );
     return (
-        <form onSubmit={handleSignIn}>
+        <form className={styles.form} onSubmit={handleSignIn}>
             <SubTitle text={'Смена пароля'} style={{textAlign: 'center'}}/>
             <div className={'space-top-32'}/>
             <div className={'box'}>

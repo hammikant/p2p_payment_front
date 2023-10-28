@@ -6,7 +6,7 @@ import {TextareaField} from './TextareaField';
 import {Switcher} from './Switcher';
 import {Select} from './Select';
 import {OutputClipBoard} from './OutputClipBoard';
-
+import {SearchByBank} from './SearchByBank';
 
 export {
     OutputClipBoard,
@@ -16,5 +16,6 @@ export {
     InputField,
     Button,
     Title,
-    SubTitle
+    SubTitle,
+    SearchByBank
 };

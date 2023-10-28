@@ -1,5 +1,11 @@
 import {viewBankNames} from './constants';
+import {shaderColor} from './shaderColor';
+import {formatPhoneNumber} from './formatPhoneNumber';
+import {formatCardNumber} from './formatCardNumber';
 
 export {
-    viewBankNames
+    shaderColor,
+    viewBankNames,
+    formatPhoneNumber,
+    formatCardNumber
 };

@@ -20,11 +20,9 @@
   border-radius: 12px;
   padding: 20px 24px;
   transition: .3s;
-  transform: translateY(0px);
 
   &:hover {
     cursor: pointer;
-    transform: translateY(-2px);
   }
 
   &Header {
@@ -190,6 +188,7 @@
 
   &Item {
     width: 100%;
+    max-width: 298px;
     padding-right: 15px;
     padding-left: 15px;
   }

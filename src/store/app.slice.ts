@@ -7,7 +7,10 @@ export interface IAppState {
     loading: boolean;
     error: IError | null;
     success: ISuccess | null;
-    commonData: ICommonData
+    commonData: ICommonData;
+    exchangeRates: {
+        usdtrub: number;
+    };
 }
 
 const initialState: IAppState = {
@@ -21,11 +24,12 @@ const initialState: IAppState = {
         email: '',
         wallet: '',
         walletQR: '',
-        exchangeRates: {
-            buyingRate: 0,
-            sellingRate: 0,
-            trand: 'up'
-        },
+        frozenBalance: '',
+        onPaymentBalance: '',
+        displayName: ''
+    },
+    exchangeRates: {
+        usdtrub: 0
     }
 };
 
@@ -66,16 +70,34 @@ export const getMoreHistory = createAsyncThunk(
     }
 );
 
+export const getExchangeRates = createAsyncThunk(
+    'app/getExchangeRates',
+    async (_, {getState, dispatch}) => {
+        try {
+            const {auth} = getState() as { auth: IAuthState };
+            const res = await instanceApi.get('/finances/exchange-rates', {
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            });
+            return res.data;
+        } catch (e:any) {
+            dispatch(handleError({message: e.response.message, errors: {}}));
+        }
+    }
+);
+
 export const terminateSessions = createAsyncThunk(
     'app/terminateSessions',
     async (_, {dispatch, getState}) => {
         try {
             const {auth} = getState() as { auth: IAuthState };
-            await instanceApi.post('terminate', null, {
+            await instanceApi.put('/account/terminate', null, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }
             });
+            dispatch(handleSuccess({message: 'Вы вышли со всех устройств, кроме текущего.'}));
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));
         }
@@ -86,31 +108,36 @@ const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        handleError: (state:Draft<IAppState>, {payload}: { payload: IError | null }) => {
+        handleError: (state: Draft<IAppState>, {payload}: { payload: IError | null }) => {
             state.error = payload;
         },
-        handleSuccess: (state:Draft<IAppState>, {payload}: { payload: ISuccess | null }) => {
+        handleSuccess: (state: Draft<IAppState>, {payload}: { payload: ISuccess | null }) => {
             state.success = payload;
         },
         clearStorage: () => {
         }
     },
     extraReducers: builder => {
-        builder.addCase(getAccount.pending, (state:Draft<IAppState>) => {
+        builder.addCase(getAccount.pending, (state: Draft<IAppState>) => {
             state.loading = true;
         });
-        builder.addCase(getAccount.fulfilled, (state:Draft<IAppState>, {payload}) => {
+        builder.addCase(getAccount.fulfilled, (state: Draft<IAppState>, {payload}) => {
             state.loading = false;
             state.commonData.balance = payload.balance;
             state.commonData.incomeToday = payload.incomeToday;
             state.commonData.wallet = payload.wallet;
             state.commonData.walletQR = payload.walletQR;
-            state.commonData.exchangeRates = payload.exchangeRates;
+            state.commonData.frozenBalance = payload.frozenBalance;
+            state.commonData.onPaymentBalance = payload.onPaymentBalance;
             state.commonData.role = payload.role;
             state.commonData.email = payload.email;
+            state.commonData.displayName = payload.displayName;
         });
-        builder.addCase(getAccount.rejected, (state:Draft<IAppState>) => {
+        builder.addCase(getAccount.rejected, (state: Draft<IAppState>) => {
             state.loading = true;
+        });
+        builder.addCase(getExchangeRates.fulfilled, (state, {payload}) => {
+            state.exchangeRates = payload;
         });
     }
 });

@@ -1,9 +1,12 @@
-import {bankNames, IMetaResponse, statusCard} from '../../../types';
+import {IMetaResponse, StatusCardPayments} from '../../../types';
+import {Role} from '../../auth/store/auth.slice';
 
 export interface IPayments {
     amount: number;
+    bank: string;
     cardNumber: string;
-    date: string;
+    phoneNumber: string;
+    updatedAt: string;
     id: number;
     profit: number
     status: string;
@@ -20,6 +23,24 @@ export interface ICommonDataPayments {
 export interface IPaymentsState {
     loading?: boolean;
     payments: IPayments[],
+    isUseFilterPayment: boolean;
+    turnover: Turnover;
+    income: Income;
     meta: IMetaResponse;
     commonData: ICommonDataPayments
+}
+
+export interface IPaymentRequest {
+    status: StatusCardPayments;
+    role: Role;
+}
+
+export interface Turnover {
+    'day': number;
+    'total': number;
+}
+
+export interface Income {
+    'day': number
+    'total': number
 }

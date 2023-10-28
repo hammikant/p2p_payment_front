@@ -1,25 +1,23 @@
 import React from 'react';
-import {useForm} from 'react-hook-form';
-import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
-import {InputField} from '../../../fields';
-import {useAppDispatch} from '../../../hooks/app';
+import {SearchByBank} from '../../../fields';
+import {SearchByBankProps} from '../../../types';
 import styles from './styles.module.scss';
 import {SearchByCardNum} from './SearchByCardNum';
-import {SearchByBank} from './SearchByBank';
 
+interface FilterProps extends SearchByBankProps{
+    handleInputFilter: (params: string) => void;
+}
 
-export const Filter = () => {
-
+export const Filter = ({handleBankFilter, handleInputFilter}:FilterProps) => {
 
     return (
-        <form className={styles.searchByCard}>
+        <div className={styles.searchByCard}>
             <div className={styles.searchByCardItem}>
-                <SearchByCardNum />
+                <SearchByCardNum handleInputFilter={handleInputFilter} />
             </div>
             <div className={styles.searchByCardItem}>
-               <SearchByBank />
+             <SearchByBank handleBankFilter={handleBankFilter} />
             </div>
-        </form>
+        </div>
     );
 };

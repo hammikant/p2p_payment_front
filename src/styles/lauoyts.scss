@@ -58,8 +58,22 @@
   }
 }
 
+.table{
+  display: flex;
+  flex-direction: column;
+  width: calc(100vw - 370px);
+  min-width: 1064px;
+  overflow-y: auto;
+}
+
+.tableHead {
+  display: flex;
+  padding: 24px 32px 24px 0;
+  width: 100%;
+}
+
 .infinityContainer {
-  min-width: 1170px;
+  width: 100%; //calc(100vw - 370px);
   padding-right: 5px;
 
   &Flex {
@@ -69,7 +83,7 @@
   }
 
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 3px;
     background: #1B1F26;
   }
 

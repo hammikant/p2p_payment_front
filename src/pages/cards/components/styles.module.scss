@@ -20,6 +20,7 @@
 .tableItemHeader {
   display: flex;
   padding: 24px 32px 24px 0;
+  width: calc(100vw - 370px);
   min-width: 1170px;
 }
 
@@ -100,5 +101,17 @@
       cursor: pointer;
     }
 
+  }
+}
+
+.wrapperInputSearch {
+  display: flex;
+
+  &Button {
+    margin-left: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

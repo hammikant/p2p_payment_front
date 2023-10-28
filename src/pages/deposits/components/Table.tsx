@@ -17,13 +17,15 @@ export const Table = ({items, hasMore, fetchMoreData}: ITableProps) => {
     const [heightTable, setHeightTable] = useState<number>(0);
 
     useEffect(() => {
-        const height = window.innerHeight / 3.2;
+        const rootHeight = document.getElementById('root').clientHeight;
+        const containerHeight = document.getElementById('container').clientHeight;
+        const height = rootHeight - containerHeight - 126 - 76 - 16;
         setHeightTable(height);
     }, []);
 
     return (
-        <div className={styles.table}>
-            <div className={styles.tableItemHeader}>
+        <div className={'table'}>
+            <div className={'tableHead'}>
                 {heads.map((name, index) => <TableHead key={index} name={name}/>)}
             </div>
             {items.length > 0 ? <InfiniteScroll

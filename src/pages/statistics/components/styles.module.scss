@@ -1,5 +1,316 @@
 .chart {
   margin-top: 60px;
   width: 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+
+  &AlignCenter {
+    align-items: center;
+  }
+}
+
+.cardWrapper {
+  overflow-y: scroll;
   height: 500px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 944px;
+  overflow-y: scroll;
+}
+
+.card {
+  max-width: 462px;
+  width: 100%;
+  background-color: #1B1F26;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+
+  &:nth-child(odd) {
+    margin-right: 20px;
+  }
+
+  &__title {
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: #ffffff;
+    margin: 0 0 16px;
+  }
+}
+
+.useOfBanks {
+  display: inline-block;
+
+  &__list {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    color: #ffffff;
+    padding-bottom: 16px;
+
+    &Circle {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 16px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.bubble {
+  width: 240px;
+  height: 190px;
+  transform: rotate(320deg);
+
+  &__item {
+    border-radius: 50%;
+    float: right;
+    transform: scale(1);
+    transition: 0.5s;
+    position: relative;
+    z-index: 1;
+
+    &Tooltip {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 2px 6px;
+      border-radius: 2px;
+      background-color: #2c2c2c;
+      border: 1px solid #ffffff;
+      font-family: Inter, sans-serif;
+      font-size: 8px;
+      font-style: normal;
+      font-weight: 600;
+      transform: rotate(40deg);
+    }
+
+    &:hover {
+      transition: 0.5s;
+      transform: scale(1.2);
+      z-index: 2;
+
+      .bubble__itemTooltip {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.visiblePayments {
+  &__list {
+    padding: 0;
+    list-style: none;
+  }
+
+  &__listItem {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__listBody {
+    margin-left: 12px;
+  }
+
+  &__listName {
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    color: #ffffff;
+    margin: 0;
+
+    &SmallText {
+      font-size: 14px;
+    }
+  }
+
+  &__listText {
+    color: #667180;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0;
+  }
+}
+
+.pie {
+  position: relative;
+
+  &__textBig {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    color: #ffffff;
+  }
+
+  &__text {
+    position: absolute;
+    top: 40%;
+    left: 37%;
+    color: #667180;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+}
+
+.progress {
+  display: block;
+
+  &__labelBox {
+    display: flex;
+    align-items: center;
+  }
+
+  &__label {
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    color: #ffffff;
+    margin-right: 10px;
+  }
+
+  &__date {
+    color: #667180;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
+
+.track {
+  width: 100%;
+  height: 6px;
+  border-radius: 12px;
+  background-color: transparent;
+  position: relative;
+
+  &__line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 12px;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+  }
+}
+
+.inputsFilter {
+  display: flex;
+  margin-bottom: 16px;
+
+  &__box {
+    margin-right: 16px;
+
+    &:last-of-type {
+      margin-left: 0;
+    }
+  }
+
+  &__text {
+    color: #667180;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+}
+
+.selectBanks {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.selectBanksOutput {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__head {
+    color: #667180;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+
+    margin-right: 8px;
+
+    &:hover {
+      color: #91F230;
+    }
+
+  }
+}
+
+.options {
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  background-color: #1B1F26;
+  z-index: 100;
+  border: 1px solid #667180;
+
+  &__item {
+    padding: 4px;
+    &:hover {
+      .options__text {
+        cursor: pointer;
+        color: #91F230;
+      }
+    }
+  }
+
+  &__text{
+    color: #ffffff;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+  }
 }

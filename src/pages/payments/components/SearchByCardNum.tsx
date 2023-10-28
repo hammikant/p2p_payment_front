@@ -22,7 +22,7 @@ export const SearchByCardNum = () => {
         if(values.number !== '') {
            dispatch(paymentsFilter({params: `number=${values.number.replaceAll(' ', '')}`}));
         } else {
-            dispatch(getPayments({status: null}));
+            dispatch(getPayments());
         }
     });
 
