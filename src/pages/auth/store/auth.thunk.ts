@@ -7,7 +7,7 @@ import {IAuthState, setStatusConfirm} from './auth.slice';
 export const signUp = createAsyncThunk(
     'auth/signUp',
     async ({email, invitation_code, password}: ISignUpRequest, {dispatch}) => {
-        const res = await instanceApi.post('/account/registration', {email, invitation_code, password});
+        const res = await instanceApi.post('/account/trader/registration', {email, invitation_code, password});
         return res.data;
     }
 );
