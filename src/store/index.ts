@@ -45,7 +45,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat( process.env.NODE_ENV ==='development' ? logger : null)
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({serializableCheck: false})
+            .concat(/*logger*/)
 });
 
 instanceApi.interceptors.response.use(function (response) {
