@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import * as yup from 'yup';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -9,7 +9,7 @@ import {Modal} from '../../components/modal';
 import {Close} from '../../icons';
 import {SimBankTable} from './componetns';
 import {ISimBank} from './store/types';
-import {addSimBank, getSimBanks} from './store/simBanks.thunk';
+import {addSimBank, changeSimBank, getSimBanks} from './store/simBanks.thunk';
 import styles from './styles.module.scss';
 
 const schema = yup.object({
@@ -21,8 +21,8 @@ export const SimBanks = () => {
     const dispatch = useAppDispatch();
     const {simBanks} = useAppSelector(state => state.simBanks);
     const [connectionModal, setConnectModal] = useState<boolean>(false);
-    const [isEdit, setEdit] = useState<boolean>(false);
-    const {control, register, handleSubmit, setValue, formState: {errors}} = useForm({
+    const [isEditId, setEdit] = useState<number | null>(null);
+    const {control, register, handleSubmit, setValue, formState: {errors}, reset} = useForm({
         resolver: yupResolver(schema)
     });
 
@@ -32,15 +32,25 @@ export const SimBanks = () => {
 
 
     const submit = handleSubmit(values => {
-        if(isEdit) {
-            dispatch(addSimBank(values as { displayName: string, apiKey: string }));
-            setEdit(false);
+        if(isEditId) {
+            dispatch(changeSimBank(
+                {
+                    displayName: values.displayName,
+                    apiKey: values.apiKey,
+                    id: isEditId as number
+                } as ISimBank));
+            setEdit(null);
         } else {
-
+            dispatch(addSimBank(values as { displayName: string, apiKey: string }));
         }
-
         setConnectModal(false);
     });
+
+    const closeModal = () => {
+        setConnectModal(false);
+        reset();
+    };
+
 
     return (
         <MainLayout titlePage={'SIM-Банки'} descriptionPage={'Какое-то небольшое описание раздела'}>
@@ -50,12 +60,10 @@ export const SimBanks = () => {
                 {simBanks.map((bank: ISimBank) =>
                     <SimBankTable
                         key={bank.id}
-                        displayName={bank.displayName}
-                        id={bank.id}
-                        apiKey={bank.apiKey}
+                        bank={bank}
                         handleEdit={() => {
                             setConnectModal(true);
-                            setEdit(true);
+                            setEdit(bank.id);
                             setValue('displayName', bank.displayName);
                             setValue('apiKey', bank.apiKey);
                         }}
@@ -65,11 +73,11 @@ export const SimBanks = () => {
                 show={connectionModal}
                 widthContent={'472px'}
                 backgroundColorOverlay={'rgba(13,17,20,0.57)'}
-                handleClickOverlay={() => setConnectModal(false)}
+                handleClickOverlay={closeModal}
             >
                 <span
                     className={'closeIcon'}
-                    onClick={() => setConnectModal(false)}>
+                    onClick={closeModal}>
                     <Close
                         color={'#667180'}
                         height={'32'}
@@ -97,7 +105,7 @@ export const SimBanks = () => {
                     />
                     <div className={'space-top-32'}/>
                     <Button
-                        text={isEdit ? 'Изменить' : 'Добавить'}
+                        text={isEditId ? 'Изменить' : 'Добавить'}
                         variant={'full'}
                         style={{width: '148px'}}
                         type={'submit'}

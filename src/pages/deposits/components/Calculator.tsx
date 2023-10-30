@@ -9,13 +9,14 @@ export const Calculator = ({exchangeRates, handleCalculation}: ICalculatorProps)
     return (
         <div className={styles.calculator}>
             <h3 className={styles.calculatorTitle}>Калькулятор</h3>
-            <div className={'row'}>
-                <div className={styles.calculator__box}>
+            <div className={styles.calculator__inputRow}>
+                <div className={styles.calculator__inputCol}>
                     <label className={styles.label}>Сумма</label>
                     <div className={styles.inputWrapper}>
                         <input
                             type={'number'}
                             className={styles.input}
+                            style={{width: '100%'}}
                             value={sum}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setSum(e.target.value)}
                             onKeyDown={e => {
@@ -27,10 +28,10 @@ export const Calculator = ({exchangeRates, handleCalculation}: ICalculatorProps)
                         <span className={styles.inputIcon}>₽</span>
                     </div>
                 </div>
-                <div className={styles.calculator__box}>
+                <div className={styles.calculator__inputCol}>
                     <label className={styles.label}>Курс</label>
                     <div className={styles.inputWrapper}>
-                        <input readOnly value={exchangeRates} className={styles.input}/>
+                        <input readOnly value={exchangeRates} style={{width: '100%'}} className={styles.input}/>
                         <span className={styles.inputIcon}>USDT</span>
                     </div>
                 </div>

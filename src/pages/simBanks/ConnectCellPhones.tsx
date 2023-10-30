@@ -32,7 +32,7 @@ export const ConnectCellPhones = () => {
             titlePage={'Подключение номеров'}
             descriptionPage={<GoBack text={'SIM-Банки'} handleGoBack={handleGoBack}/>}
         >
-            <CellPhoneList items={connectingCellPhones} interactive={false}/>
+            <CellPhoneList items={connectingCellPhones} />
             <div className={'space-top-32'}/>
             <Button text={'Готово'} variant={'full'} style={{width: '167px'}} onClick={sendCellPhones}/>
         </MainLayout>

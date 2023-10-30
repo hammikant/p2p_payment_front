@@ -105,13 +105,13 @@ const simBanksSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(changeSimBank.fulfilled, (state, payload:any) => {
-            state.loading = false;
             state.simBanks = state.simBanks.map(item => {
                 if (item.id === payload.payload.id) {
                     return {...item, ...payload.payload};
                 }
                 return item;
             });
+            state.loading = false;
         });
         builder.addCase(changeSimBank.rejected, (state) => {
             state.loading = false;

@@ -34,7 +34,7 @@ export const Deposits = () => {
     const fetchMoreData = () => {
         dispatch(getMoreDeposits({url: meta.nextPageUrl}));
     };
-    const balanceUs = balance;
+
     return (
         <MainLayout titlePage={'Депозиты'}>
             <div id={'container'}>

@@ -30,7 +30,19 @@
     &:first-of-type{
       margin-right: 14px;
     }
+  }
 
+  &__inputRow{
+    display: flex;
+  }
+
+  &__inputCol {
+    &:last-of-type{
+      padding-left: 8px;
+    }
+    &:first-of-type{
+      padding-right: 8px;
+    }
   }
 }
 

@@ -30,7 +30,7 @@ export const Select = (
             onChangeItem(item);
         }
     };
-
+    console.log('text', text);
     return (
         <Controller
             control={control}
@@ -51,7 +51,7 @@ export const Select = (
                             : null}
                         <output
                             className={styles.selectOutput}
-                            {...register(fieldName)}
+
                         >{text}</output>
                         {customIcon === undefined ? <span className={styles.selectIcon}><ChevronDown/></span> : null}
                         {
@@ -60,7 +60,8 @@ export const Select = (
                                     <ul className={styles.selectList}>
                                         {options.map((item, index) => (
                                             <li key={index} className={styles.selectItem}
-                                                onClick={() => handleSelect(item)}>{item.label}</li>
+                                                onClick={() => handleSelect(item)}
+                                            >{item.label}</li>
                                         ))}
                                     </ul>
                                 ) : null

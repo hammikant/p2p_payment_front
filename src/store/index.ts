@@ -2,7 +2,7 @@ import {AnyAction, combineReducers, configureStore, Reducer} from '@reduxjs/tool
 import storage from 'redux-persist/lib/storage/session';
 import {persistReducer} from 'redux-persist';
 import logger from 'redux-logger';
-import auth from '../pages/auth/store/auth.slice';
+import auth, {setAppLoader} from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
 import cards from '../pages/cards/store/cards.slice';
 import deposits from '../pages/deposits/store/deposit.slice';
@@ -11,7 +11,7 @@ import simBanks from '../pages/simBanks/store/simBanks.slice';
 import statistic from '../pages/statistics/store/statistic.slice';
 import {instanceApi} from '../api';
 import {errorsMessage} from '../utils/constants';
-import app, {handleError} from './app.slice';
+import app, {clearStorage, handleError} from './app.slice';
 import {appApi} from './app.api';
 
 const appReducer = combineReducers({
@@ -53,9 +53,16 @@ export const store = configureStore({
 instanceApi.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
+
+    if(error.response.status === 401) {
+        store.dispatch(setAppLoader(true));
+        store.dispatch(clearStorage());
+        setTimeout(() => {
+            store.dispatch(setAppLoader(false));
+        }, 1000);
+    }
     const {data} = error.response;
     if(data?.includes('<!DOCTYPE html>')) {
-        console.log(data);
         store.dispatch(handleError({message: 'Не известная шибка', errors: {}}));
         return Promise.reject(error);
     }

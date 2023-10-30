@@ -11,35 +11,21 @@ import {setConnectingCellPhones} from '../store/simBanks.slice';
 import styles from './styles.module.scss';
 import {CellPhoneList} from './CellPhoneList';
 
-export const SimBankTable = ({id, displayName, apiKey, handleEdit}: ISimBank) => {
+interface SimBankTableProps {
+    bank: ISimBank;
+    handleEdit: () => void;
+}
+
+export const SimBankTable = ({bank, handleEdit}: SimBankTableProps) => {
+    const {id, displayName, numbers} = bank;
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [phones, setPhones] = useState<ICellPhoneSimBank[]>([]);
-    const [isSelectAll, setSelectAll] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const [isDeleteCellPhones, setDeleteCellPhonesModal] = useState<boolean>(false);
     const [isCopyPress, setCopyPress] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     if (isSelectAll) {
-    //         const items = cellPhones.map(item => ({...item, status: 'active'})) as ICellPhoneSimBank[];
-    //         setPhones(items);
-    //     } else {
-    //         setPhones(cellPhones);
-    //     }
-    // }, [cellPhones, isSelectAll]);
-
-    const handleChecked = (id: number) => {
-        const items = phones.map(item => {
-            if (item.id === id) {
-                return {...item, status: item.status === 'active' ? 'inactive' : 'active'};
-            }
-            return item;
-        }) as ICellPhoneSimBank[];
-
-        setPhones(items);
-    };
 
     const handleDeleteSelected = () => {
         const cellPhones = phones.filter(i => i.status === 'active');
@@ -53,7 +39,6 @@ export const SimBankTable = ({id, displayName, apiKey, handleEdit}: ISimBank) =>
 
     const handleClipBoard = async () => {
         setCopyPress(true);
-       // await navigator.clipboard.writeText(redirectMail);
     };
 
     const handleConnect = () => {
@@ -62,7 +47,7 @@ export const SimBankTable = ({id, displayName, apiKey, handleEdit}: ISimBank) =>
             state: {simBankId: id}
         });
     };
-
+    console.log(displayName);
     return (
         <div className={styles.simBankTable}>
             <div className={styles.header}>
@@ -70,9 +55,6 @@ export const SimBankTable = ({id, displayName, apiKey, handleEdit}: ISimBank) =>
                     <ChangeableField
                         title={displayName}
                         handleEdit={handleEdit}
-                        // handleChangeTitle={(title) => dispatch(changeDisplayName({
-                        //     id, displayName: title, apiKey
-                        // }))}
                     />
                     <span className={styles.data}>ID: {id}</span>
                 </div>
@@ -86,7 +68,7 @@ export const SimBankTable = ({id, displayName, apiKey, handleEdit}: ISimBank) =>
                 {/*</div>*/}
             </div>
             <div className={'space-top-24'}/>
-            <CellPhoneList items={phones} interactive={true} handleChecked={handleChecked}/>
+            <CellPhoneList items={numbers}/>
             <div className={'space-top-32'}/>
             <div className={styles.footer}>
                 {/*<div className={styles.footerCol}>*/}

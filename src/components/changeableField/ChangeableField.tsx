@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import {SubTitle} from '../../fields';
 import {Edit} from '../../icons';
+import {useAppSelector} from '../../hooks/app';
 import styles from './styles.module.scss';
 
 interface IChangeableTitleParops {
@@ -11,6 +12,7 @@ interface IChangeableTitleParops {
 
 export const ChangeableField = ({title, /* handleChangeTitle, */ handleEdit}: IChangeableTitleParops) => {
     const refHead = useRef<HTMLDivElement | null>(null);
+    const {loading} = useAppSelector(state => state.simBanks);
     const [text, setText] = useState<string>(title);
     const [isEdit, setEdit] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(0);
@@ -31,7 +33,7 @@ export const ChangeableField = ({title, /* handleChangeTitle, */ handleEdit}: IC
         <div className={styles.changeableTitle}>
             {!isEdit
                 ? (<div className={styles.changeableTitleTitleWrapper} ref={refHead}>
-                    <SubTitle text={text}/>
+                    <SubTitle text={title}/>
                 </div>)
                 : <input
                     className={styles.changeableTitleInput}

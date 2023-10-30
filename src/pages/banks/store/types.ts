@@ -2,8 +2,8 @@ import {  BankNames, IMetaResponse} from '../../../types';
 
 export interface IVerificationData {
     cellPhone: string;
-    comment: string;
-    authorizationAmount: string | null
+    verificationAmount: string | null;
+    verificationComment: string | null
 }
 
 export interface IBank {
@@ -16,14 +16,15 @@ export interface IBank {
     name: string;
     phoneNumber: string;
     isVerified: boolean;
-    authorizationComment: string | null;
-    authorizationAmount: string | null;
+    verificationAmount: string | null;
+    verificationComment: string | null;
 }
 
 export interface IBanks {
     loading?: boolean;
     isUseFilter: boolean;
     list: IBank[];
+    numbers: string[]
     meta: IMetaResponse;
 }
 

@@ -83,7 +83,7 @@ export const deleteSimBank = createAsyncThunk(
                     Authorization: `Bearer ${auth.token}`
                 }
             });
-            dispatch(handleSuccess({message: res.data.message}));
+            dispatch(handleSuccess({message: `Успешно удален сим банк ID ${id}`}));
             return id;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));

@@ -12,7 +12,7 @@ export interface ISimBank {
     apiKey: string;
     displayName: string;
     id: number;
-    handleEdit: () => void;
+    numbers: string[]
 }
 
 export interface ISimBankStore {

@@ -92,14 +92,14 @@ export const BankCard = ({item}: IBankCardProps) => {
                     ? (
                         <AuthorizationBank
                             cellPhone={formatPhoneNumber(item.phoneNumber ?? '')}
-                            comment={item.authorizationComment}
-                            authorizationAmount={item.authorizationAmount}
+                            verificationComment={item.verificationComment}
+                            verificationAmount={item.verificationAmount}
                             bankName={viewBankNames[item.bank]}
                             handleDone={handleAuthorization}
                         />
                     ) : (
                         <FormProvider {...methods}>
-                            <SettingsForm item={item}/>
+                            <SettingsForm item={item} handleCloseModal={() => setShowModal(false)}/>
                         </FormProvider>
                     )}
             </Modal>

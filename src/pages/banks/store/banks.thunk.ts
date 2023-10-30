@@ -15,7 +15,7 @@ export const addBank = createAsyncThunk(
             }
         });
         dispatch(handleSuccess({message: `Успешно создан ${res.data.name}`}));
-        return res.data.bank;
+        return res.data;
     }
 );
 
@@ -136,10 +136,23 @@ export const connectCardsInBank = createAsyncThunk(
 );
 
 export const banksFilter = createAsyncThunk(
-    'cards/banksFilter',
+    'banks/banksFilter',
     async ({params}:{params: string},{getState}) => {
         const {auth} = getState() as { auth: IAuthState };
         const res = await instanceApi.get(`/finances/${auth.role}/banks?${params}`, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
+    }
+);
+
+export const getAllPhoneNumbers = createAsyncThunk(
+    'banks/getAllPhoneNumbers',
+    async (_,{getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.get('/messages/sim-banks/numbers', {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }

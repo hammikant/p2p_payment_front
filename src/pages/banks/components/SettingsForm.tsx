@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 import {SwitchersRow} from './SwitchersRow';
 import {AddCardsForm} from './AddCardsForm';
 
-export const SettingsForm = ({item}: { item: IBank }) => {
+export const SettingsForm = ({item, handleCloseModal}: { item: IBank, handleCloseModal: () => void; }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const {control, register, setValue, watch, handleSubmit, formState: {errors}} = useFormContext();
@@ -21,12 +21,13 @@ export const SettingsForm = ({item}: { item: IBank }) => {
 
     useEffect(() => {
         setValue('name', item.name);
-        setValue('sbp', item.isAcceptingSbp);
+        setValue('isAcceptingSbp', item.isAcceptingSbp);
         setValue('isAcceptingPayments', item.isAcceptingPayments);
     }, []);
 
     const submit = handleSubmit(values => {
         dispatch(updateBank({bank: {...item, ...values}}));
+        handleCloseModal();
     });
 
     const handleDeleteBank = () => {
@@ -100,8 +101,8 @@ export const SettingsForm = ({item}: { item: IBank }) => {
                     <Switcher
                         row={true}
                         label={'СБП'}
-                        checked={watch('sbp')}
-                        handleSwitch={checked => setValue('sbp', checked)}
+                        checked={watch('isAcceptingSbp')}
+                        handleSwitch={checked => setValue('isAcceptingSbp', checked)}
                     />
                     <Switcher
                         row={true}

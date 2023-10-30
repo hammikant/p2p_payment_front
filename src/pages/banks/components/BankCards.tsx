@@ -20,19 +20,19 @@ export const BankCards = ({items, handleFetchMore, hasMore}: IBankCardsProps) =>
 
     return (
         <div className={styles.row}>
-            <InfiniteScroll
-                dataLength={items.length}
-                next={() => {
-                    handleFetchMore();
-                }}
-                hasMore={hasMore}
-                loader={<p className={styles.loader}>loading ...</p>}
-                height={heightTable}
-                className={'infinityContainer infinityContainerFlex'}
-            >
-                {items.map((item, index) => <BankCard key={`${item.id}-${index}`} item={item}/>)}
-            </InfiniteScroll>
-
+            {items.length > 0 ? <InfiniteScroll
+                    dataLength={items.length}
+                    next={() => {
+                        handleFetchMore();
+                    }}
+                    hasMore={hasMore}
+                    loader={<p className={styles.loader}>loading ...</p>}
+                    height={heightTable}
+                    className={'infinityContainer infinityContainerFlex'}
+                >
+                    {items.map((item, index) => <BankCard key={`${item.id}-${index}`} item={item}/>)}
+                </InfiniteScroll>
+                : null}
         </div>
     );
 };

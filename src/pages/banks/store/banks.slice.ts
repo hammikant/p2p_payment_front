@@ -6,7 +6,7 @@ import {
     authorizationBank,
     banksFilter,
     connectCardsInBank,
-    deleteBank,
+    deleteBank, getAllPhoneNumbers,
     getBanks,
     getMoreBanks,
     updateBank
@@ -16,6 +16,7 @@ const initialState: IBanks = {
     loading: false,
     isUseFilter: false,
     list: [],
+    numbers: [],
     meta: {
         isLastPage: false,
         total: 0,
@@ -112,6 +113,17 @@ const banksSlice = createSlice({
         builder.addCase(deleteBank.rejected, state => {
             state.loading = false;
         });
+        builder.addCase(getAllPhoneNumbers.pending, state => {
+            state.loading = true;
+        });
+        builder.addCase(getAllPhoneNumbers.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.numbers = payload;
+        });
+        builder.addCase(getAllPhoneNumbers.rejected, state => {
+            state.loading = false;
+        });
+
         builder.addCase(connectCardsInBank.fulfilled, (state, {payload}) => {
             state.list = state.list.map(item => {
                 if (item.id === payload.id) {
