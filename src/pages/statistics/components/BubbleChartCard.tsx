@@ -72,8 +72,8 @@ export const BubbleChartCard = ({banksDistribution}: {[key:string]: number}) => 
                 <div className={styles.bubble}>
                     {Object.keys(banksDistribution).map((item ,index) => (
                         <div key={index} className={styles.bubble__item} style={{
-                            width: `${240 / 100 * Object.values(banksDistribution)[index].toFixed(1) * 1.2}px`,
-                            height: `${240 / 100 * Object.values(banksDistribution)[index].toFixed(1) * 1.2}px`,
+                            width: `${240 / 100 * Object.values(banksDistribution)[index].toFixed(1)}px`,
+                            height: `${240 / 100 * Object.values(banksDistribution)[index].toFixed(1)}px`,
                             backgroundColor: colorsBanks[index]
                         }} >
                             <span className={styles.bubble__itemTooltip} style={{color: colorsBanks[index]}}>{viewBankNames[item]}</span>
