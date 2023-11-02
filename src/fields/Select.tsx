@@ -30,7 +30,7 @@ export const Select = (
             onChangeItem(item);
         }
     };
-    console.log('text', text);
+
     return (
         <Controller
             control={control}

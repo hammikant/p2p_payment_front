@@ -10,6 +10,7 @@ const colorsStatus: { [key: string]: string } = {
     'frozen': '#4972CF',
     'on_payment': '#667180',
     'canceled': '#F22451',
+    'overdue': '#8f0101',
     pending: '#858585',
     confirmation: '#858585'
 };
@@ -20,6 +21,7 @@ const viewStatus:{[key:string]: string} = {
     approved: 'Успех',
     canceled: 'Отмена',
     pending: 'Ожидает оплаты',
+    overdue: 'Просрочен',
     confirmation: 'Ожидает подтв.'
 };
 

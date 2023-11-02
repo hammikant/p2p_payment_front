@@ -21,10 +21,10 @@ export const PrivateRoute = () => {
         if (isAuth) {
             dispatch(getExchangeRates());
             if (role !== 'merchant' && !isUseFilter) {
-                if (!isUseFilter && metaBanks.banks === null) {
+                if (!isUseFilter && metaBanks.prevPageUrl === null) {
                     dispatch(getBanks());
                 }
-                if (!isUseFilterPayment && metaPayments.nextPageUrl === null) {
+                if (!isUseFilterPayment && metaPayments.prevPageUrl === null) {
                     dispatch(getPayments());
                 }
             }

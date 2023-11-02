@@ -69,5 +69,6 @@ export const buttonsTabsPayments: IOption[] = [
     {label: 'Заморожено', value: 'frozen'},
     {label: 'Ожидает оплаты', value: 'pending'},
     {label: 'Ожидает подтверждения', value: 'confirmation'},
+    {label: 'Просрочен', value: 'overdue'},
     {label: 'Отмена', value: 'canceled'},
 ];
