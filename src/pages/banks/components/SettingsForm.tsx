@@ -62,10 +62,6 @@ export const SettingsForm = ({item, handleCloseModal}: { item: IBank, handleClos
                         <span className={styles.bankModalListText}>Банк:</span>
                         <span className={styles.bankModalListText}>{viewBankNames[item.bank]}</span>
                     </li>
-                    {/*<li className={styles.bankModalListItem}>*/}
-                    {/*    <span className={styles.bankModalListText}>Номер:</span>*/}
-                    {/*    <span className={styles.bankModalListText}>{'нет данных'}</span>*/}
-                    {/*</li>*/}
                     <li className={styles.bankModalListItem}>
                         <span className={styles.bankModalListText}>Проверка:</span>
                         <span className={styles.bankModalListText}>авторизован</span>

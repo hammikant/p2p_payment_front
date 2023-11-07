@@ -7,6 +7,7 @@ import {getPayments} from '../pages/payments/store/payments.thunk';
 import {StatusCardPayments} from '../types';
 import {getBanks} from '../pages/banks/store/banks.thunk';
 import {getAccount, getExchangeRates} from '../store/app.slice';
+import {getSimBanks} from '../pages/simBanks/store/simBanks.thunk';
 
 
 export const PrivateRoute = () => {
@@ -28,6 +29,7 @@ export const PrivateRoute = () => {
                     dispatch(getPayments());
                 }
             }
+            dispatch(getSimBanks());
             dispatch(getAccount());
         }
     }, 30000);
@@ -38,6 +40,7 @@ export const PrivateRoute = () => {
             if (role !== 'merchant') {
                 dispatch(getBanks());
                 dispatch(getPayments());
+                dispatch(getSimBanks());
             }
             dispatch(getAccount());
         }
