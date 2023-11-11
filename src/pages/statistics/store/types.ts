@@ -11,32 +11,37 @@ export interface IStatisticData {
     }
 }
 
-export interface IChart {
-    income: string;
-    turnover: string;
-    date: string
-}
 
 export interface IStatistic {
-    chart: IChart[];
+    chart: TraderStats[];
     stats: Stats | null
 }
 
-interface PaymentStatus {
+export interface PaymentStatus {
     percentage: number;
     payments: number;
+}
+
+export interface PaymentStatusDistribution {
+    approved : PaymentStatus;
+    canceled: PaymentStatus;
+    frozen: PaymentStatus;
+    totalPayments: number;
 }
 
 export interface Stats {
     appealsProcessingTimeDistribution: ProcessingTimeDistribution;
     banksDistribution: {[key:string] : number};
-    paymentStatusDistribution: {
-        approved : PaymentStatus;
-        canceled: PaymentStatus;
-        frozen: PaymentStatus;
-        totalPayments: number;
-    };
+    paymentStatusDistribution: PaymentStatusDistribution;
     paymentsApprovalTimeDistribution: ProcessingTimeDistribution;
+}
+
+export type TraderStatsItem = {income: number, turnover: number, date: string}
+
+export interface TraderStats {
+    'income': number,
+    'turnover': number,
+    'data': TraderStatsItem[]
 }
 
 export interface ProcessingTimeDistribution {

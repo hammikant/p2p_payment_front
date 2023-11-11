@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import am5themes_Dark from '@amcharts/amcharts5/themes/Dark';
 import * as am5xy from '@amcharts/amcharts5/xy';
-import {IChart} from '../store/types';
+import {  TraderStatsItem} from '../store/types';
 import styles from './styles.module.scss';
 
-export const Chart = ({items}: { items: IChart[] }) => {
+export const Chart = ({items}: { items: TraderStatsItem[] }) => {
     const [height, setHeightTable] = useState<number>(0);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export const Chart = ({items}: { items: IChart[] }) => {
         // date.setHours(0, 0, 0, 0);
         // let value = 100;
 
-        function generateData(item: IChart) {
+        function generateData(item: TraderStatsItem) {
             const date = new Date(item.date.replace(' ', 'T'));
             // value = Math.round((Math.random() * 10 - 5) + value);
             am5.time.add(date, 'day', 1);
@@ -54,7 +54,7 @@ export const Chart = ({items}: { items: IChart[] }) => {
             };
         }
 
-        function generateDatas(items: IChart[]) {
+        function generateDatas(items: TraderStatsItem[]) {
             const data = [];
             for (let i = 0; i < items?.length; ++i) {
                 data.push(generateData(items[i]));
@@ -142,7 +142,7 @@ export const Chart = ({items}: { items: IChart[] }) => {
         series.set('stroke', am5.color('#91F230'));
         series.set('fill', am5.color('#91F230'));
 
-        const data = generateDatas(items as IChart[]);
+        const data = generateDatas(items as TraderStatsItem[]);
         series.data.setAll(data);
 
 

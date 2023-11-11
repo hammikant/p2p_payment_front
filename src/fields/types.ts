@@ -24,7 +24,9 @@ export interface ITextarea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     text: string;
-    variant: 'full' | 'outline'
+    variant: 'full' | 'outline';
+    icon?: ReactNode;
+    iconPosition?: 'left' | 'right';
 }
 
 export interface ISelect extends HTMLAttributes<HTMLDivElement> {

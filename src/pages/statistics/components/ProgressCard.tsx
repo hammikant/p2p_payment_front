@@ -11,6 +11,7 @@ interface ProgressCardProps {
 }
 
 export const ProgressCard = ({title, items}:ProgressCardProps) => {
+
     return (
         <div className={styles.card}>
             <p className={styles.card__title}>{title}</p>

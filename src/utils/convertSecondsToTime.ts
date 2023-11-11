@@ -1,14 +1,25 @@
-export const convertSecondsToTime = (sec:number) => {
+import {declOfNum} from './declOfNum';
 
-    const time = new Date();
-    time.setSeconds(sec);
+const labelsHours = ['час', 'часа', 'часов'];
+const labelsMinutes = ['минута', 'минуты', 'минут'];
+const labelsSeconds = ['секунда', 'секунды', 'секунд'];
 
-    const hours = time.getHours();
-    const minutes = time.getMinutes();
-    const seconds = time.getSeconds();
+export const convertSecondsToTime = (seconds:number) => {
+    if(+seconds.toFixed() === 0) {
+        return '0 секунд';
+    }
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = Number(seconds % 60).toFixed();
 
-    // Format the time as a string with leading zeros
-    return hours.toString().padStart(2, '0') + 'ч ' +
-        minutes.toString().padStart(2, '0') + 'м ' +
-        seconds.toString().padStart(2, '0') + 'с';
+    let timeStr: string = remainingSeconds + ` ${declOfNum(+remainingSeconds, labelsSeconds)} `;
+    if(minutes > 0) {
+        timeStr = minutes + ` ${declOfNum(minutes, labelsMinutes)} ` + timeStr;
+    }
+    if(hours > 0) {
+        timeStr = hours + ` ${declOfNum(hours, labelsHours)} ` + timeStr;
+    }
+
+
+    return  timeStr;
 };

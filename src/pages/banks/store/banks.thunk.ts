@@ -80,7 +80,7 @@ export const deleteBank = createAsyncThunk(
         try {
             const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.delete(`/delete-bank?id=${id}`, {
+            const res = await instanceApi.delete(`/finances/${auth.role}/bank/${id}`, {
                 headers: {
                     Authorization: `Bearer ${auth.token}`
                 }

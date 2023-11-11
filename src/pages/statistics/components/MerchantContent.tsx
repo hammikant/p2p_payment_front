@@ -54,14 +54,14 @@ export const MerchantContent = () => {
         <div>
             <InputsFilter submit={handleFilterSubmit}/>
             <div className={styles.cards} style={{height: heightTable}}>
-                <VisiblePaymentsCard handleSelectBank={item => {
+                <VisiblePaymentsCard paymentStatusDistribution={stats.paymentStatusDistribution} handleSelectBank={item => {
                     item.value === 'all'
                         ? setCurrentBank(null)
                         : setCurrentBank(item);
                 }}/>
                 <BubbleChartCard banksDistribution={stats?.banksDistribution}/>
-                <ProgressCard title={'Среднее время подтверждения платежей: 1 д. 12 ч. 25 м.'} items={stats.paymentsApprovalTimeDistribution}/>
-                <ProgressCard title={'Среднее время подтверждения апелляций: 1 д. 12 ч. 25 м.'} items={stats.appealsProcessingTimeDistribution}/>
+                <ProgressCard title={'Среднее время подтверждения платежей'} items={stats.paymentsApprovalTimeDistribution}/>
+                <ProgressCard title={'Среднее время подтверждения апелляций'} items={stats.appealsProcessingTimeDistribution}/>
             </div>
         </div>
     );

@@ -100,7 +100,9 @@
 
 .searchByCard {
   display: flex;
-  max-width: 720px;
+  align-items: flex-end;
+  justify-content: space-between;
+  //max-width: 720px;
   width: 100%;
   margin-right: -15px;
   margin-left: -15px;
@@ -110,6 +112,17 @@
     max-width: 298px;
     padding-right: 15px;
     padding-left: 15px;
+
+    &:last-of-type{
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &Svg{
+    margin-left: 10px;
+    display: inline-block;
+    height: 20px;
   }
 }
 

@@ -119,6 +119,38 @@
   }
 }
 
+.totalPayments{
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__textBig {
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  &__text {
+    color: #667180;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+  }
+}
+
 .visiblePayments {
   &__list {
     padding: 0;
@@ -161,30 +193,6 @@
 
 .pie {
   position: relative;
-
-  &__textBig {
-    position: absolute;
-    top: 30%;
-    left: 40%;
-    font-family: Inter, sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 28px;
-    color: #ffffff;
-  }
-
-  &__text {
-    position: absolute;
-    top: 40%;
-    left: 37%;
-    color: #667180;
-    font-family: Inter, sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-  }
 }
 
 .progress {

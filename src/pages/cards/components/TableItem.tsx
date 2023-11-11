@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from '../../../hooks/app';
-import {changeStatusCard} from '../store/cards.thunk';
+import {changeStatusCard, removeCard} from '../store/cards.thunk';
 import {icons} from '../../../utils/constants';
 import {ICard} from '../store/types';
 import styles from './styles.module.scss';
@@ -37,7 +37,7 @@ export const TableItem = ({item}: { item: ICard }) => {
     };
 
     const handleStop = () => {
-        dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.inactive}));
+        dispatch(removeCard({id: item.id.toString(), status: StatusCard.inactive}));
     };
 
     const cardData = () => {

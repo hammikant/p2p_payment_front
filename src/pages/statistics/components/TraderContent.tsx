@@ -3,13 +3,16 @@ import {SimpleCard} from '../../../components/simpleCard';
 import {useAppDispatch, useAppSelector} from '../../../hooks/app';
 import {getStatistic} from '../store/statistic.thunk';
 import {Loader} from '../../../components/loader';
+import {TraderStats} from '../store/types';
 import {Chart} from './Chart';
 import {InputsFilter, SubmitValue} from './InputsFilter';
 import styles from './styles.module.scss';
 
 export const TraderContent = () => {
     const dispatch = useAppDispatch();
+    const {exchangeRates} = useAppSelector(state => state.app);
     const {stats, loading} = useAppSelector(state => state.statistic);
+    const {data, income, turnover} = stats as TraderStats;
     // const [dateFrom, setDateFrom] = useState<string>('');
     // const [dateTo, setDateTo] = useState<string>('');
 
@@ -47,23 +50,23 @@ export const TraderContent = () => {
                     <div className={'col'}>
                         <SimpleCard
                             name={'Доход'}
-                            data={`${'нет данных'} ₽`}
-                            additionalData={`$${'нет данных'}`}
+                            data={`${income} ₽`}
+                            additionalData={`$${income / exchangeRates.usdtrub}`}
                             style={{height: '160px'}}
                         />
                     </div>
                     <div className={'col'}>
                         <SimpleCard
                             name={'Оборот'}
-                            data={`${'нет данных'} ₽`}
-                            additionalData={`$${'нет данных'}`}
+                            data={`${turnover} ₽`}
+                            additionalData={`$${turnover / exchangeRates.usdtrub}`}
                             style={{height: '160px'}}
                         />
                     </div>
                 </div>
             </div>
             <div className={'row'}>
-                <Chart items={stats}/>
+                <Chart items={data}/>
             </div>
         </>
     );

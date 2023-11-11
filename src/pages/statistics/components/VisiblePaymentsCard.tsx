@@ -3,6 +3,7 @@ import * as am5 from '@amcharts/amcharts5';
 import * as am5percent from '@amcharts/amcharts5/percent';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import {IOption} from '../../../types';
+import {PaymentStatus, PaymentStatusDistribution} from '../store/types';
 import styles from './styles.module.scss';
 import {BanksFilter} from './BanksFilter';
 const check = require('../../../assets/images/check.png');
@@ -12,18 +13,36 @@ const freeze = require('../../../assets/images/snow-flake.png');
 const icons = [check, cancel, freeze];
 
 interface VisiblePayment {
-    percent: string;
-    count: string;
+    percentage: string;
+    payments: string;
     status: string;
 }
 
-const visiblePayments: VisiblePayment[] = [
-    {percent: '64', count: '1.74к', status: 'подтверждено'},
-    {percent: '15', count: '408', status: 'отменено'},
-    {percent: '21', count: '571', status: 'заморожено'},
-];
+const mapPaymentStatusDistribution = (data: PaymentStatusDistribution): VisiblePayment[] => {
+    const d = {...data};
+    const statuses = ['подтверждено', 'отменено', 'заморожено'];
+    delete d.totalPayments;
+    return Object.entries(d).map(([key, value]: any, index) => ({
+        ...value,
+        status: statuses[index]
+    }));
+};
 
-export const VisiblePaymentsCard = ({handleSelectBank}:{handleSelectBank: (item:IOption) => void}) => {
+const isThousand = (num: string) => {
+    const numLength = num.length;
+    if(numLength >= 4) {
+        return num.substring(0, numLength - 3) + 'k';
+    }
+    return num;
+};
+
+interface VisiblePaymentsCardProps {
+    paymentStatusDistribution: PaymentStatusDistribution;
+    handleSelectBank: (item: IOption) => void
+};
+
+
+export const VisiblePaymentsCard = ({handleSelectBank, paymentStatusDistribution}: VisiblePaymentsCardProps) => {
 
     useEffect(() => {
         const root = am5.Root.new('chart');
@@ -44,23 +63,24 @@ export const VisiblePaymentsCard = ({handleSelectBank}:{handleSelectBank: (item:
 
         const data = [{
             type: 'подтверждено',
-            percent: 64,
+            percent: paymentStatusDistribution.approved.percentage,
             sliceSettings: {
                 fill: am5.color('#91F230'),
             }
         }, {
             type: 'отменено',
-            percent: 15,
+            percent: paymentStatusDistribution.canceled.percentage,
             sliceSettings: {
                 fill: am5.color('#F22451'),
             }
         }, {
             type: 'заморожено',
-            percent: 31,
+            percent: paymentStatusDistribution.frozen.percentage,
             sliceSettings: {
                 fill: am5.color('#4972CF'),
             }
         }];
+
 
         // Create series
         const series = chart.series.push(
@@ -92,20 +112,24 @@ export const VisiblePaymentsCard = ({handleSelectBank}:{handleSelectBank: (item:
         return () => root.dispose();
     }, []);
 
+    const list = mapPaymentStatusDistribution(paymentStatusDistribution);
+
+    console.log('@@@ ',paymentStatusDistribution.totalPayments.toString().length);
+
     return (
         <div className={styles.card}>
             <div className={styles.flex}>
                 <div className={styles.visiblePayments}>
                     <p className={styles.card__title}>Проходимость платежей</p>
                     <ul className={styles.visiblePayments__list}>
-                        {visiblePayments.map((item, index) => (
+                        {list.map((item, index) => (
                             <li key={index} className={styles.visiblePayments__listItem}>
                                 <img src={icons[index]} className={styles.visiblePayments__image} alt={'icon'}/>
                                 <div className={styles.visiblePayments__listBody}>
                                     <p className={styles.visiblePayments__listName}>
-                                        {item.percent}%
+                                        {item.percentage}%
                                         <span className={styles.visiblePayments__listNameSmallText}>
-                                        ({item.count})
+                                        ({isThousand(item.payments)})
                                     </span>
                                     </p>
                                     <p className={styles.visiblePayments__listText}>{item.status}</p>
@@ -115,13 +139,15 @@ export const VisiblePaymentsCard = ({handleSelectBank}:{handleSelectBank: (item:
                     </ul>
                 </div>
                 <div>
-                <div className={styles.selectBanks}>
-                    <BanksFilter handleSelectBank={handleSelectBank}/>
-                </div>
-                <div id={'chart'} className={styles.pie} style={{width: '240px', height: '240px'}}>
-                    <p className={styles.pie__textBig}>2.72k</p>
-                    <p className={styles.pie__text}>платежей</p>
-                </div>
+                    <div className={styles.selectBanks}>
+                        <BanksFilter handleSelectBank={handleSelectBank}/>
+                    </div>
+                    <div id={'chart'} className={styles.pie} style={{width: '240px', height: '240px'}}>
+                        <div className={styles.totalPayments}>
+                            <p className={styles.totalPayments__textBig}>{paymentStatusDistribution.totalPayments}</p>
+                            <p className={styles.totalPayments__text}>платежей</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

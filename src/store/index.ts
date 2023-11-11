@@ -1,7 +1,6 @@
 import {AnyAction, combineReducers, configureStore, Reducer} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage/session';
 import {persistReducer} from 'redux-persist';
-import logger from 'redux-logger';
 import auth, {setAppLoader} from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
 import cards from '../pages/cards/store/cards.slice';
@@ -12,7 +11,6 @@ import statistic from '../pages/statistics/store/statistic.slice';
 import {instanceApi} from '../api';
 import {errorsMessage} from '../utils/constants';
 import app, {clearStorage, handleError} from './app.slice';
-import {appApi} from './app.api';
 
 const appReducer = combineReducers({
     app,
@@ -29,7 +27,6 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    //blacklist: []
 };
 
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {

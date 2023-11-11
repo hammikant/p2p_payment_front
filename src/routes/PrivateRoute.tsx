@@ -25,11 +25,14 @@ export const PrivateRoute = () => {
                 if (!isUseFilter && metaBanks.prevPageUrl === null) {
                     dispatch(getBanks());
                 }
-                if (!isUseFilterPayment && metaPayments.prevPageUrl === null) {
-                    dispatch(getPayments());
-                }
             }
-            dispatch(getSimBanks());
+            if(role !== 'merchant') {
+                dispatch(getSimBanks());
+            }
+            if (!isUseFilterPayment && metaPayments.prevPageUrl === null) {
+                dispatch(getPayments());
+            } //@todo проверить
+
             dispatch(getAccount());
         }
     }, 30000);

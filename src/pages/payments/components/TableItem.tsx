@@ -2,7 +2,7 @@ import React from 'react';
 import {IPayments} from '../store/types';
 import {icons} from '../../../utils/constants';
 import {useAppSelector} from '../../../hooks/app';
-import {formatPhoneNumber} from '../../../utils';
+import {formatCardNumber, formatPhoneNumber} from '../../../utils';
 import styles from './styles.module.scss';
 
 const colorsStatus: { [key: string]: string } = {
@@ -32,7 +32,7 @@ export const TableItem = ({item}: { item: IPayments }) => {
         <div className={styles.tableItem}>
             <div className={styles.item}>
                 <img src={isSBP ? icons['sbp'] : icons[item.bank]} alt={'icon'}/>
-                <span className={styles.itemText}>{isSBP ? formatPhoneNumber(item.phoneNumber) : item.cardNumber}</span>
+                <span className={styles.itemText}>{isSBP ? formatPhoneNumber(item.phoneNumber) : formatCardNumber(item.cardNumber)}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.updatedAt}</span>

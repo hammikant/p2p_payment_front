@@ -58,6 +58,8 @@
   font-size: 14px;
   line-height: 24px;
   color: #0D1114;
+  display: flex;
+  align-items: center;
 
   &:active {
     opacity: .8;
@@ -75,6 +77,8 @@
   line-height: 24px;
   color: #91F230;
   padding: 12px 24px;
+  display: flex;
+  align-items: center;
 
   &:hover {
     border: 1px solid #91F230;

@@ -73,6 +73,22 @@ export const changeStatusCard = createAsyncThunk(
     }
 );
 
+export const removeCard = createAsyncThunk(
+    'cards/removeCard',
+    async ({id, status}: { id: string, status: StatusCard.active | StatusCard.paused | StatusCard.inactive }, {dispatch, getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
+
+        const res = await instanceApi.delete(`/finances/${auth.role}/card/${id}`,  {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        dispatch(handleSuccess({message: 'Успешно изменено'}));
+        dispatch(getCards({status: status}));
+        return res.data.card;
+    }
+);
+
 
 export const getCardsById = createAsyncThunk(
     'cards/getCardsById',
