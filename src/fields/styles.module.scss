@@ -60,6 +60,7 @@
   color: #0D1114;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   &:active {
     opacity: .8;
@@ -79,6 +80,7 @@
   padding: 12px 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   &:hover {
     border: 1px solid #91F230;
