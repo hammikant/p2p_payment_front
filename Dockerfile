@@ -1,4 +1,4 @@
-FROM node:10.15.2-alpine AS build
+FROM node:lts-slim AS build
 WORKDIR /usr/src/app
 COPY ./ ./
 RUN npm install
