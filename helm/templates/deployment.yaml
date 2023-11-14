@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: des-web-app
+  labels:
+    app: des-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: des-web-app
+  template:
+    metadata:
+      labels:
+        app: des-web-app
+    spec:
+      containers:
+        - name: des-web-app
+          image: "cr.yandex/crppli9c5vt9gkovp8vm/des-web-app:{{ .Values.imageTag }}"
+          ports:
+            - containerPort: 8080
