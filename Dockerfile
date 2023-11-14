@@ -1,4 +1,4 @@
-FROM node:20-slim AS build
+FROM node:12.22.10 AS build
 WORKDIR /usr/src/app
 COPY ./ ./
 RUN npm install
