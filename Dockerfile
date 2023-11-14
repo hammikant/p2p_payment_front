@@ -2,7 +2,7 @@ FROM node:18.16.0-alpine AS build
 WORKDIR /usr/src/app
 COPY ./ ./
 RUN npm install --legacy-peer-deps
-RUN npm run build && ls -la
+RUN npm run build && ls -la build
 
 FROM nginx:stable
 RUN rm /etc/nginx/conf.d/default.conf && \
