@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - des-web-app.despay.io
-      secretName: des-web-app-secret
+        - des-web.despay.io
+      secretName: des-web-secret
   rules:
-    - host: des-web-app.despay.io
+    - host: des-web.despay.io
       http:
         paths:
           - path: /
