@@ -19,7 +19,7 @@ build:
       /kaniko/executor
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-      --destination "cr.yandex/crppli9c5vt9gkovp8vm/des-web-app:gitlab-$CI_COMMIT_SHORT_SHA"
+      --destination "cr.yandex/crppli9c5vt9gkovp8vm/des-web-app:$CI_COMMIT_SHORT_SHA"
     # Delete the metadata file.
     - rm /kaniko/token
 deploy:
@@ -31,5 +31,4 @@ deploy:
     - kubectl config set-credentials admin --token="$KUBE_TOKEN"
     - kubectl config set-context default --cluster=k8s --user=admin
     - kubectl config use-context default
-    - kubectl get pods
-    - cd helm && helm upgrade -n despay --install -f values.yaml --set imageTag="gitlab-$CI_COMMIT_SHORT_SHA" des-web-app ./
+    - cd helm && helm upgrade -n despay --install -f values.yaml --set imageTag="$CI_COMMIT_SHORT_SHA" des-web-app ./
