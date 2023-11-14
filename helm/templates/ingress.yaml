@@ -11,7 +11,7 @@ spec:
         - des-web-app-python.despay.io
       secretName: domain-name-secret
   rules:
-    - host: des-web-app-python.despay.io
+    - host: des-web-app.despay.io
       http:
         paths:
           - path: /
