@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minimal-ingress
+  name: des-web-app
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "yc-clusterissuer"
 spec:
   tls:
     - hosts:
-        - des-web-app-python.despay.io
-      secretName: domain-name-secret
+        - des-web-app.despay.io
+      secretName: des-web-app-secret
   rules:
     - host: des-web-app.despay.io
       http:
