@@ -1,4 +1,4 @@
-FROM node:lts-slim AS build
+FROM node:20-slim AS build
 WORKDIR /usr/src/app
 COPY ./ ./
 RUN npm install
