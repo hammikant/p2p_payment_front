@@ -5,12 +5,13 @@ const labelsMinutes = ['минута', 'минуты', 'минут'];
 const labelsSeconds = ['секунда', 'секунды', 'секунд'];
 
 export const convertSecondsToTime = (seconds:number) => {
-    if(+seconds.toFixed() === 0) {
+
+    if(+seconds?.toFixed() === 0 || seconds === undefined) {
         return '0 секунд';
     }
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = Number(seconds % 60).toFixed();
+    const remainingSeconds = Number(seconds % 60)?.toFixed();
 
     let timeStr: string = remainingSeconds + ` ${declOfNum(+remainingSeconds, labelsSeconds)} `;
     if(minutes > 0) {

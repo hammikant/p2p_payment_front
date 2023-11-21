@@ -49,7 +49,7 @@ export const InputsFilter = ({submit, submitTrader}:InputsFilterProps) => {
             } else {
                 const dateTo = formatDate({date: currentDate});
                 const dateFrom = formatDate({date: currentDate, period: item.value});
-
+                setDateRange({dateFrom, dateTo});
                 submit({dateFrom, dateTo});
             }
         } else {
