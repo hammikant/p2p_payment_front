@@ -12,7 +12,7 @@ export const TraderContent = () => {
     const dispatch = useAppDispatch();
     const {exchangeRates} = useAppSelector(state => state.app);
     const {stats, loading} = useAppSelector(state => state.statistic);
-    const {data, income, turnover} = stats as TraderStats;
+
     // const [dateFrom, setDateFrom] = useState<string>('');
     // const [dateTo, setDateTo] = useState<string>('');
 
@@ -50,23 +50,23 @@ export const TraderContent = () => {
                     <div className={'col'}>
                         <SimpleCard
                             name={'Доход'}
-                            data={`${income} ₽`}
-                            additionalData={`$${income / exchangeRates.usdtrub}`}
+                            data={`${stats?.income} ₽`}
+                            additionalData={`$${stats?.income / exchangeRates.usdtrub}`}
                             style={{height: '160px'}}
                         />
                     </div>
                     <div className={'col'}>
                         <SimpleCard
                             name={'Оборот'}
-                            data={`${turnover} ₽`}
-                            additionalData={`$${turnover / exchangeRates.usdtrub}`}
+                            data={`${stats?.turnover} ₽`}
+                            additionalData={`$${stats?.turnover / exchangeRates.usdtrub}`}
                             style={{height: '160px'}}
                         />
                     </div>
                 </div>
             </div>
             <div className={'row'}>
-                <Chart items={data}/>
+                <Chart items={stats?.data}/>
             </div>
         </>
     );
