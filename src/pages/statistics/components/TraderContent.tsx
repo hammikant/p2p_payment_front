@@ -37,9 +37,9 @@ export const TraderContent = () => {
         // setDateTo(dateTo);
     };
 
-    if(loading) {
-        return <Loader />;
-    }
+    // if(loading) {
+    //     return <Loader />;
+    // }
 
     return (
         <>
@@ -51,7 +51,7 @@ export const TraderContent = () => {
                         <SimpleCard
                             name={'Доход'}
                             data={`${stats?.income} ₽`}
-                            additionalData={`$${stats?.income / exchangeRates.usdtrub}`}
+                            additionalData={`$${(stats?.income / exchangeRates.usdtrub).toFixed(2)}`}
                             style={{height: '160px'}}
                         />
                     </div>
@@ -59,7 +59,7 @@ export const TraderContent = () => {
                         <SimpleCard
                             name={'Оборот'}
                             data={`${stats?.turnover} ₽`}
-                            additionalData={`$${stats?.turnover / exchangeRates.usdtrub}`}
+                            additionalData={`$${(stats?.turnover / exchangeRates.usdtrub).toFixed(2)}`}
                             style={{height: '160px'}}
                         />
                     </div>
