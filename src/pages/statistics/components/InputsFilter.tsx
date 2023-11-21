@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -31,10 +31,13 @@ interface InputsFilterProps {
     submit?: ({dateTo, dateFrom}:SubmitValue) => void;
     submitTrader?: (interval: string) => void;
 }
-const date = new Date();
+
 
 export const InputsFilter = ({submit, submitTrader}:InputsFilterProps) => {
     const currentDate = new Date();
+    const [dateRange, setDateRange] = useState<{dateTo: string; dateFrom: string}>({
+        dateFrom: formatDate({date: currentDate}), dateTo: formatDate({date: currentDate})
+    });
     const {control, register, watch, setValue, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
@@ -46,10 +49,14 @@ export const InputsFilter = ({submit, submitTrader}:InputsFilterProps) => {
             } else {
                 const dateTo = formatDate({date: currentDate});
                 const dateFrom = formatDate({date: currentDate, period: item.value});
+
                 submit({dateFrom, dateTo});
             }
         } else {
             submitTrader(item.value);
+            const dateTo = formatDate({date: currentDate});
+            const dateFrom = formatDate({date: currentDate, period: item.value});
+            setDateRange({dateFrom, dateTo});
         }
     };
 
@@ -71,7 +78,28 @@ export const InputsFilter = ({submit, submitTrader}:InputsFilterProps) => {
                 />
             </div>
             <div className={styles.inputsFilter__box}>
-                <p className={styles.inputsFilter__text}>{currentDate.toLocaleDateString('ru', {day: '2-digit', month: 'short', year: 'numeric'})}</p>
+                {dateRange.dateFrom === dateRange.dateTo
+                ? (
+                        <p
+                            className={styles.inputsFilter__text}>
+                            {currentDate.toLocaleDateString('ru', {day: '2-digit', month: 'short', year: 'numeric'})}
+                        </p>
+                    )
+                : (
+                    <div className={styles.rangeDate}>
+                        <p
+                            className={styles.inputsFilter__text}
+                        >
+                            {new Date(dateRange.dateFrom).toLocaleDateString('ru', {day: '2-digit', month: 'short', year: 'numeric'})}
+                        </p>
+                        <span className={styles.inputsFilter__span}> – </span>
+                        <p
+                            className={styles.inputsFilter__text}>
+                            {new Date(dateRange.dateTo).toLocaleDateString('ru', {day: '2-digit', month: 'short', year: 'numeric'})}
+                        </p>
+                    </div>
+                    )}
+
             </div>
         </div>
     );
