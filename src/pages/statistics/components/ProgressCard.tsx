@@ -16,7 +16,6 @@ export const ProgressCard = ({title, items}:ProgressCardProps) => {
         <div className={styles.card}>
             <p className={styles.card__title}>{title}</p>
             {Object.keys(items).map((item, index) => {
-
                 const sec = Object.values(items)[index].averageApprovalTime;
                 const time = convertSecondsToTime(sec);
                 return (

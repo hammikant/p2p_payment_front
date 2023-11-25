@@ -114,8 +114,6 @@ export const VisiblePaymentsCard = ({handleSelectBank, paymentStatusDistribution
 
     const list = mapPaymentStatusDistribution(paymentStatusDistribution);
 
-    console.log('@@@ ',paymentStatusDistribution.totalPayments.toString().length);
-
     return (
         <div className={styles.card}>
             <div className={styles.flex}>

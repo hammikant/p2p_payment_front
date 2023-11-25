@@ -28,8 +28,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs,
     unknown,
     FetchBaseQueryError> = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
-    console.log('args', args);
-    console.log('error', result.error);
+
     if (result.error && result.error.status === 401) {
         const state = api.getState() as any;
         const {settings} = state;

@@ -104,7 +104,6 @@ export const Banks = () => {
 
     const handleOnSelect = (item: any) => {
         // the item selected
-        console.log(item);
         setValue('phoneNumber', item.name);
     };
 

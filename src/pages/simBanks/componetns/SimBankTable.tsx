@@ -47,7 +47,6 @@ export const SimBankTable = ({bank, handleEdit}: SimBankTableProps) => {
             state: {simBankId: id}
         });
     };
-    console.log(displayName);
     return (
         <div className={styles.simBankTable}>
             <div className={styles.header}>

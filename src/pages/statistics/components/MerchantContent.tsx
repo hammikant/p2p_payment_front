@@ -52,7 +52,7 @@ export const MerchantContent = () => {
 
     return (
         <div>
-            <InputsFilter submit={handleFilterSubmit}/>
+            <InputsFilter dataRangeStr={''} submit={handleFilterSubmit}/>
             <div className={styles.cards} style={{height: heightTable}}>
                 <VisiblePaymentsCard paymentStatusDistribution={stats.paymentStatusDistribution} handleSelectBank={item => {
                     item.value === 'all'

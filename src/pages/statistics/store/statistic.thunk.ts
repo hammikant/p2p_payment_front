@@ -17,6 +17,7 @@ export const getStatistic = createAsyncThunk(
                         Authorization: `Bearer ${auth.token}`
                     }
                 });
+
             return res.data;
         } catch (e: any) {
             dispatch(handleError({message: e.response.message, errors: {}}));

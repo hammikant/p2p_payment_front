@@ -8,7 +8,7 @@ export const formatDate = ({date, period = undefined}: FormatDateProps) => {
     if (period) {
         switch (period) {
             case 'week':
-                date.setDate(date.getDate() - 7);
+                date.setDate(date.getDate() - 6);
                 return d = str(date);
             case 'mouth':
                 date.setMonth(date.getMonth() - 1);
