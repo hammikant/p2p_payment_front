@@ -40,6 +40,7 @@ export const PrivateRoute = () => {
     useEffect(() => {
         dispatch(getExchangeRates());
         if (isAuth) {
+            document.title = role;
             if (role !== 'merchant') {
                 dispatch(getBanks());
                 dispatch(getPayments());
