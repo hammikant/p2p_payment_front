@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: des-web-app
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "yc-clusterissuer"
+spec:
+  tls:
+    - hosts:
+        - web.despay.io
+      secretName: web-despay-io-secret
+  rules:
+    - host: web.despay.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: des-web-app
+                port:
+                  number: 8080
