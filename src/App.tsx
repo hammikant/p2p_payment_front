@@ -22,11 +22,11 @@ function App() {
     useEffect(() => {
         error !== null && initAlert({
             type: alertTypes.ERROR,
-            text: error?.message ?? 'Не известная ошибка',
+            text: error?.message ?? 'Неизвестная ошибка',
         });
         success !== null && initAlert({
             type: alertTypes.SUCCESS,
-            text: success?.message ?? 'Не известная ошибка',
+            text: success?.message ?? '',
         });
     }, [error, success]);
 

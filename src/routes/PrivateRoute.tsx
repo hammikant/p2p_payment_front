@@ -9,7 +9,6 @@ import {getBanks} from '../pages/banks/store/banks.thunk';
 import {getAccount, getExchangeRates} from '../store/app.slice';
 import {getSimBanks} from '../pages/simBanks/store/simBanks.thunk';
 
-
 export const PrivateRoute = () => {
     const dispatch = useAppDispatch();
     const {isAuth, loading, role} = useAppSelector(state => state.auth);

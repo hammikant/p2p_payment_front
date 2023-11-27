@@ -82,7 +82,7 @@ export const confirmEmail = createAsyncThunk(
     'auth/confirmEmail',
     async ({code, email}: { code: string, email: string }, {dispatch, getState}) => {
         const {auth} = getState() as { auth: IAuthState };
-        const res = await instanceApi.post('/account/email/confim', {code, email}, {
+        const res = await instanceApi.post('/account/email/confirm', {code, email}, {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }
