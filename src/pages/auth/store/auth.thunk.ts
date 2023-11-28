@@ -1,13 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {instanceApi} from '../../../api';
-import {getAccount, IAppState} from '../../../store/app.slice';
+import {getAccount, handleSuccess, IAppState} from '../../../store/app.slice';
 import {ISignInRequest, ISignUpRequest} from './types';
 import {IAuthState, setStatusConfirm} from './auth.slice';
 
 export const signUp = createAsyncThunk(
     'auth/signUp',
-    async ({email, invitation_code, password}: ISignUpRequest, {dispatch}) => {
-        const res = await instanceApi.post('/account/trader/registration', {email, invitation_code, password});
+    async ({email, invitationCode, password}: ISignUpRequest, {dispatch}) => {
+        const res = await instanceApi.post('/account/trader/registration', {email, invitationCode, password});
         return res.data;
     }
 );
@@ -56,11 +56,12 @@ export const changeDisplayName = createAsyncThunk(
     'auth/changeDisplayName',
     async ({displayName}: { displayName: string }, {dispatch, getState}) => {
         const {auth} = getState() as { auth: IAuthState };
-        const res = await instanceApi.post('/account/display-name', {displayName}, {
+        const res = await instanceApi.patch('/account/display-name', {displayName}, {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }
         });
+        dispatch(handleSuccess({message: `Изменили на ${res.data.displayName}`}));
         return res.data;
     }
 );
@@ -82,7 +83,7 @@ export const confirmEmail = createAsyncThunk(
     'auth/confirmEmail',
     async ({code, email}: { code: string, email: string }, {dispatch, getState}) => {
         const {auth} = getState() as { auth: IAuthState };
-        const res = await instanceApi.post('/account/email/confim', {code, email}, {
+        const res = await instanceApi.post('/account/email/confirm', {code, email}, {
             headers: {
                 Authorization: `Bearer ${auth.token}`
             }

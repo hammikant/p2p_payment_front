@@ -56,7 +56,6 @@ export const getSimBankNumber = createAsyncThunk(
 export const connectCellPhonesInSimBank = createAsyncThunk(
     'sinBanks/connectCellPhonesInSimBank',
     async ({id, cellPhones}: { id: number, cellPhones: ICellPhoneSimBank[] }, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.post('/connect-cellphones', {id, cellPhones}, {
@@ -66,16 +65,13 @@ export const connectCellPhonesInSimBank = createAsyncThunk(
             });
             dispatch(handleSuccess({message: res.data.message}));
             return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
     }
 );
 
 export const deleteSimBank = createAsyncThunk(
     'sinBanks/deleteSimBank',
     async ({id}: { id: number }, {dispatch, getState}) => {
-        try {
+
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.delete(`/messages/sim-bank/${id}`, {
@@ -85,16 +81,14 @@ export const deleteSimBank = createAsyncThunk(
             });
             dispatch(handleSuccess({message: `Успешно удален сим банк ID ${id}`}));
             return id;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+
     }
 );
 
 export const deleteCellPhones = createAsyncThunk(
     'sinBanks/deleteCellPhones',
     async ({id, cellPhones}: { id: number, cellPhones: ICellPhoneSimBank[] }, {dispatch, getState}) => {
-        try {
+
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.post('/delete-cell-phones-from-sim-bank', {
@@ -107,8 +101,6 @@ export const deleteCellPhones = createAsyncThunk(
             });
             dispatch(handleSuccess({message: res.data.message}));
             return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+
     }
 );

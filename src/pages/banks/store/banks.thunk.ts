@@ -40,7 +40,6 @@ interface IAuthorizationBankRequest {
 export const authorizationBank = createAsyncThunk(
     'banks/authorizationBank',
     async ({id, item}: IAuthorizationBankRequest, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.post('/authorization-bank', {id}, {
@@ -49,16 +48,12 @@ export const authorizationBank = createAsyncThunk(
                 }
             });
             return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
     }
 );
 
 export const updateBank = createAsyncThunk(
     'banks/updateBank',
     async ({bank}: { bank: IBank }, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.put<IBank>(`/finances/${auth.role}/bank/${bank.id}`, {...bank}, {
@@ -68,16 +63,12 @@ export const updateBank = createAsyncThunk(
             });
             dispatch(handleSuccess({message: `${res.data.name} успешно изменен.`}));
             return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
     }
 );
 
 export const deleteBank = createAsyncThunk(
     'banks/deleteBank',
     async ({id}: { id: number }, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.delete(`/finances/${auth.role}/bank/${id}`, {
@@ -87,9 +78,6 @@ export const deleteBank = createAsyncThunk(
             });
             dispatch(handleSuccess({message: res.data.message}));
             return id;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
     }
 );
 
@@ -97,7 +85,6 @@ export const deleteBank = createAsyncThunk(
 export const getMoreBanks = createAsyncThunk(
     'banks/getMoreBanks',
     async ({url, status}: { url: string, status: string }, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.get(url, {
@@ -106,16 +93,12 @@ export const getMoreBanks = createAsyncThunk(
                 }
             });
             return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
     }
 );
 
 export const connectCardsInBank = createAsyncThunk(
     'banks/connectCardsInBank',
     async ({cardNumbers, bankAccountId}: IConnectCard, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
             const data: { [key: string]: string | number } = {
                 cardNumbers,
@@ -128,9 +111,6 @@ export const connectCardsInBank = createAsyncThunk(
             });
             dispatch(handleSuccess({message: 'Успешно подключено'}));
             return res.data.bank;
-        } catch (e:any) {
-            dispatch(handleError({message: e.response.detail, errors: {}}));
-        }
 
     }
 );

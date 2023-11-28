@@ -29,10 +29,11 @@ const colorsStatus: { [key: string]: string } = {
 };
 
 export const TableItem = ({item}: { item: IHistoryActions }) => {
+
     return (
         <div className={styles.tableItem}>
             <div className={styles.item}>
-                <span className={styles.itemText}>{item.data}</span>
+                <span className={styles.itemText}>{item.date}</span>
             </div>
             <div className={styles.item}>
                 <span className={styles.itemText}>{item.action}</span>
@@ -44,7 +45,7 @@ export const TableItem = ({item}: { item: IHistoryActions }) => {
                 <span className={styles.itemText}>{item.id}</span>
             </div>
             <div className={styles.item}>
-                <span className={styles.itemText}>{item.userAgent}</span>
+                <span className={styles.itemText}>{`${item.userAgent.slice(0,10)}...`}</span>
             </div>
         </div>
     );

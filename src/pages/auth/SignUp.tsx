@@ -14,7 +14,7 @@ import {AuthNavigate} from './components';
 const schema = yup.object({
     email: yup.string().email('Не валидный email').required('Обязательное поле'),
     password: yup.string().min(8, 'Минимум 8 символов').required('Обязательное поле'),
-    invitation_code: yup.string().required('Обязательное поле'),
+    invitationCode: yup.string().required('Обязательное поле'),
 });
 
 export const SignUp = () => {
@@ -69,7 +69,7 @@ export const SignUp = () => {
                         control={control}
                         autoComplete={'off'}
                         register={register}
-                        fieldName={'invitation_code'}
+                        fieldName={'invitationCode'}
                         backgroundLight={false}
                         errors={errors}/>
                 </div>

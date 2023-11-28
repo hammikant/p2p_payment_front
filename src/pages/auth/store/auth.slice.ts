@@ -5,7 +5,7 @@ import {changeDisplayName, changePassword, forgotPassword, restoreConfirmation, 
 export type Role = 'trader' | 'merchant';
 
 export interface IHistoryActions {
-    data: string;
+    date: string;
     action: string;
     IPAddress: string;
     id: number,
@@ -137,7 +137,7 @@ const authSlice = createSlice({
         builder.addCase(changeDisplayName.fulfilled, (state:Draft<IAuthState>, action) => {
             state.loading = false;
             state.isAuth = true;
-            state.token = action.payload.token;
+           // state.token = action.payload.token;
             authSlice.caseReducers.setUserData(state, action);
         });
     }
