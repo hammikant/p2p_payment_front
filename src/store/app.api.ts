@@ -69,8 +69,7 @@ export const appApi = createApi({
     baseQuery: baseQueryWithReauth,
     refetchOnFocus: true,
     tagTypes: [],
-    endpoints: builder => ({
-    }),
+    endpoints: builder => ({ }),
 });
 
-export const { } = appApi;
+export const {} = appApi;

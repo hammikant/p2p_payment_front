@@ -1,35 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {MainLayout} from '../../layouts';
 import {useAppDispatch, useAppSelector} from '../../hooks/app';
 import {Modal} from '../../components/modal';
 import {Close} from '../../icons';
 import {ChangePasswordForm} from '../../components/changePassword';
-import {terminateSessions} from '../../store/app.slice';
-import {DisplayName, EmailForm} from './components';
+import {getAccountHistory, getMoreHistory, terminateSessions} from '../../store/app.slice';
+import {DisplayName, EmailForm, Table} from './components';
 import styles from './styles.module.scss';
 
 export const Settings = () => {
     const dispatch = useAppDispatch();
-    const {user, statusConfirm} = useAppSelector(state => state.auth);
-    const {commonData} = useAppSelector(state => state.app);
+    const {user} = useAppSelector(state => state.auth);
+
+    const {commonData, historyActions, meta} = useAppSelector(state => state.app);
     const [emailModal, setEmailModal] = useState<boolean>(false);
     const [passwordModal, setPasswordModal] = useState<boolean>(false);
 
     useEffect(() => {
-        if (statusConfirm === 'success') {
-            // setEmailModal(false);
-            // dispatch(setStatusConfirm(null));
-        }
-    }, [statusConfirm]);
-
+        dispatch(getAccountHistory());
+    }, []);
 
     const handleTerminateSession = async () => {
         dispatch(terminateSessions());
     };
 
+    const fetchMoreData = () => {
+        dispatch(getMoreHistory({url: meta.nextPageUrl}));
+    };
+
     return (
         <MainLayout titlePage={'Настройки'} descriptionPage={'Управляйте своим аккаунтом'}>
-            <DisplayName/>
+            <DisplayName displayName={user.displayName}/>
             <div className={'space-top-48'}/>
             <span className={styles.label}>Email</span>
             <p className={styles.text}>
@@ -52,17 +53,23 @@ export const Settings = () => {
                 Вход будет сброшен на всех устройствах, кроме текущего
                 <span className={styles.buttonStop} onClick={handleTerminateSession}>Завершить</span></p>
 
+            {/*<div className={'space-top-48'}/>*/}
+            {/*<span className={styles.label}>Telegram-уведомления</span>*/}
+            {/*<p className={styles.text}>Приглашение в чат (1 актив): <span*/}
+            {/*    className={styles.textLink}>https://t.me/dX3pYaSziXY7xCiL4cHcYegE</span></p>*/}
+            {/*<p className={styles.text}>Подключёный аккаунт: <span*/}
+            {/*    className={styles.textLink}>@manimani11111</span></p>*/}
+            {/*<span className={styles.buttonEdit}>Отключить</span>*/}
             <div className={'space-top-48'}/>
-            <span className={styles.label}>Telegram-уведомления</span>
-            <p className={styles.text}>Приглашение в чат (1 актив): <span
-                className={styles.textLink}>https://t.me/dX3pYaSziXY7xCiL4cHcYegE</span></p>
-            <p className={styles.text}>Подключёный аккаунт: <span
-                className={styles.textLink}>@manimani11111</span></p>
+            <span className={styles.label}>История активности</span>
 
-            <span className={styles.buttonEdit}>Отключить</span>
             <div className={styles.row}>
                 <div className={styles.col}>
-                    {/*<Table items={historyActions} fetchMoreData={fetchMoreData} hasMore={!meta.isLastPage}/>*/}
+                    <Table
+                        items={historyActions ?? []}
+                        fetchMoreData={fetchMoreData}
+                        hasMore={meta.nextPageUrl !== null}
+                    />
                 </div>
             </div>
             <Modal

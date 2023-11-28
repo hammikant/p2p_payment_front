@@ -36,6 +36,15 @@
 
 .tableItem {
   display: flex;
+  position: relative;
+  width: calc(100% + 4px);
+  margin-left: -14px;
+  padding: 14px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #1B1F26;
+  }
 }
 
 .tableItemHeader {
@@ -77,6 +86,7 @@
   &:nth-child(5) {
     justify-content: flex-end;
   }
+
 
   &Head {
     display: block;

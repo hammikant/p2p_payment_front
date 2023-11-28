@@ -34,8 +34,20 @@ export const icons: { [key: string]: string } = {
 };
 
 export const errorsMessage:{[key: string]: string} = {
-    '0': 'Упс!',
-    'invitation_code': 'Код приглашения'
+    'invitation_code': 'Код приглашения',
+    'name': 'Отображаемое имя',
+    'bank': 'Банк',
+    'phoneNumber': 'Номер телефона',
+    'isAcceptingSbp': 'СБП',
+    'isAcceptingPayments': 'Прием платежей',
+
+    'email': 'Email',
+    'displayName': 'Отображаемое название',
+    'password': 'Пароль',
+    'newPassword': 'Новый пароль',
+    'invitationCode': 'Код приглашения',
+
+    'code': 'Проверочный код'
 };
 
 export const optionsBanksList: IOption[] = [

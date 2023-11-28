@@ -11,9 +11,8 @@ const schema = yup.object({
     displayName: yup.string().required('Поле не может быть пустым')
 });
 
-export const DisplayName = () => {
+export const DisplayName = ({displayName}:{displayName:string}) => {
     const dispatch = useAppDispatch();
-    const {displayName} = useAppSelector(state => state.auth.user);
 
     const {control, register, handleSubmit, setValue, formState: {errors}} = useForm({
         resolver: yupResolver(schema)

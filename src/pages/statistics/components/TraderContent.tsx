@@ -15,6 +15,7 @@ export const TraderContent = () => {
     const {stats} = useAppSelector(state => state.statistic);
 
     const [interval, setTimeInterval] = useState<string>('all');
+
     useEffect(() => {
         if(interval === 'all') {
             dispatch(getStatistic({params: undefined}));

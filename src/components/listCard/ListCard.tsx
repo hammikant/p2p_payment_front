@@ -13,10 +13,12 @@ export const ListCard = () => {
                 <span className={styles.listCardText}>Оборот:</span>
                 <span className={styles.listCardText}>{`${turnover.day} / ${turnover.total} ₽`}</span>
             </li>
-            {role === 'trader' ? <li className={styles.listCardItem}>
-                <span className={styles.listCardText}>Доход:</span>
-                <span className={styles.listCardText}>{`${income.day} / ${income.total} ₽`}</span>
-            </li> : null}
+            {role === 'trader'
+                ? (
+                    <li className={styles.listCardItem}>
+                        <span className={styles.listCardText}>Доход:</span>
+                        <span className={styles.listCardText}>{`${income.day} / ${income.total} ₽`}</span>
+                    </li>) : null}
             <li className={styles.listCardItem}>
                 <span className={styles.listCardText}>На оплате:</span>
                 <span className={styles.listCardText}>{`${onPaymentBalance} ₽`}</span>

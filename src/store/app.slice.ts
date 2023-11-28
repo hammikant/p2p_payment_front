@@ -1,7 +1,10 @@
 import {createAsyncThunk, createSlice, Draft} from '@reduxjs/toolkit';
-import {ICommonData, IError, ISuccess} from '../types';
+import {da} from '@faker-js/faker';
+import {ICommonData, IError, IMetaResponse, ISuccess} from '../types';
 import {IAuthState} from '../pages/auth/store/auth.slice';
 import {instanceApi} from '../api';
+import {StatusCard} from '../pages/cards/components/TableItem';
+import {getMoreCards} from '../pages/cards/store/cards.thunk';
 
 export interface IAppState {
     loading: boolean;
@@ -11,6 +14,14 @@ export interface IAppState {
     exchangeRates: {
         usdtrub: number;
     };
+    meta: IMetaResponse;
+    historyActions: {
+        data: string;
+        action: string;
+        IPAddress: string;
+        id: number;
+        userAgent: string;
+    }[]
 }
 
 const initialState: IAppState = {
@@ -30,79 +41,81 @@ const initialState: IAppState = {
     },
     exchangeRates: {
         usdtrub: 0
+    },
+    historyActions: [],
+    meta: {
+        total: 0,
+        nextPageUrl: null,
+        prevPageUrl: null,
+        isLastPage: false
     }
 };
 
 export const getAccount = createAsyncThunk(
     'app/getAccount',
     async (_, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-
-            const res = await instanceApi.get('/account', {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-
-            return res.data;
-        } catch (e) {
-
-        }
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.get('/account', {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
+    }
+);
+export const getAccountHistory = createAsyncThunk(
+    'app/getAccountHistory',
+    async (_, {dispatch, getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.get('/account/actions', {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );
 
 export const getMoreHistory = createAsyncThunk(
     'app/getMoreHistory',
-    async ({url}: { url: string }, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
+    async ({url}: { url: string }, {getState}) => {
+        const {auth} = getState() as { auth: IAuthState };
 
-            const res = await instanceApi.get(url, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const res = await instanceApi.get(url, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );
 
 export const getExchangeRates = createAsyncThunk(
     'app/getExchangeRates',
     async (_, {getState, dispatch}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-            const res = await instanceApi.get('/finances/exchange-rates', {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            return res.data;
-        } catch (e:any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const {auth} = getState() as { auth: IAuthState };
+        const res = await instanceApi.get('/finances/exchange-rates', {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        return res.data;
     }
 );
 
 export const terminateSessions = createAsyncThunk(
     'app/terminateSessions',
     async (_, {dispatch, getState}) => {
-        try {
-            const {auth} = getState() as { auth: IAuthState };
-            await instanceApi.put('/account/terminate', null, {
-                headers: {
-                    Authorization: `Bearer ${auth.token}`
-                }
-            });
-            dispatch(handleSuccess({message: 'Вы вышли со всех устройств, кроме текущего.'}));
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
+        const {auth} = getState() as { auth: IAuthState };
+        await instanceApi.put('/account/terminate', null, {
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            }
+        });
+        dispatch(handleSuccess({message: 'Вы вышли со всех устройств, кроме текущего.'}));
     }
 );
+
 
 const appSlice = createSlice({
     name: 'app',
@@ -138,6 +151,21 @@ const appSlice = createSlice({
         });
         builder.addCase(getExchangeRates.fulfilled, (state, {payload}) => {
             state.exchangeRates = payload;
+        });
+        builder.addCase(getAccountHistory.fulfilled, (state, {payload}) => {
+            state.meta = payload.meta;
+            state.historyActions = payload.historyActions;
+        });
+        builder.addCase(getMoreHistory.pending, (state) => {
+            state.loading = true;
+        });
+        builder.addCase(getMoreHistory.fulfilled, (state, {payload}) => {
+            state.loading = false;
+            state.historyActions = [...state.historyActions, ...payload.cards];
+            state.meta = payload.meta;
+        });
+        builder.addCase(getMoreHistory.rejected, (state) => {
+            state.loading = true;
         });
     }
 });
