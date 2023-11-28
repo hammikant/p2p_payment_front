@@ -4,7 +4,6 @@ import {useAppDispatch, useAppSelector} from '../hooks/app';
 import {Loader} from '../components/loader';
 import {useInterval} from '../hooks/useInterval';
 import {getPayments} from '../pages/payments/store/payments.thunk';
-import {StatusCardPayments} from '../types';
 import {getBanks} from '../pages/banks/store/banks.thunk';
 import {getAccount, getExchangeRates} from '../store/app.slice';
 import {getSimBanks} from '../pages/simBanks/store/simBanks.thunk';

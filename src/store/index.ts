@@ -50,25 +50,27 @@ export const store = configureStore({
 instanceApi.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
+    const {data, status} = error.response;
 
-    if(error.response.status === 401) {
+    if(status === 401) {
         store.dispatch(setAppLoader(true));
         store.dispatch(clearStorage());
         setTimeout(() => {
             store.dispatch(setAppLoader(false));
         }, 1000);
     }
-    const {data} = error.response;
-    if(data?.includes('<!DOCTYPE html>')) {
-        store.dispatch(handleError({message: 'Не известная шибка', errors: {}}));
+
+    if(status > 499) {
+        store.dispatch(handleError({message: 'Сервис временно недоступен', errors: {}}));
         return Promise.reject(error);
     }
+
     const keys = Object.keys(data);
     const values = Object.values(data);
     if(keys.length > 0) {
         for (let i = 0; i < values.length; i++) {
-            const translate = errorsMessage[keys[i]] ?? keys[i];
-            store.dispatch(handleError({message: `${translate}: ${values[i]}`, errors: {}}));
+            const translate = errorsMessage[keys[i]] ?? '';
+            store.dispatch(handleError({message: `${translate} ${values[i]}`, errors: {}}));
         }
         return Promise.reject(error);
     }

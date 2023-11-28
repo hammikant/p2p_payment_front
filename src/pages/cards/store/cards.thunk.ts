@@ -24,7 +24,6 @@ export const getCards = createAsyncThunk(
 export const getMoreCards = createAsyncThunk(
     'cards/getMoreCards',
     async ({url, status}: { url: string, status: StatusCard | null }, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
             const res = await instanceApi.get(url, {
                 headers: {
@@ -32,9 +31,6 @@ export const getMoreCards = createAsyncThunk(
                 }
             });
             return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
     }
 );
 
@@ -93,7 +89,6 @@ export const removeCard = createAsyncThunk(
 export const getCardsById = createAsyncThunk(
     'cards/getCardsById',
     async ({id}: { id: string }, {dispatch, getState}) => {
-        try {
             const {auth} = getState() as { auth: IAuthState };
 
             const res = await instanceApi.get('/finances/cards', {
@@ -102,9 +97,6 @@ export const getCardsById = createAsyncThunk(
                 }
             });
             return res.data;
-        } catch (e: any) {
-            dispatch(handleError({message: e.response.message, errors: {}}));
-        }
     }
 );
 
