@@ -10,8 +10,6 @@ import styles from './styles.module.scss';
 
 export const Settings = () => {
     const dispatch = useAppDispatch();
-    const {user} = useAppSelector(state => state.auth);
-
     const {commonData, historyActions, meta} = useAppSelector(state => state.app);
     const [emailModal, setEmailModal] = useState<boolean>(false);
     const [passwordModal, setPasswordModal] = useState<boolean>(false);
@@ -30,7 +28,7 @@ export const Settings = () => {
 
     return (
         <MainLayout titlePage={'Настройки'} descriptionPage={'Управляйте своим аккаунтом'}>
-            <DisplayName displayName={user.displayName}/>
+            <DisplayName displayName={commonData.displayName}/>
             <div className={'space-top-48'}/>
             <span className={styles.label}>Email</span>
             <p className={styles.text}>
@@ -43,7 +41,7 @@ export const Settings = () => {
             <div className={'space-top-48'}/>
             <span className={styles.label}>Пароль</span>
             <p className={styles.text}>
-                {user.changeDataPassword === '' ? 'Пароль еще не менялся' : user.changeDataPassword}
+                {commonData.changeDataPassword === '' ? 'Пароль еще не менялся' : commonData.changeDataPassword}
                 <span className={styles.buttonEdit} style={{margin: '0px'}}
                       onClick={() => setPasswordModal(true)}>Изменить</span></p>
 

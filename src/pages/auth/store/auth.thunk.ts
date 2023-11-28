@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {instanceApi} from '../../../api';
-import {getAccount, handleSuccess, IAppState} from '../../../store/app.slice';
+import {getAccount, handleSuccess, IAppState, setAccount} from '../../../store/app.slice';
 import {ISignInRequest, ISignUpRequest} from './types';
 import {IAuthState, setStatusConfirm} from './auth.slice';
 
@@ -8,6 +8,8 @@ export const signUp = createAsyncThunk(
     'auth/signUp',
     async ({email, invitationCode, password}: ISignUpRequest, {dispatch}) => {
         const res = await instanceApi.post('/account/trader/registration', {email, invitationCode, password});
+        const {data} = res;
+        dispatch(setAccount({...data}));
         return res.data;
     }
 );
@@ -16,6 +18,8 @@ export const signIn = createAsyncThunk(
     'auth/signIn',
     async ({email, password}: ISignInRequest, {dispatch}) => {
         const res = await instanceApi.post('/account/login', {email, password});
+        //const {data} = res;
+        //dispatch(setAccount({...data}));
         return res.data;
     }
 );
@@ -61,6 +65,8 @@ export const changeDisplayName = createAsyncThunk(
                 Authorization: `Bearer ${auth.token}`
             }
         });
+        const {data} = res;
+        dispatch(setAccount({...data}));
         dispatch(handleSuccess({message: `Изменили на ${res.data.displayName}`}));
         return res.data;
     }

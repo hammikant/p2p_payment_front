@@ -12,7 +12,7 @@ import styles from './styles.module.scss';
 export const Header = ({title, descriptionPage}: IHeader) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const {user} = useAppSelector(state => state.auth);
+    const {displayName, role} = useAppSelector(state => state.app.commonData);
     const [isDrop, setDrop] = useState<boolean>(false);
 
     const handleLogout = () => {
@@ -37,24 +37,25 @@ export const Header = ({title, descriptionPage}: IHeader) => {
             >
                 <div className={styles.menuTextWrap}>
                     <span
-                        className={styles.menuText}>{user.displayName}</span>
+                        className={styles.menuText}>{displayName}</span>
                     <Drop color={'#91F230'}/>
                 </div>
-                {
-                    isDrop
-                        ? (
-                            <ul className={styles.menuDrop}>
-                                <li className={styles.menuDropText} onClick={() => navigate('/settings')}>
+                {isDrop
+                    ? (
+                        <ul className={styles.menuDrop}>
+                            {role === 'trader'
+                                ?
+                                <li className={styles.menuDropText} style={{marginBottom: '16px'}}
+                                    onClick={() => navigate('/settings')}>
                                     <Settings/>
                                     <span>Настройки</span>
-                                </li>
-                                <li className={styles.menuDropText} onClick={handleLogout}>
-                                    <Esc/>
-                                    <span>Выход</span>
-                                </li>
-                            </ul>
-                        ) : null
-                }
+                                </li> : null}
+                            <li className={styles.menuDropText} onClick={handleLogout}>
+                                <Esc/>
+                                <span>Выход</span>
+                            </li>
+                        </ul>
+                    ) : null}
             </div>
         </div>
     );

@@ -25,7 +25,7 @@ export const SimBankTable = ({bank, handleEdit}: SimBankTableProps) => {
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const [isDeleteCellPhones, setDeleteCellPhonesModal] = useState<boolean>(false);
     const [isCopyPress, setCopyPress] = useState<boolean>(false);
-
+    const [isSelectAll, setSelectAll] = useState<boolean>(false);
 
     const handleDeleteSelected = () => {
         const cellPhones = phones.filter(i => i.status === 'active');

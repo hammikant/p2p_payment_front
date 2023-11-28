@@ -1,6 +1,7 @@
 import {AnyAction, combineReducers, configureStore, Reducer} from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage/session';
 import {persistReducer} from 'redux-persist';
+import logger from 'redux-logger';
 import auth, {setAppLoader} from '../pages/auth/store/auth.slice';
 import payments from '../pages/payments/store/payments.slice';
 import cards from '../pages/cards/store/cards.slice';

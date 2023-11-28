@@ -1,5 +1,6 @@
 import {createSlice, Draft} from '@reduxjs/toolkit';
 import {IMetaResponse} from '../../../types';
+import appSlice from '../../../store/app.slice';
 import {changeDisplayName, changePassword, forgotPassword, restoreConfirmation, signIn, signUp} from './auth.thunk';
 
 export type Role = 'trader' | 'merchant';
@@ -109,7 +110,7 @@ const authSlice = createSlice({
             state.isAuth = true;
             state.role = action.payload?.role;
             state.token = action.payload?.token;
-            authSlice.caseReducers.setUserData(state, action);
+           // authSlice.caseReducers.setUserData(state, action);
         });
         builder.addCase(signIn.rejected, (state:Draft<IAuthState>) => {
             state.loading = false;

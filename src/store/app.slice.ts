@@ -117,7 +117,7 @@ export const terminateSessions = createAsyncThunk(
 );
 
 
-const appSlice = createSlice({
+export const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
@@ -128,6 +128,17 @@ const appSlice = createSlice({
             state.success = payload;
         },
         clearStorage: () => {
+        },
+        setAccount: (state, {payload}) => {
+            state.commonData.balance = payload.balance;
+            state.commonData.incomeToday = payload.incomeToday;
+            state.commonData.wallet = payload.wallet;
+            state.commonData.walletQR = payload.walletQR;
+            state.commonData.frozenBalance = payload.frozenBalance;
+            state.commonData.onPaymentBalance = payload.onPaymentBalance;
+            state.commonData.role = payload.role;
+            state.commonData.email = payload.email;
+            state.commonData.displayName = payload.displayName;
         }
     },
     extraReducers: builder => {
@@ -170,6 +181,6 @@ const appSlice = createSlice({
     }
 });
 
-export const {handleError, handleSuccess, clearStorage} = appSlice.actions;
+export const {handleError, handleSuccess, clearStorage, setAccount} = appSlice.actions;
 
 export default appSlice.reducer;

@@ -6,7 +6,7 @@ import {Logo} from '../icons';
 import styles from './styles.module.scss';
 import {IMainLayout} from './types';
 
-const merchantPaths: string[] = ['/', '/stats', '/settings'];
+const merchantPaths: string[] = ['/', '/stats'];
 
 export const MainLayout = ({children, titlePage, descriptionPage}: IMainLayout) => {
     const {pathname} = useLocation();
