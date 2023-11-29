@@ -12,7 +12,8 @@ import styles from './styles.module.scss';
 export const Header = ({title, descriptionPage}: IHeader) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const {displayName, role} = useAppSelector(state => state.app.commonData);
+    const {displayName} = useAppSelector(state => state.app.commonData);
+    const {role} = useAppSelector(state => state.auth);
     const [isDrop, setDrop] = useState<boolean>(false);
 
     const handleLogout = () => {

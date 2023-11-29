@@ -120,20 +120,56 @@ export const VisiblePaymentsCard = ({handleSelectBank, paymentStatusDistribution
                 <div className={styles.visiblePayments}>
                     <p className={styles.card__title}>Проходимость платежей</p>
                     <ul className={styles.visiblePayments__list}>
-                        {list.map((item, index) => (
-                            <li key={index} className={styles.visiblePayments__listItem}>
-                                <img src={icons[index]} className={styles.visiblePayments__image} alt={'icon'}/>
-                                <div className={styles.visiblePayments__listBody}>
-                                    <p className={styles.visiblePayments__listName}>
-                                        {item.percentage}%
-                                        <span className={styles.visiblePayments__listNameSmallText}>
-                                        ({isThousand(item.payments)})
+                        {/*{list.map((item, index) => (*/}
+                        {/*    <li key={index} className={styles.visiblePayments__listItem}>*/}
+                        {/*        <img src={icons[index]} className={styles.visiblePayments__image} alt={'icon'}/>*/}
+                        {/*        <div className={styles.visiblePayments__listBody}>*/}
+                        {/*            <p className={styles.visiblePayments__listName}>*/}
+                        {/*                {item.percentage}%*/}
+                        {/*                <span className={styles.visiblePayments__listNameSmallText}>*/}
+                        {/*                ({isThousand(item.payments)})*/}
+                        {/*            </span>*/}
+                        {/*            </p>*/}
+                        {/*            <p className={styles.visiblePayments__listText}>{item.status}</p>*/}
+                        {/*        </div>*/}
+                        {/*    </li>*/}
+                        {/*))}*/}
+                        <li className={styles.visiblePayments__listItem}>
+                            <img src={check} className={styles.visiblePayments__image} alt={'icon'}/>
+                            <div className={styles.visiblePayments__listBody}>
+                                <p className={styles.visiblePayments__listName}>
+                                    {paymentStatusDistribution.approved.percentage}%
+                                    <span className={styles.visiblePayments__listNameSmallText}>
+                                        {' '}{paymentStatusDistribution.approved.payments.toFixed(2)}
                                     </span>
-                                    </p>
-                                    <p className={styles.visiblePayments__listText}>{item.status}</p>
-                                </div>
-                            </li>
-                        ))}
+                                </p>
+                                <p className={styles.visiblePayments__listText}>подтверждено</p>
+                            </div>
+                        </li>
+                        <li className={styles.visiblePayments__listItem}>
+                            <img src={cancel} className={styles.visiblePayments__image} alt={'icon'}/>
+                            <div className={styles.visiblePayments__listBody}>
+                                <p className={styles.visiblePayments__listName}>
+                                    {paymentStatusDistribution.canceled.percentage}%
+                                    <span className={styles.visiblePayments__listNameSmallText}>
+                                        {' '}{paymentStatusDistribution.canceled.payments.toFixed(2)}
+                                    </span>
+                                </p>
+                                <p className={styles.visiblePayments__listText}>отменено</p>
+                            </div>
+                        </li>
+                        <li className={styles.visiblePayments__listItem}>
+                            <img src={freeze} className={styles.visiblePayments__image} alt={'icon'}/>
+                            <div className={styles.visiblePayments__listBody}>
+                                <p className={styles.visiblePayments__listName}>
+                                    {paymentStatusDistribution.frozen.percentage}%
+                                    <span className={styles.visiblePayments__listNameSmallText}>
+                                        {' '}{paymentStatusDistribution.frozen.payments.toFixed(2)}
+                                    </span>
+                                </p>
+                                <p className={styles.visiblePayments__listText}>заморожено</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div>

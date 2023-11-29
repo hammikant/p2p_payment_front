@@ -27,13 +27,13 @@ export const MerchantContent = () => {
 
     useEffect(() => {
         if (currentBank !== null) {
-            if(dateTo === '' && dateFrom === '') {
+            if (dateTo === '' && dateFrom === '') {
                 dispatch(getStatistic({params: `bank=${currentBank.value}`}));
             } else {
                 dispatch(getStatistic({params: `dateFrom=${dateFrom}&dateTo=${dateTo}&bank=${currentBank.value}`}));
             }
         } else {
-            if(dateTo === '' && dateFrom === '') {
+            if (dateTo === '' && dateFrom === '') {
                 dispatch(getStatistic({params: undefined}));
             } else {
                 dispatch(getStatistic({params: `dateFrom=${dateFrom}&dateTo=${dateTo}`}));
@@ -47,21 +47,25 @@ export const MerchantContent = () => {
     };
 
     if (!stats) {
-        return <Loader />;
+        return <Loader/>;
     }
 
     return (
         <div>
             <InputsFilter dataRangeStr={''} submit={handleFilterSubmit}/>
             <div className={styles.cards} style={{height: heightTable}}>
-                <VisiblePaymentsCard paymentStatusDistribution={stats.paymentStatusDistribution} handleSelectBank={item => {
-                    item.value === 'all'
-                        ? setCurrentBank(null)
-                        : setCurrentBank(item);
-                }}/>
+                <VisiblePaymentsCard
+                    paymentStatusDistribution={stats.paymentStatusDistribution}
+                    handleSelectBank={item => {
+                        item.value === 'all'
+                            ? setCurrentBank(null)
+                            : setCurrentBank(item);
+                    }}/>
                 <BubbleChartCard banksDistribution={stats?.banksDistribution}/>
-                <ProgressCard title={'Среднее время подтверждения платежей'} items={stats.paymentsApprovalTimeDistribution}/>
-                <ProgressCard title={'Среднее время подтверждения апелляций'} items={stats.appealsProcessingTimeDistribution}/>
+                <ProgressCard title={'Среднее время подтверждения платежей'}
+                              items={stats.paymentsApprovalTimeDistribution}/>
+                <ProgressCard title={'Среднее время подтверждения апелляций'}
+                              items={stats.appealsProcessingTimeDistribution}/>
             </div>
         </div>
     );

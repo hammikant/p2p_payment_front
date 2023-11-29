@@ -53,9 +53,9 @@ export const ForgotPassword = () => {
                 <div>
                     <SubTitle text={'Проверьте почту'} style={{textAlign: 'center'}}/>
                     <p className={styles.forgotSuccessText}>
-                        Мы отправили ссылку для смены пароля на <span>{sendEmailForgotPassword}</span>. Если вы не
+                        Мы отправили ссылку для смены пароля. Если вы не
                         можете найти
-                        письмо, возможно оно попало в папку спама
+                        письмо, возможно оно попало в папку спам.
                     </p>
                 </div>
             </Modal>
