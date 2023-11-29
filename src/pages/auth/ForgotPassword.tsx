@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -16,7 +16,8 @@ const schema = yup.object({
 
 export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
-    const {sendEmailForgotPassword, successForgot} = useAppSelector(state => state.auth);
+    const navigate = useNavigate();
+    const {successForgot} = useAppSelector(state => state.auth);
 
     const {control, register, formState: {errors}, handleSubmit, reset} = useForm({
         resolver: yupResolver(schema)
@@ -49,7 +50,10 @@ export const ForgotPassword = () => {
                 widthContent={'472px'}
                 show={successForgot}
                 backgroundColorOverlay={'#0D1114'}
-                handleClickOverlay={() => dispatch(clearForgotModal())}>
+                handleClickOverlay={() => {
+                    dispatch(clearForgotModal());
+                    navigate('/login');
+                }}>
                 <div>
                     <SubTitle text={'Проверьте почту'} style={{textAlign: 'center'}}/>
                     <p className={styles.forgotSuccessText}>
