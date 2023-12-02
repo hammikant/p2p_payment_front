@@ -20,8 +20,14 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   max-width: 944px;
+  width: 100%;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar{
+    display: none;
+  }
 }
 
 .card {
@@ -31,10 +37,6 @@
   border-radius: 12px;
   padding: 20px 24px;
   margin-bottom: 20px;
-
-  &:nth-child(odd) {
-    margin-right: 20px;
-  }
 
   &__title {
     font-family: Inter, sans-serif;

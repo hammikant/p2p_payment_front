@@ -6,6 +6,7 @@ import {Close} from '../../../icons';
 import {viewBankNames} from '../../../utils';
 import {useAppDispatch} from '../../../hooks/app';
 import {formatPhoneNumber} from '../../../utils';
+import {deleteBank} from '../store/banks.thunk';
 import styles from './styles.module.scss';
 import {SettingsForm} from './SettingsForm';
 import {AuthorizationBank} from './AuthorizationBank';
@@ -43,8 +44,11 @@ export const BankCard = ({item}: IBankCardProps) => {
     };
 
     const handleAuthorization = () => {
-        // dispatch(authorizationBank({id: item.id, item}));
         setShowModal(false);
+    };
+
+    const handleDeleteBank = () => {
+        dispatch(deleteBank({id: item.id}));
     };
 
     return (
@@ -88,7 +92,7 @@ export const BankCard = ({item}: IBankCardProps) => {
                 <span className={styles.bankModalClose} onClick={() => setShowModal(false)}>
                     <Close width={'18'} height={'18'} color={'#667180'}/>
                 </span>
-                {!item.isVerified
+                {item.isVerified
                     ? (
                         <AuthorizationBank
                             cellPhone={formatPhoneNumber(item.phoneNumber ?? '')}
@@ -96,6 +100,7 @@ export const BankCard = ({item}: IBankCardProps) => {
                             verificationAmount={item.verificationAmount}
                             bankName={viewBankNames[item.bank]}
                             handleDone={handleAuthorization}
+                            handleDeleteBank={handleDeleteBank}
                         />
                     ) : (
                         <FormProvider {...methods}>

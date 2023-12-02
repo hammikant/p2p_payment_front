@@ -1,14 +1,23 @@
 import React from 'react';
 import {Button, SubTitle} from '../../../fields';
 import {IVerificationData} from '../store/types';
+import {Delete} from '../../../icons';
 import styles from './styles.module.scss';
 
 interface IAuthorizationBankProps extends IVerificationData {
     bankName: string,
     handleDone: () => void;
+    handleDeleteBank: () => void;
 }
 
-export const AuthorizationBank = ({bankName, cellPhone, verificationAmount, verificationComment, handleDone}: IAuthorizationBankProps) => {
+export const AuthorizationBank = ({
+                                      bankName,
+                                      cellPhone,
+                                      verificationAmount,
+                                      verificationComment,
+                                      handleDone,
+                                      handleDeleteBank
+                                  }: IAuthorizationBankProps) => {
     return (
         <>
             <SubTitle text={'Авторизация'}/>
@@ -36,12 +45,17 @@ export const AuthorizationBank = ({bankName, cellPhone, verificationAmount, veri
                     <span className={styles.bankModalListText}>{verificationComment}</span>
                 </li>
             </ul>
-            <Button
-                variant={'full'}
-                text={'Готово'}
-                style={{width: '143px', marginTop: '40px'}}
-                onClick={handleDone}
-            />
+            <div className={styles.bankModalButtons} style={{marginTop: '40px'}}>
+                <Button
+                    variant={'full'}
+                    text={'Готово'}
+                    style={{width: '143px'}}
+                    onClick={handleDone}
+                />
+                <button className={styles.bankModalDelete} type={'button'} onClick={handleDeleteBank}>
+                    <Delete/> Удалить банк
+                </button>
+            </div>
         </>
     );
 };
