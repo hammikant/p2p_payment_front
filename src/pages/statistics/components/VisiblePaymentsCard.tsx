@@ -29,9 +29,19 @@ const mapPaymentStatusDistribution = (data: PaymentStatusDistribution): VisibleP
 };
 
 const isThousand = (num: string) => {
+
     const numLength = num.length;
-    if(numLength >= 4) {
+    if(numLength >= 4 && numLength < 7) {
         return num.substring(0, numLength - 3) + 'k';
+    }
+    if(numLength >= 7 && numLength < 10) {
+        return num.substring(0, numLength - 6) + 'm';
+    }
+    if(numLength >= 10 && numLength < 13) {
+        return num.substring(0, numLength - 9) + 'b';
+    }
+    if(numLength >= 13){
+        return  num.substring(0, numLength - 12) + 't';
     }
     return num;
 };
@@ -120,27 +130,13 @@ export const VisiblePaymentsCard = ({handleSelectBank, paymentStatusDistribution
                 <div className={styles.visiblePayments}>
                     <p className={styles.card__title}>Проходимость платежей</p>
                     <ul className={styles.visiblePayments__list}>
-                        {/*{list.map((item, index) => (*/}
-                        {/*    <li key={index} className={styles.visiblePayments__listItem}>*/}
-                        {/*        <img src={icons[index]} className={styles.visiblePayments__image} alt={'icon'}/>*/}
-                        {/*        <div className={styles.visiblePayments__listBody}>*/}
-                        {/*            <p className={styles.visiblePayments__listName}>*/}
-                        {/*                {item.percentage}%*/}
-                        {/*                <span className={styles.visiblePayments__listNameSmallText}>*/}
-                        {/*                ({isThousand(item.payments)})*/}
-                        {/*            </span>*/}
-                        {/*            </p>*/}
-                        {/*            <p className={styles.visiblePayments__listText}>{item.status}</p>*/}
-                        {/*        </div>*/}
-                        {/*    </li>*/}
-                        {/*))}*/}
                         <li className={styles.visiblePayments__listItem}>
                             <img src={check} className={styles.visiblePayments__image} alt={'icon'}/>
                             <div className={styles.visiblePayments__listBody}>
                                 <p className={styles.visiblePayments__listName}>
                                     {paymentStatusDistribution.approved.percentage}%
                                     <span className={styles.visiblePayments__listNameSmallText}>
-                                        {' '}{paymentStatusDistribution.approved.payments.toFixed(2)}
+                                        {' '}({isThousand(paymentStatusDistribution.approved.payments.toString())})
                                     </span>
                                 </p>
                                 <p className={styles.visiblePayments__listText}>подтверждено</p>
@@ -152,7 +148,7 @@ export const VisiblePaymentsCard = ({handleSelectBank, paymentStatusDistribution
                                 <p className={styles.visiblePayments__listName}>
                                     {paymentStatusDistribution.canceled.percentage}%
                                     <span className={styles.visiblePayments__listNameSmallText}>
-                                        {' '}{paymentStatusDistribution.canceled.payments.toFixed(2)}
+                                        {' '}({isThousand(paymentStatusDistribution.canceled.payments.toString())})
                                     </span>
                                 </p>
                                 <p className={styles.visiblePayments__listText}>отменено</p>
@@ -164,7 +160,7 @@ export const VisiblePaymentsCard = ({handleSelectBank, paymentStatusDistribution
                                 <p className={styles.visiblePayments__listName}>
                                     {paymentStatusDistribution.frozen.percentage}%
                                     <span className={styles.visiblePayments__listNameSmallText}>
-                                        {' '}{paymentStatusDistribution.frozen.payments.toFixed(2)}
+                                        {' '}({isThousand(paymentStatusDistribution.frozen.payments.toString())})
                                     </span>
                                 </p>
                                 <p className={styles.visiblePayments__listText}>заморожено</p>
@@ -178,7 +174,7 @@ export const VisiblePaymentsCard = ({handleSelectBank, paymentStatusDistribution
                     </div>
                     <div id={'chart'} className={styles.pie} style={{width: '240px', height: '240px'}}>
                         <div className={styles.totalPayments}>
-                            <p className={styles.totalPayments__textBig}>{paymentStatusDistribution.totalPayments}</p>
+                            <p className={styles.totalPayments__textBig}>{isThousand(paymentStatusDistribution.totalPayments.toString())}</p>
                             <p className={styles.totalPayments__text}>платежей</p>
                         </div>
                     </div>

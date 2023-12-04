@@ -26,7 +26,7 @@ export const BankCards = ({items, handleFetchMore, hasMore}: IBankCardsProps) =>
                         handleFetchMore();
                     }}
                     hasMore={hasMore}
-                    loader={<p className={styles.loader}>loading ...</p>}
+                    loader={<span></span>}
                     height={heightTable}
                     className={'infinityContainer infinityContainerFlex'}
                 >

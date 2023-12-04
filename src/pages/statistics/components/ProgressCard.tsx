@@ -1,13 +1,13 @@
 import React from 'react';
 import {shaderColor, viewBankNames} from '../../../utils';
-import {ProcessingTimeDistribution} from '../store/types';
+import {AppealsProcessingTimeDistribution, ProcessingTimeDistribution} from '../store/types';
 import {convertSecondsToTime} from '../../../utils/convertSecondsToTime';
 import styles from './styles.module.scss';
 import {colorsBanks, IBubble} from './BubbleChartCard';
 
 interface ProgressCardProps {
     title: string;
-    items: ProcessingTimeDistribution  | null
+    items: AppealsProcessingTimeDistribution  | ProcessingTimeDistribution | null
 }
 
 export const ProgressCard = ({title, items}:ProgressCardProps) => {
@@ -16,7 +16,7 @@ export const ProgressCard = ({title, items}:ProgressCardProps) => {
         <div className={styles.card}>
             <p className={styles.card__title}>{title}</p>
             {Object.keys(items).map((item, index) => {
-                const sec = Object.values(items)[index].averageApprovalTime;
+                const sec = Object.values(items)[index].averageAppealTime ?? Object.values(items)[index].averageApprovalTime;
                 const time = convertSecondsToTime(sec);
                 return (
                     <div key={index} className={styles.progress}>

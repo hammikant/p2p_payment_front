@@ -31,7 +31,7 @@ export const Table = ({items, fetchMoreData, hasMore}: ITableProps) => {
                 dataLength={items.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
-                loader={<p className={styles.loader}>loading ...</p>}
+                loader={<span></span>}
                 height={heightTable - 50}
                 className={'infinityContainer'}
             >

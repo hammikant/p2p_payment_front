@@ -92,7 +92,7 @@ export const BankCard = ({item}: IBankCardProps) => {
                 <span className={styles.bankModalClose} onClick={() => setShowModal(false)}>
                     <Close width={'18'} height={'18'} color={'#667180'}/>
                 </span>
-                {item.isVerified
+                {!item.isVerified
                     ? (
                         <AuthorizationBank
                             cellPhone={formatPhoneNumber(item.phoneNumber ?? '')}

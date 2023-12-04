@@ -33,7 +33,7 @@ export interface Stats {
     appealsProcessingTimeDistribution: ProcessingTimeDistribution;
     banksDistribution: {[key:string] : number};
     paymentStatusDistribution: PaymentStatusDistribution;
-    paymentsApprovalTimeDistribution: ProcessingTimeDistribution;
+    paymentsApprovalTimeDistribution: AppealsProcessingTimeDistribution;
 }
 
 export type TraderStatsItem = {income: number, turnover: number, date: string}
@@ -47,6 +47,12 @@ export interface TraderStats {
 export interface ProcessingTimeDistribution {
     [key:string] : {
         averageApprovalTime: number;
+        percentage: number
+    }
+}
+export interface AppealsProcessingTimeDistribution {
+    [key:string] : {
+        averageAppealTime: number;
         percentage: number
     }
 }

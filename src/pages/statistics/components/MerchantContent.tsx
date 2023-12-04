@@ -10,6 +10,7 @@ import {ProgressCard} from './ProgressCard';
 import {InputsFilter, SubmitValue} from './InputsFilter';
 
 
+
 export const MerchantContent = () => {
     const dispatch = useAppDispatch();
     const {stats} = useAppSelector(state => state.statistic);
@@ -50,6 +51,7 @@ export const MerchantContent = () => {
         return <Loader/>;
     }
 
+
     return (
         <div>
             <InputsFilter dataRangeStr={''} submit={handleFilterSubmit}/>
@@ -61,10 +63,13 @@ export const MerchantContent = () => {
                             ? setCurrentBank(null)
                             : setCurrentBank(item);
                     }}/>
-                <BubbleChartCard banksDistribution={stats?.banksDistribution}/>
+                <BubbleChartCard
+                    // @ts-ignore
+                    banksDistribution={stats?.banksDistribution}/>
                 <ProgressCard title={'Среднее время подтверждения платежей'}
                               items={stats.paymentsApprovalTimeDistribution}/>
                 <ProgressCard title={'Среднее время подтверждения апелляций'}
+                    // @ts-ignore
                               items={stats.appealsProcessingTimeDistribution}/>
             </div>
         </div>

@@ -1,12 +1,21 @@
-import React, {useState} from 'react';
+import React, {HTMLAttributes, useEffect, useRef, useState} from 'react';
 import {Close, Qr} from '../../../icons';
 import {Modal} from '../../../components/modal';
 import {OutputClipBoard, SubTitle} from '../../../fields';
 import styles from './styles.module.scss';
 
 export const Wallet = ({wallet, walletQR}: { wallet: string, walletQR: string }) => {
+    const codeRef = useRef<HTMLSpanElement>(null);
+    const [width, setWidth] = useState<number>(0);
     const [isCopyPress, setCopyPress] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (codeRef.current) {
+            console.log(codeRef.current.offsetWidth);
+            setWidth(codeRef.current.offsetWidth);
+        }
+    }, [wallet, showModal]);
 
     const handleClipBoard = async () => {
         setCopyPress(true);
@@ -29,7 +38,7 @@ export const Wallet = ({wallet, walletQR}: { wallet: string, walletQR: string })
             </div>
             <Modal
                 show={showModal}
-                widthContent={'400px'}
+                widthContent={`${width + 80}px`}
                 backgroundColorOverlay={'rgba(13,17,20,0.57)'}
                 handleClickOverlay={() => setShowModal(false)}>
                 <span
@@ -40,8 +49,12 @@ export const Wallet = ({wallet, walletQR}: { wallet: string, walletQR: string })
                 </span>
                 <SubTitle text={'Tether TRC-20'}/>
                 <div className={'space-top-32'}/>
-                <img className={styles.walletQrCodeImage} src={walletQR} alt={'qr-code'}/>
-                <p className={'text-16'} style={{marginBottom: '0px'}}>{wallet}</p>
+                <img className={styles.walletQrCodeImage} style={{width: `${width}px`, height: `${width}px`}} src={walletQR} alt={'qr-code'}/>
+                <span
+                    ref={codeRef}
+                    className={'text-16'}
+                    style={{display: 'inline-block', marginTop: '24px'}}
+                >{wallet}</span>
             </Modal>
         </>
     );

@@ -76,7 +76,7 @@ export const deleteBank = createAsyncThunk(
                     Authorization: `Bearer ${auth.token}`
                 }
             });
-            dispatch(handleSuccess({message: res.data.message}));
+            dispatch(handleSuccess({message: 'Успешно удалён'}));
             return id;
     }
 );
