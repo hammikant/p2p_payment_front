@@ -12,7 +12,7 @@ const rangeList: IOption[] = [
     {label: 'За все время', value: 'all'},
     {label: 'За день', value: 'day'},
     {label: 'За неделю', value: 'week'},
-    {label: 'За месяц', value: 'mouth'},
+    {label: 'За месяц', value: 'month'},
     {label: 'За год', value: 'year'},
 ];
 
