@@ -97,16 +97,16 @@ export const Payments = () => {
                 <Filter handleBankFilter={handleBankFilter}/>
                 <div className={'space-top-32'}/>
                 <div className={styles.row}>
-                    <div className={'col'}>
+                    {/*<div className={'col'}>*/}
                         <TabsButtons items={buttonsTabsPayments} selected={currentTab}
                                      handleClick={item => handleTabs(item)}/>
-                    </div>
+                    {/*</div>*/}
                 </div>
             </div>
             <div className={styles.row}>
-                <div className={styles.col}>
+                {/*<div className={styles.col}>*/}
                     <Table items={payments} fetchMoreData={fetchMoreData} hasMore={meta.nextPageUrl !== null}/>
-                </div>
+                {/*</div>*/}
             </div>
         </MainLayout>
     );

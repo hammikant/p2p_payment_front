@@ -29,7 +29,7 @@ export const TableItem = ({item}: { item: ICard }) => {
     const [isHover, setHover] = useState<boolean>(false);
 
     const handlePause = () => {
-        dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.paused}));
+        dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.inactive}));
     };
 
     const handlePlay = () => {
