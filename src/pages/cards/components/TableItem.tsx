@@ -32,8 +32,8 @@ export const TableItem = ({item}: { item: ICard }) => {
         dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.inactive}));
     };
 
-    const handlePlay = () => {
-        dispatch(changeStatusCard({id: item.id.toString(), status: StatusCard.active}));
+    const handlePlay = (status: string) => {
+        dispatch(changeStatusCard({id: item.id.toString(), status: status === StatusCard.paused ? StatusCard.inactive : StatusCard.active}));
     };
 
     const handleStop = () => {
@@ -69,7 +69,8 @@ export const TableItem = ({item}: { item: ICard }) => {
                             status={item.status}
                             handlePause={handlePause}
                             handlePlay={handlePlay}
-                            handleStop={handleStop}/>
+                            handleStop={handleStop}
+                        />
                         : (<span className={styles.itemText}
                                  style={{color: colorsStatus[item.status as string]}}>{CardsStatus[item.status as string]}</span>)}
                 </div>

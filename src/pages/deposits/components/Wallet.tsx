@@ -12,7 +12,6 @@ export const Wallet = ({wallet, walletQR}: { wallet: string, walletQR: string })
 
     useEffect(() => {
         if (codeRef.current) {
-            console.log(codeRef.current.offsetWidth);
             setWidth(codeRef.current.offsetWidth);
         }
     }, [wallet, showModal]);

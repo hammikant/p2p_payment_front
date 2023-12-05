@@ -1,4 +1,5 @@
 import {bankNames, IMetaResponse} from '../../../types';
+import {StatusCard} from '../components/TableItem';
 
 export interface ICard {
     id: number;
@@ -23,5 +24,5 @@ export interface ISwitchCardStatusProps {
     status: string;
     handlePause: () => void;
     handleStop: () => void;
-    handlePlay: () => void;
+    handlePlay: (status: string) => void;
 }
