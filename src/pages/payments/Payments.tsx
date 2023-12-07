@@ -53,7 +53,7 @@ export const Payments = () => {
         // if (paramsBank !== '' && paramsTab !== '') {
         //     dispatch(paymentsFilter({params: `${paramsTab}&${paramsBank}`}));
         // }
-    }, [paramsBank, paramsTab]);
+    }, [paramsBank, paramsTab, paramsNumCard]);
 
     const handleTabs = (item: IOption) => {
         setCurrentTab(item);
