@@ -10,7 +10,11 @@ const schema = yup.object({
     id: yup.string()
 });
 
-export const SearchByBank = ({handleBankFilter}:SearchByBankProps) => {
+interface ISearchByBankProps {
+    handleBankFilter: (params: string) => void;
+}
+
+export const SearchByBank = ({handleBankFilter}:ISearchByBankProps) => {
 
     const {control, register, watch, setValue, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)

@@ -83,6 +83,7 @@ export interface ICommonData {
 
 export interface SearchByBankProps {
     handleBankFilter: (params: string) => void;
+    handleFilterByCard?: (params: string) => void;
 }
 
 export interface SearchByInputProps {

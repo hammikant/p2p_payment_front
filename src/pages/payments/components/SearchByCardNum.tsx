@@ -11,7 +11,12 @@ const schema = yup.object({
         .min(16, 'Не меньше 16 символов')
         .max(16, 'Не больше 16 символов'),
 });
-export const SearchByCardNum = () => {
+
+interface SearchByCardNumProps {
+    handleFilterByCard: (params: string) => void;
+}
+
+export const SearchByCardNum = ({handleFilterByCard}:SearchByCardNumProps) => {
     const dispatch = useAppDispatch();
     const {control, register, watch, setValue, handleSubmit, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
@@ -19,11 +24,12 @@ export const SearchByCardNum = () => {
 
 
     const submit = handleSubmit(values => {
-        if(values.number !== '') {
-           dispatch(paymentsFilter({params: `number=${values.number.replaceAll(' ', '')}`}));
-        } else {
-            dispatch(getPayments());
-        }
+        // if(values.number !== '') {
+            handleFilterByCard(values.number.replaceAll(' ', ''));
+           //dispatch(paymentsFilter({params: `number=${values.number.replaceAll(' ', '')}`}));
+        // } else {
+        //     dispatch(getPayments());
+        // }
     });
 
     return (

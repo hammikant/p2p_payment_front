@@ -7,12 +7,12 @@ import styles from './styles.module.scss';
 import {SearchByCardNum} from './SearchByCardNum';
 
 
-export const Filter = ({handleBankFilter}: SearchByBankProps) => {
+export const Filter = ({handleBankFilter, handleFilterByCard}: SearchByBankProps) => {
     const {role} = useAppSelector(state => state.auth);
     return (
-        <form className={styles.searchByCard}>
+        <div className={styles.searchByCard}>
             <div className={styles.searchByCardItem}>
-                <SearchByCardNum />
+                <SearchByCardNum handleFilterByCard={handleFilterByCard} />
             </div>
             <div className={styles.searchByCardItem}>
                 <SearchByBank handleBankFilter={handleBankFilter}/>
@@ -30,7 +30,7 @@ export const Filter = ({handleBankFilter}: SearchByBankProps) => {
                 }
 
             </div>
-        </form>
+        </div>
     )
         ;
 };
